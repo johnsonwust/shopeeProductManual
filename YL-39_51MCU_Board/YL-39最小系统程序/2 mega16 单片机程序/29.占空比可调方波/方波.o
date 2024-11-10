@@ -1,0 +1,207 @@
+XL
+H 4 areas D global symbols
+M _
+A text size 136 flags 0
+dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\30.占空比可调方波\方波.C
+dbfunc e delay 0 fV
+dbsym r i 10 c
+dbline FFFFFFFF 0
+dbline D 0
+dbline E 0
+dbline E 4
+dbline E 4
+dbline E 6
+dbline FFFFFFFE C
+dbline 0 C
+dbfunc e timer1_init E fV
+dbline FFFFFFFF E
+dbline 11 E
+dbline 12 E
+dbline 13 12
+dbline FFFFFFFE 16
+dbline 0 16
+dbfunc e Set_Process 18 fV
+dbsym l i 1 i
+dbsym r j 10 i
+dbline FFFFFFFF 18
+dbline 17 18
+dbline 19 18
+dbline 1A 1C
+dbline 1B 22
+dbline FFFFFFFE 28
+dbline 0 28
+dbfunc e Display 2A fV
+dbsym r i 14 c
+dbline FFFFFFFF 2C
+dbline 1E 2C
+dbline 1F 2C
+dbline 20 30
+dbline 21 30
+dbline 22 4C
+dbline 23 5C
+dbline 24 5E
+dbline 25 62
+dbline 1F 62
+dbline 1F 64
+dbline FFFFFFFE 68
+dbline 0 68
+dbfunc e Key_Process 6C fV
+dbline FFFFFFFF 6C
+dbline 28 6C
+dbline 29 6E
+dbline 29 6E
+dbline 29 70
+dbline 29 76
+dbline 29 76
+dbline 2A 7C
+dbline 2A 7C
+dbline 2A 7E
+dbline 2A 84
+dbline 2A 84
+dbline 2B 8A
+dbline 2B 8A
+dbline 2B 8C
+dbline 2B 92
+dbline 2B 92
+dbline 2C 96
+dbline 2D 9E
+dbline 2E 9E
+dbline 2F A8
+dbline 30 AA
+dbline 30 B2
+dbline 30 B8
+dbline 31 BE
+dbline 32 BE
+dbline 33 C6
+dbline 34 C6
+dbline 35 D0
+dbline 36 D2
+dbline 36 DA
+dbline 36 E0
+dbline 37 E6
+dbline 38 E6
+dbline 39 EE
+dbline 3A EE
+dbline 3B F8
+dbline 3C FA
+dbline 3C 102
+dbline 3C 108
+dbline 3D 10E
+dbline FFFFFFFE 10E
+dbline 0 10E
+dbfunc e PORT_INT 110 fV
+dbline FFFFFFFF 110
+dbline 43 110
+dbline 44 110
+dbline 45 116
+dbline 46 11A
+dbline 47 11E
+dbline 48 120
+dbline 49 122
+dbline FFFFFFFE 124
+dbline 0 124
+dbfunc e main 126 fV
+dbline FFFFFFFF 126
+dbline 4D 126
+dbline 4E 126
+dbline 4F 128
+dbline 50 12A
+dbline 52 12E
+dbline 53 12E
+dbline 54 130
+dbline 55 132
+dbline 51 132
+dbline FFFFFFFE 134
+dbline 0 134
+S _main Def0126
+S _Display Def002A
+S _delay Def0000
+S _timer1_init Def000E
+S _Key_Process Def006C
+S _Set_Process Def0018
+S _PORT_INT Def0110
+A data size 12 flags 20
+dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\30.占空比可调方波\方波.C
+dbsym e disbuf 0 A[4:4]c
+dbsym e discode 4 A[10:10]c
+dbsym e disbit E A[4:4]c
+S _discode Def0004
+S _disbuf Def0000
+S _disbit Def000E
+A idata size 12 flags 0
+A bss size 3 flags 20
+dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\30.占空比可调方波\方波.C
+dbsym e Key3_Flag 0 c
+dbsym e Key2_Flag 1 c
+dbsym e Key1_Flag 2 c
+S _Key1_Flag Def0002
+S _Key2_Flag Def0001
+S _Key3_Flag Def0000
+T 00 00 01 00
+R 00 00 02 00
+T 02 00 00 00
+R 00 00 02 00
+T 04 00 C0 F9
+R 00 00 02 00
+T 06 00 A4 B0
+R 00 00 02 00
+T 08 00 99 92
+R 00 00 02 00
+T 0A 00 82 F8
+R 00 00 02 00
+T 0C 00 80 90
+R 00 00 02 00
+T 0E 00 FE FD
+R 00 00 02 00
+T 10 00 FB F7
+R 00 00 02 00
+T 00 00 0F EF 01 C0 0A 95 80 E0 80 17 E0 F3 08 95
+R 00 00 00 00
+T 0E 00 83 EC 8F BD 82 E0 8E BD 08 95
+R 00 00 00 00
+T 18 00 00 E0 12 E0 C8 01 80 70 8B BD C8 01 90 70
+R 00 00 00 00
+T 26 00 8A BD 08 95
+R 00 00 00 00
+T 2A 00 4A 93 44 27 1A C0 80 E0 90 E0 E4 2F FF 27
+R 00 00 00 00 20 08 01 00 00 00 40 0A 01 00 00 00
+T 38 00 E8 0F F9 1F E0 81 FF 27 80 E0 90 E0 E8 0F
+R 00 00 00 00 20 0A 01 00 04 00 40 0C 01 00 04 00
+T 46 00 F9 1F 20 80 28 BA 80 E0 90 E0 E4 2F FF 27
+R 00 00 00 00 20 08 01 00 0E 00 40 0A 01 00 0E 00
+T 54 00 E8 0F F9 1F 20 80 2B BA D1 DF 8F EF 8B BB
+R 00 00 00 00
+T 62 00 43 95 44 30 20 F3 49 91 08 95
+R 00 00 00 00
+T 6C 00 04 C0 DD DF 81 E0 80 93 02 00 CC 9B FA CF
+R 00 00 00 00 00 0A 03 00
+T 7A 00 04 C0 D6 DF 81 E0 80 93 01 00 CB 9B FA CF
+R 00 00 00 00 00 0A 03 00
+T 88 00 04 C0 CF DF 81 E0 80 93 00 00 CD 9B FA CF
+R 00 00 00 00 00 0A 03 00
+T 96 00 80 91 02 00 81 30 81 F4 80 91 02 00 8F 5F
+R 00 00 00 00 00 04 03 00 00 0C 01 00
+T A4 00 80 93 02 00 B7 DF 80 91 02 00 8A 30 19 F4
+R 00 00 00 00 00 04 01 00 00 0A 01 00
+T B2 00 22 24 20 92 02 00 22 24 20 92 02 00 80 91
+R 00 00 00 00 00 06 01 00 00 0C 03 00
+T C0 00 01 00 81 30 81 F4 80 91 01 00 8F 5F 80 93
+R 00 00 00 00 00 02 03 00 00 0A 01 00
+T CE 00 01 00 A3 DF 80 91 01 00 8A 30 19 F4 22 24
+R 00 00 00 00 00 02 01 00 00 08 01 00
+T DC 00 20 92 01 00 22 24 20 92 01 00 80 91 00 00
+R 00 00 00 00 00 04 01 00 00 0A 03 00 00 0E 03 00
+T EA 00 81 30 81 F4 80 91 00 00 8F 5F 80 93 00 00
+R 00 00 00 00 00 08 01 00 00 0E 01 00
+T F8 00 8F DF 80 91 00 00 8A 30 19 F4 22 24 20 92
+R 00 00 00 00 00 06 01 00
+T 06 01 00 00 22 24 20 92 00 00 08 95
+R 00 00 00 00 00 02 01 00 00 08 03 00
+T 10 01 8A B3 8F 60 8A BB 22 24 2B BA 8F EF 87 BB
+R 00 00 00 00
+T 1E 01 88 BB 81 BB 82 BB 08 95
+R 00 00 00 00
+T 26 01 F4 DF 72 DF 78 94 02 C0 9E DF 7C DF FD CF
+R 00 00 00 00
+T 34 01 08 95
+R 00 00 00 00

@@ -1,0 +1,412 @@
+__text_start:
+__start:
+      34 E5CF      LDI	R28,0x5F
+      35 E0D4      LDI	R29,4
+      36 BFCD      OUT	0x3D,R28
+      37 BFDE      OUT	0x3E,R29
+      38 51CE      SUBI	R28,0x1E
+      39 40D0      SBCI	R29,0
+      3A EA0A      LDI	R16,0xAA
+      3B 8308      STD	Y+0,R16
+      3C 2400      CLR	R0
+      3D E7E3      LDI	R30,0x73
+      3E E0F0      LDI	R31,0
+      3F E010      LDI	R17,0
+      40 37E3      CPI	R30,0x73
+      41 07F1      CPC	R31,R17
+      42 F011      BEQ	0x0045
+      43 9201      ST	R0,Z+
+      44 CFFB      RJMP	0x0040
+      45 8300      STD	Z+0,R16
+      46 E5E4      LDI	R30,0x54
+      47 E0F0      LDI	R31,0
+      48 E6A0      LDI	R26,0x60
+      49 E0B0      LDI	R27,0
+      4A E010      LDI	R17,0
+      4B E000      LDI	R16,0
+      4C BF0B      OUT	0x3B,R16
+      4D 36E7      CPI	R30,0x67
+      4E 07F1      CPC	R31,R17
+      4F F021      BEQ	0x0054
+      50 95C8      LPM
+      51 9631      ADIW	R30,1
+      52 920D      ST	R0,X+
+      53 CFF9      RJMP	0x004D
+      54 940E 00EC CALL	_main
+_exit:
+      56 CFFF      RJMP	_exit
+FILE: D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\10.数码管时钟(定时器)\时钟.c
+(0001) /*【编写时间】： 2011.07.07
+(0002) * 【作    者】： 雁翎电子
+(0003) * 【版    本】： V1.0
+(0004) * 【网    站】： http://ylelectronic.taobao.com/ 
+(0005) * 【Q      Q】： 348439350
+(0006) * 【编译环境】： ICCAVR  
+(0007) * 【函数功能】： 数码管时钟显示
+(0008) * 【晶    振】:  8M		
+(0009) * 【芯    片】:  ATMEGA16A	 
+(0010) * 【硬件连接】： J2短路帽接上                                                 */
+(0011) /******************************************************************************/  
+(0012) 	 
+(0013) 	 
+(0014) 	  #define uchar unsigned char
+(0015) 	  #define uint  unsigned int
+(0016)       #include <iom16v.h>
+(0017) 	  #include <macros.h>
+(0018)       uchar disbuf[4]={0,0,0,0};
+(0019)       const  uchar  discode[10]={ 0xC0, 0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90 };  
+(0020)       uchar  cnt=0;
+(0021) 	  uchar flag=0;
+(0022)       uchar  timer[3]={00,00,00};                                                  							
+(0023)       void delay(void)
+(0024)            {uchar i;
+(0025)              for(i=0;i<255;i++);
+_delay:
+  i                    --> R16
+      57 2700      CLR	R16
+      58 C001      RJMP	0x005A
+      59 9503      INC	R16
+      5A 3F0F      CPI	R16,0xFF
+      5B F3E8      BCS	0x0059
+      5C 9508      RET
+(0026)            }
+(0027) 	  void timer1_init(void)
+(0028)          {
+(0029) 	      TCCR1B = 0x00;	   //stop timer
+_timer1_init:
+      5D 2422      CLR	R2
+      5E BC2E      OUT	0x2E,R2
+(0030) 	      TCNT1H = 0xc7;	   //设置 TC1 的 计数寄存器 高8位值
+      5F EC87      LDI	R24,0xC7
+      60 BD8D      OUT	0x2D,R24
+(0031) 	      TCNT1L = 0xc0;	   //设置 TC1 的 计数寄存器 低8位值
+      61 EC80      LDI	R24,0xC0
+      62 BD8C      OUT	0x2C,R24
+(0032) 	      //OCR1AH = 0x1C;	   //设置 TC1 的 输出比较寄存器A 高8位值
+(0033) 	      //OCR1AL = 0x20;	   //设置 TC1 的 输出比较寄存器A 低8位值
+(0034) 	      //OCR1BH = 0x1C;	   //设置 TC1 的 输出比较寄存器B 高8位值
+(0035) 	      //OCR1BL = 0x20;	   //设置 TC1 的 输出比较寄存器B 低8位值
+(0036) 	      //ICR1H  = 0x1C;	   //设置 TC1 的 输入捕获寄存器 高8位值
+(0037) 	      //ICR1L  = 0x20;	   //设置 TC1 的 输入捕获寄存器 低8位值
+(0038) 	      TCCR1A = 0x00;
+      63 BC2F      OUT	0x2F,R2
+(0039) 	      TCCR1B = 0x04;	  //设置TC1 为 CLK/1024分频，启动TC1
+      64 E084      LDI	R24,4
+      65 BD8E      OUT	0x2E,R24
+(0040) 	      MCUCR = 0x00;		//设置 MCU 的 控制寄存器
+      66 BE25      OUT	0x35,R2
+(0041) 	      GICR  = 0x00;		//设置 中断控制寄存器
+      67 BE2B      OUT	0x3B,R2
+(0042) 	      TIMSK = 0x04;		//设置 定时计数器 的 屏蔽寄存器
+      68 BF89      OUT	0x39,R24
+      69 9508      RET
+_Display:
+      6A 934A      ST	R20,-Y
+      6B 935A      ST	R21,-Y
+(0043) 	      //SEI();			//enable interrupts
+(0044)         }   
+(0045) 	  void Display(void)
+(0046)          {  
+(0047) 		         PORTB=discode[disbuf[0]];
+      6C E684      LDI	R24,0x64
+      6D E090      LDI	R25,0
+      6E 91E0 0060 LDS	R30,disbuf
+      70 27FF      CLR	R31
+      71 0FE8      ADD	R30,R24
+      72 1FF9      ADC	R31,R25
+      73 8020      LDD	R2,Z+0
+      74 BA28      OUT	0x18,R2
+(0048)                  PORTA=0xF7;
+      75 EF87      LDI	R24,0xF7
+      76 BB8B      OUT	0x1B,R24
+(0049)                  delay();
+      77 DFDF      RCALL	_delay
+(0050)                  PORTA=0xff;
+      78 EF8F      LDI	R24,0xFF
+      79 BB8B      OUT	0x1B,R24
+(0051) 				 
+(0052) 				 PORTB=discode[disbuf[1]];
+      7A E684      LDI	R24,0x64
+      7B E090      LDI	R25,0
+      7C 91E0 0061 LDS	R30,disbuf+1
+      7E 27FF      CLR	R31
+      7F 0FE8      ADD	R30,R24
+      80 1FF9      ADC	R31,R25
+      81 8020      LDD	R2,Z+0
+      82 BA28      OUT	0x18,R2
+(0053)                  PORTA=0xFB;
+      83 EF8B      LDI	R24,0xFB
+      84 BB8B      OUT	0x1B,R24
+(0054)                  delay();
+      85 DFD1      RCALL	_delay
+(0055)                  PORTA=0xff;
+      86 EF8F      LDI	R24,0xFF
+      87 BB8B      OUT	0x1B,R24
+(0056) 				 switch(flag)
+      88 9140 006F LDS	R20,flag
+      8A 2755      CLR	R21
+      8B 3040      CPI	R20,0
+      8C 0745      CPC	R20,R21
+      8D F049      BEQ	0x0097
+      8E 3040      CPI	R20,0
+      8F E0E0      LDI	R30,0
+      90 075E      CPC	R21,R30
+      91 F0CC      BLT	0x00AB
+      92 3F4F      CPI	R20,0xFF
+      93 E0E0      LDI	R30,0
+      94 075E      CPC	R21,R30
+      95 F061      BEQ	0x00A2
+      96 C014      RJMP	0x00AB
+(0057) 				{
+(0058) 				 case 0x00:
+(0059) 				 PORTB=((discode[disbuf[2]])&0x7f);  break;
+      97 E684      LDI	R24,0x64
+      98 E090      LDI	R25,0
+      99 91E0 0062 LDS	R30,disbuf+2
+      9B 27FF      CLR	R31
+      9C 0FE8      ADD	R30,R24
+      9D 1FF9      ADC	R31,R25
+      9E 8180      LDD	R24,Z+0
+      9F 778F      ANDI	R24,0x7F
+      A0 BB88      OUT	0x18,R24
+      A1 C009      RJMP	0x00AB
+(0060) 				 case 0xff:
+(0061) 				 PORTB= (discode[disbuf[2]]);        break;
+      A2 E684      LDI	R24,0x64
+      A3 E090      LDI	R25,0
+      A4 91E0 0062 LDS	R30,disbuf+2
+      A6 27FF      CLR	R31
+      A7 0FE8      ADD	R30,R24
+      A8 1FF9      ADC	R31,R25
+      A9 8020      LDD	R2,Z+0
+      AA BA28      OUT	0x18,R2
+(0062) 				 default:                            break;
+(0063) 				}
+(0064)                  PORTA=0xFD;
+      AB EF8D      LDI	R24,0xFD
+      AC BB8B      OUT	0x1B,R24
+(0065)                  delay();
+      AD DFA9      RCALL	_delay
+(0066)                  PORTA=0xff;
+      AE EF8F      LDI	R24,0xFF
+      AF BB8B      OUT	0x1B,R24
+(0067) 				 PORTB=discode[disbuf[3]];
+      B0 E684      LDI	R24,0x64
+      B1 E090      LDI	R25,0
+      B2 91E0 0063 LDS	R30,disbuf+3
+      B4 27FF      CLR	R31
+      B5 0FE8      ADD	R30,R24
+      B6 1FF9      ADC	R31,R25
+      B7 8020      LDD	R2,Z+0
+      B8 BA28      OUT	0x18,R2
+(0068)                  PORTA=0xFE;
+      B9 EF8E      LDI	R24,0xFE
+      BA BB8B      OUT	0x1B,R24
+(0069)                  delay();
+      BB DF9B      RCALL	_delay
+(0070)                  PORTA=0xff;
+      BC EF8F      LDI	R24,0xFF
+      BD BB8B      OUT	0x1B,R24
+      BE 9159      LD	R21,Y+
+      BF 9149      LD	R20,Y+
+      C0 9508      RET
+_Process:
+  disbuf               --> R20
+  p                    --> Y,+2
+      C1 940E 013E CALL	push_arg4
+      C3 934A      ST	R20,-Y
+      C4 935A      ST	R21,-Y
+      C5 01A9      MOVW	R20,R18
+(0071) 		   }
+(0072) 			  
+(0073) 		
+(0074)       void Process(uchar *p,uchar *disbuf) 
+(0075)          { 
+(0076) 		   disbuf[3]=timer[1]/10;
+      C6 E01A      LDI	R17,0xA
+      C7 9100 0071 LDS	R16,timer+1
+      C9 940E 0145 CALL	div8u
+      CB 01FA      MOVW	R30,R20
+      CC 8303      STD	Z+3,R16
+(0077) 		   disbuf[2]=timer[1]%10;
+      CD E01A      LDI	R17,0xA
+      CE 9100 0071 LDS	R16,timer+1
+      D0 940E 0143 CALL	mod8u
+      D2 01FA      MOVW	R30,R20
+      D3 8302      STD	Z+2,R16
+(0078) 		   disbuf[1]=timer[0]/10;
+      D4 E01A      LDI	R17,0xA
+      D5 9100 0070 LDS	R16,timer
+      D7 940E 0145 CALL	div8u
+      D9 01FA      MOVW	R30,R20
+      DA 8301      STD	Z+1,R16
+(0079) 		   disbuf[0]=timer[0]%10;
+      DB E01A      LDI	R17,0xA
+      DC 9100 0070 LDS	R16,timer
+      DE 940E 0143 CALL	mod8u
+      E0 01FA      MOVW	R30,R20
+      E1 8300      STD	Z+0,R16
+      E2 9159      LD	R21,Y+
+      E3 9149      LD	R20,Y+
+      E4 9624      ADIW	R28,4
+      E5 9508      RET
+(0080)          } 
+(0081)      
+(0082)       void PORT_INT(void)
+(0083) 	     {
+(0084) 		  DDRA=0xFF;            
+_PORT_INT:
+      E6 EF8F      LDI	R24,0xFF
+      E7 BB8A      OUT	0x1A,R24
+(0085)           DDRB=0xFF;
+      E8 BB87      OUT	0x17,R24
+(0086) 		  PORTA=0xFF;
+      E9 BB8B      OUT	0x1B,R24
+(0087)           PORTB=0xFF;
+      EA BB88      OUT	0x18,R24
+      EB 9508      RET
+(0088) 		 }	  
+(0089)       
+(0090)       void main (void)
+(0091)              { 
+(0092) 			   PORT_INT();
+_main:
+      EC DFF9      RCALL	_PORT_INT
+(0093) 			   timer1_init();		
+      ED DF6F      RCALL	_timer1_init
+(0094) 			   SEI();
+      EE 9478      BSET	7
+      EF C006      RJMP	0x00F6
+(0095)                   while(1)
+(0096)                  {     
+(0097) 				    Process(timer,disbuf);
+      F0 E620      LDI	R18,0x60
+      F1 E030      LDI	R19,0
+      F2 E700      LDI	R16,0x70
+      F3 E010      LDI	R17,0
+      F4 DFCC      RCALL	_Process
+(0098) 					Display();  
+      F5 DF74      RCALL	_Display
+      F6 CFF9      RJMP	0x00F0
+      F7 9508      RET
+_timer1_ovf_isr:
+      F8 922A      ST	R2,-Y
+      F9 930A      ST	R16,-Y
+      FA 931A      ST	R17,-Y
+      FB 938A      ST	R24,-Y
+      FC 939A      ST	R25,-Y
+      FD 93AA      ST	R26,-Y
+      FE 93EA      ST	R30,-Y
+      FF B62F      IN	R2,0x3F
+     100 922A      ST	R2,-Y
+(0099) 			     }
+(0100) 			 }
+(0101) 
+(0102) #pragma interrupt_handler timer1_ovf_isr:9                    
+(0103)            void timer1_ovf_isr(void) 
+(0104) 		       { TCNT1H = 0xc7;		//设置 TC1 的 计数寄存器 高8位值
+     101 EC87      LDI	R24,0xC7
+     102 BD8D      OUT	0x2D,R24
+(0105) 	             TCNT1L = 0xc0;		//设置 TC1 的 计数寄存器 低8位值
+     103 EC80      LDI	R24,0xC0
+     104 BD8C      OUT	0x2C,R24
+(0106) 				 flag=~flag;
+     105 9020 006F LDS	R2,flag
+     107 9420      COM	R2
+     108 9220 006F STS	flag,R2
+(0107) 				  switch(flag)
+     10A 2D02      MOV	R16,R2
+     10B 2711      CLR	R17
+     10C 3000      CPI	R16,0
+     10D 0701      CPC	R16,R17
+     10E F049      BEQ	0x0118
+     10F 3000      CPI	R16,0
+     110 E0E0      LDI	R30,0
+     111 071E      CPC	R17,R30
+     112 F10C      BLT	0x0134
+     113 3F0F      CPI	R16,0xFF
+     114 E0E0      LDI	R30,0
+     115 071E      CPC	R17,R30
+     116 F0E9      BEQ	0x0134
+     117 C01C      RJMP	0x0134
+(0108) 				    {case 0x00:
+(0109) 				          {timer[0]++;
+     118 9180 0070 LDS	R24,timer
+     11A 5F8F      SUBI	R24,0xFF
+     11B 9380 0070 STS	timer,R24
+(0110) 				              if(timer[0]==60)
+     11D 338C      CPI	R24,0x3C
+     11E F4A9      BNE	0x0134
+(0111) 					            {timer[0]=0;
+     11F 2422      CLR	R2
+     120 9220 0070 STS	timer,R2
+(0112) 						            timer[1]++;
+     122 9180 0071 LDS	R24,timer+1
+     124 5F8F      SUBI	R24,0xFF
+     125 9380 0071 STS	timer+1,R24
+(0113) 						              if(timer[1]==60)
+     127 338C      CPI	R24,0x3C
+     128 F459      BNE	0x0134
+(0114) 							              {timer[1]=0;
+     129 9220 0071 STS	timer+1,R2
+(0115) 										      timer[2]++;
+     12B 9180 0072 LDS	R24,timer+2
+     12D 5F8F      SUBI	R24,0xFF
+     12E 9380 0072 STS	timer+2,R24
+(0116) 											   if(timer[2]==24)
+     130 3188      CPI	R24,0x18
+     131 F411      BNE	0x0134
+(0117) 											       timer[2]=0;
+     132 9220 0072 STS	timer+2,R2
+(0118) 										  }  
+(0119) 										    
+(0120) 					            }
+(0121) 				           }   
+(0122) 					            break;
+(0123) 					 case 0xff: break;
+(0124) 					 default:   break;
+FILE: <library>
+     134 9029      LD	R2,Y+
+     135 BE2F      OUT	0x3F,R2
+     136 91E9      LD	R30,Y+
+     137 91A9      LD	R26,Y+
+     138 9199      LD	R25,Y+
+     139 9189      LD	R24,Y+
+     13A 9119      LD	R17,Y+
+     13B 9109      LD	R16,Y+
+     13C 9029      LD	R2,Y+
+     13D 9518      RETI
+push_arg4:
+     13E 933A      ST	R19,-Y
+     13F 932A      ST	R18,-Y
+push_arg2:
+     140 931A      ST	R17,-Y
+     141 930A      ST	R16,-Y
+     142 9508      RET
+mod8u:
+     143 9468      BSET	6
+     144 C001      RJMP	xdiv8u
+div8u:
+     145 94E8      BCLR	6
+xdiv8u:
+     146 932A      ST	R18,-Y
+     147 92FA      ST	R15,-Y
+     148 92EA      ST	R14,-Y
+     149 24FF      CLR	R15
+     14A 24EE      CLR	R14
+     14B E120      LDI	R18,0x10
+     14C 0F00      LSL	R16
+     14D 1CFF      ROL	R15
+     14E 1CEE      ROL	R14
+     14F 16E1      CP	R14,R17
+     150 F010      BCS	0x0153
+     151 1AE1      SUB	R14,R17
+     152 9503      INC	R16
+     153 952A      DEC	R18
+     154 F7B9      BNE	0x014C
+     155 F40E      BRTC	0x0157
+     156 2D0E      MOV	R16,R14
+     157 90E9      LD	R14,Y+
+     158 90F9      LD	R15,Y+
+     159 9129      LD	R18,Y+
+     15A 9508      RET

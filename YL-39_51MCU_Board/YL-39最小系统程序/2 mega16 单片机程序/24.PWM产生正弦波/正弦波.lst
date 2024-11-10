@@ -1,0 +1,108 @@
+__start:
+__text_start:
+    006B E5CF      LDI	R28,0x5F
+    006C E0D4      LDI	R29,4
+    006D BFCD      OUT	0x3D,R28
+    006E BFDE      OUT	0x3E,R29
+    006F 51C0      SUBI	R28,0x10
+    0070 40D0      SBCI	R29,0
+    0071 EA0A      LDI	R16,0xAA
+    0072 8308      STD	Y+0,R16
+    0073 2400      CLR	R0
+    0074 E6E2      LDI	R30,0x62
+    0075 E0F0      LDI	R31,0
+    0076 E010      LDI	R17,0
+    0077 36E2      CPI	R30,0x62
+    0078 07F1      CPC	R31,R17
+    0079 F011      BEQ	0x007C
+    007A 9201      ST	R0,Z+
+    007B CFFB      RJMP	0x0077
+    007C 8300      STD	Z+0,R16
+    007D EDE4      LDI	R30,0xD4
+    007E E0F0      LDI	R31,0
+    007F E6A0      LDI	R26,0x60
+    0080 E0B0      LDI	R27,0
+    0081 E010      LDI	R17,0
+    0082 3DE6      CPI	R30,0xD6
+    0083 07F1      CPC	R31,R17
+    0084 F021      BEQ	0x0089
+    0085 95C8      LPM
+    0086 9631      ADIW	R30,1
+    0087 920D      ST	R0,X+
+    0088 CFF9      RJMP	0x0082
+    0089 940E00B4  CALL	_main
+_exit:
+    008B CFFF      RJMP	_exit
+_timer0_ovf_isr:
+    008C 922A      ST	R2,-Y
+    008D 923A      ST	R3,-Y
+    008E 938A      ST	R24,-Y
+    008F 939A      ST	R25,-Y
+    0090 93EA      ST	R30,-Y
+    0091 93FA      ST	R31,-Y
+    0092 B62F      IN	R2,0x3F
+    0093 922A      ST	R2,-Y
+FILE: D:\单片机\AVR\自编程式\AVR程序\PWM产生正弦波\正弦波.c
+(0001) #include <iom16v.h>
+(0002) #include <macros.h>
+(0003) #pragma data:code
+(0004) // 128 点正弦波样本表
+(0005) const unsigned char auc_SinParam[128] = {
+(0006) 64,67,70,73,76,79,82,85,88,91,94,96,99,102,104,106,109,111,113,115,117,118,120,121,
+(0007) 123,124,125,126,126,127,127,127,127,127,127,127,126,126,125,124,123,121,120,118,
+(0008) 117,115,113,111,109,106,104,102,99,96,94,91,88,85,82,79,76,73,70,67,64,60,57,54,51,48,
+(0009) 45,42,39,36,33,31,28,25,23,21,18,16,14,12,10,9,7,6,4,3,2,1,1,0,0,0,0,0,0,0,1,1,2,3,4,6,
+(0010) 7,9,10,12,14,16,18,21,23,25,28,31,33,36,39,42,45,48,51,54,57,60};
+(0011) #pragma data:data
+(0012) unsigned char x_SW = 8,X_LUT = 0;
+(0013) #pragma interrupt_handler timer0_ovf_isr:17
+(0014) void timer0_ovf_isr(void)
+(0015) {
+(0016) X_LUT += x_SW; // 新样点指针
+    0094 90200060  LDS	R2,x_SW
+    0096 90300061  LDS	R3,X_LUT
+    0098 0C32      ADD	R3,R2
+    0099 92300061  STS	X_LUT,R3
+(0017) if (X_LUT > 127) X_LUT -= 128; // 样点指针调整
+    009B E78F      LDI	R24,0x7F
+    009C 1583      CP	R24,R3
+    009D F420      BCC	0x00A2
+    009E 2D83      MOV	R24,R3
+    009F 5880      SUBI	R24,0x80
+    00A0 93800061  STS	X_LUT,R24
+(0018) OCR0 = auc_SinParam[X_LUT]; // 取样点指针到比较匹配寄存器
+    00A2 E584      LDI	R24,0x54
+    00A3 E090      LDI	R25,0
+    00A4 91E00061  LDS	R30,X_LUT
+    00A6 27FF      CLR	R31
+    00A7 0FE8      ADD	R30,R24
+    00A8 1FF9      ADC	R31,R25
+    00A9 91E4      LPM	R30,0(Z)
+    00AA BFEC      OUT	0x3C,R30
+    00AB 9029      LD	R2,Y+
+    00AC BE2F      OUT	0x3F,R2
+    00AD 91F9      LD	R31,Y+
+    00AE 91E9      LD	R30,Y+
+    00AF 9199      LD	R25,Y+
+    00B0 9189      LD	R24,Y+
+    00B1 9039      LD	R3,Y+
+    00B2 9029      LD	R2,Y+
+    00B3 9518      RETI
+(0019) }
+(0020) void main(void)
+(0021) {
+(0022) DDRB |= 0x08; // PB3(OC0)输出
+_main:
+    00B4 9ABB      SBI	0x17,3
+(0023) TCCR0 = 0x71; // 相位调整PWM 模式，分频系数=1，正向控制OC0
+    00B5 E781      LDI	R24,0x71
+    00B6 BF83      OUT	0x33,R24
+(0024) TIMSK = 0x01; // T/C0 溢出中断允许
+    00B7 E081      LDI	R24,1
+    00B8 BF89      OUT	0x39,R24
+(0025) SEI(); // 使能全局中断
+    00B9 9478      BSET	7
+(0026) while(1);
+FILE: <library>
+    00BA CFFF      RJMP	0x00BA
+    00BB 9508      RET

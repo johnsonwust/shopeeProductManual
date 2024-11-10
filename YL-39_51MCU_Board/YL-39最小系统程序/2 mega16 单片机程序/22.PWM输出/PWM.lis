@@ -1,0 +1,156 @@
+                        .module PWM.C
+                        .area text(rom, con, rel)
+ 0000                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\22.PWM输出\PWM.C
+ 0000                   .dbfunc e port_init _port_init fV
+                        .even
+ 0000           _port_init::
+ 0000                   .dbline -1
+ 0000                   .dbline 20
+ 0000           ; 
+ 0000           ; /******************************************************************************/
+ 0000           ; /*在端口PD4,PD5（led5,led6）输出PWM脉冲，由于占空比不同，显示亮度不同         */
+ 0000           ; /*【编写时间】： 2011.07.07
+ 0000           ; * 【作    者】： 雁翎电子
+ 0000           ; * 【版    本】： V1.0
+ 0000           ; * 【网    站】： http://ylelectronic.taobao.com/ 
+ 0000           ; * 【Q      Q】： 348439350
+ 0000           ; * 【编译环境】： ICCAVR  
+ 0000           ; * 【函数功能】： 在端口PD4,PD5（led5,led6）输出PWM脉冲，由于占空比不同，显示亮度不同 
+ 0000           ; * 【晶    振】:  8M           
+ 0000           ; * 【芯    片】:  ATMEGA16A     
+ 0000           ; * 【硬件连接】： J1短路帽接上    
+ 0000           ; /******************************************************************************/
+ 0000           ; 
+ 0000           ; #include <iom16v.h>
+ 0000           ; #include <macros.h>
+ 0000           ; 
+ 0000           ; void port_init(void)
+ 0000           ; {
+ 0000                   .dbline 21
+ 0000           ;   PORTD = 0xff;
+ 0000 8FEF              ldi R24,255
+ 0002 82BB              out 0x12,R24
+ 0004                   .dbline 22
+ 0004           ;   DDRD  = 0xff;
+ 0004 81BB              out 0x11,R24
+ 0006                   .dbline -2
+ 0006           L1:
+ 0006                   .dbline 0 ; func end
+ 0006 0895              ret
+ 0008                   .dbend
+ 0008                   .dbfunc e timer1_init _timer1_init fV
+                        .even
+ 0008           _timer1_init::
+ 0008                   .dbline -1
+ 0008                   .dbline 30
+ 0008           ; }
+ 0008           ; 
+ 0008           ; //TIMER1 initialize - prescale:64
+ 0008           ; // WGM: 10) PWM phz correct, TOP= ICRn
+ 0008           ; // desired value: 1000Hz
+ 0008           ; // actual value: 1000.000Hz (0.0%)
+ 0008           ; void timer1_init(void)
+ 0008           ; {
+ 0008                   .dbline 31
+ 0008           ;  TCCR1B = 0x00; //stop
+ 0008 2224              clr R2
+ 000A 2EBC              out 0x2e,R2
+ 000C                   .dbline 32
+ 000C           ;  TCNT1H = 0xFF; //setup
+ 000C 8FEF              ldi R24,255
+ 000E 8DBD              out 0x2d,R24
+ 0010                   .dbline 33
+ 0010           ;  TCNT1L = 0x83;
+ 0010 83E8              ldi R24,131
+ 0012 8CBD              out 0x2c,R24
+ 0014                   .dbline 34
+ 0014           ;  OCR1AH = 0x00;
+ 0014 2BBC              out 0x2b,R2
+ 0016                   .dbline 35
+ 0016           ;  OCR1AL = 0x65; //占空比
+ 0016 85E6              ldi R24,101
+ 0018 8ABD              out 0x2a,R24
+ 001A                   .dbline 36
+ 001A           ;  OCR1BH = 0x00;
+ 001A 29BC              out 0x29,R2
+ 001C                   .dbline 37
+ 001C           ;  OCR1BL = 0x10; //占空比
+ 001C 80E1              ldi R24,16
+ 001E 88BD              out 0x28,R24
+ 0020                   .dbline 38
+ 0020           ;  ICR1H  = 0x00;
+ 0020 27BC              out 0x27,R2
+ 0022                   .dbline 39
+ 0022           ;  ICR1L  = 0x7D;
+ 0022 8DE7              ldi R24,125
+ 0024 86BD              out 0x26,R24
+ 0026                   .dbline 40
+ 0026           ;  TCCR1A = 0xA2;
+ 0026 82EA              ldi R24,162
+ 0028 8FBD              out 0x2f,R24
+ 002A                   .dbline 41
+ 002A           ;  TCCR1B = 0x13; //start Timer
+ 002A 83E1              ldi R24,19
+ 002C 8EBD              out 0x2e,R24
+ 002E                   .dbline -2
+ 002E           L2:
+ 002E                   .dbline 0 ; func end
+ 002E 0895              ret
+ 0030                   .dbend
+ 0030                   .dbfunc e init_devices _init_devices fV
+                        .even
+ 0030           _init_devices::
+ 0030                   .dbline -1
+ 0030                   .dbline 46
+ 0030           ; }
+ 0030           ; 
+ 0030           ; //call this routine to initialize all peripherals
+ 0030           ; void init_devices(void)
+ 0030           ; {
+ 0030                   .dbline 48
+ 0030           ;  //stop errant interrupts until set up
+ 0030           ;  CLI(); //disable all interrupts
+ 0030 F894              cli
+ 0032                   .dbline 49
+ 0032           ;  port_init();
+ 0032 E6DF              xcall _port_init
+ 0034                   .dbline 50
+ 0034           ;  timer1_init();
+ 0034 E9DF              xcall _timer1_init
+ 0036                   .dbline 52
+ 0036           ; 
+ 0036           ;  MCUCR = 0x00;
+ 0036 2224              clr R2
+ 0038 25BE              out 0x35,R2
+ 003A                   .dbline 53
+ 003A           ;  GICR  = 0x00;
+ 003A 2BBE              out 0x3b,R2
+ 003C                   .dbline 54
+ 003C           ;  TIMSK = 0x00; //timer interrupt sources
+ 003C 29BE              out 0x39,R2
+ 003E                   .dbline 55
+ 003E           ;  SEI(); //re-enable interrupts
+ 003E 7894              sei
+ 0040                   .dbline -2
+ 0040           L3:
+ 0040                   .dbline 0 ; func end
+ 0040 0895              ret
+ 0042                   .dbend
+ 0042                   .dbfunc e main _main fI
+                        .even
+ 0042           _main::
+ 0042                   .dbline -1
+ 0042                   .dbline 60
+ 0042           ;  //all peripherals are now initialized
+ 0042           ; }
+ 0042           ; 
+ 0042           ; main() 
+ 0042           ; {
+ 0042                   .dbline 61
+ 0042           ; init_devices();
+ 0042 F6DF              xcall _init_devices
+ 0044                   .dbline -2
+ 0044           L4:
+ 0044                   .dbline 0 ; func end
+ 0044 0895              ret
+ 0046                   .dbend

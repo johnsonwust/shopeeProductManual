@@ -1,0 +1,66 @@
+XL
+H 3 areas 3 global symbols
+M _
+A text size 4A flags 0
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\23.步进电机\步进电机.c
+dbfunc e delay 0 fV
+dbsym r i 10 c
+dbsym r j 12 c
+dbline FFFFFFFF 0
+dbline 16 0
+dbline 18 0
+dbline 19 4
+dbline 19 8
+dbline 19 8
+dbline 19 A
+dbline 18 E
+dbline 18 10
+dbline FFFFFFFE 14
+dbline 0 14
+dbfunc e main 16 fV
+dbsym r b 14 c
+dbsym r a 16 c
+dbline FFFFFFFF 16
+dbline 1D 16
+dbline 1F 16
+dbline 20 1A
+dbline 21 1C
+dbline 22 20
+dbline 23 20
+dbline 24 24
+dbline 25 24
+dbline 26 34
+dbline 27 36
+dbline 23 36
+dbline 23 38
+dbline 28 3C
+dbline 21 3C
+dbline 21 3E
+dbline 29 42
+dbline 2A 46
+dbline 2A 46
+dbline FFFFFFFE 48
+dbline 0 48
+S _main Def0016
+S _delay Def0000
+A data size 4 flags 20
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\23.步进电机\步进电机.c
+dbsym e TAB 0 A[4:4]c
+S _TAB Def0000
+A idata size 4 flags 0
+T 00 00 04 01
+R 00 00 02 00
+T 02 00 08 02
+R 00 00 02 00
+T 00 00 00 27 06 C0 22 27 01 C0 23 95 2F 3F E8 F3
+R 00 00 00 00
+T 0E 00 03 95 04 31 C0 F3 08 95
+R 00 00 00 00
+T 16 00 8F EF 87 BB 88 BB 44 27 0F C0 66 27 0A C0
+R 00 00 00 00
+T 24 00 80 E0 90 E0 E6 2F FF 27 E8 0F F9 1F 20 80
+R 00 00 00 00 20 02 01 00 00 00 40 04 01 00 00 00
+T 32 00 28 BA E5 DF 63 95 64 30 A0 F3 43 95 42 33
+R 00 00 00 00
+T 40 00 78 F3 8F EF 88 BB FF CF 08 95
+R 00 00 00 00

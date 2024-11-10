@@ -1,0 +1,511 @@
+                        .module main.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile G:\发货盘\宛峰电子AVR_MEGA8_48_88_168\实验例程\实验11~1\ICC代码\1查询方式\main.c
+ 0000                   .dbfunc e port_init _port_init fV
+                        .even
+ 0000           _port_init::
+ 0000                   .dbline -1
+ 0000                   .dbline 11
+ 0000           ; //ICC-AVR application builder : 2009-2-27 下午 12:37:39
+ 0000           ; // Target : M48
+ 0000           ; // Crystal: 8.0000Mhz
+ 0000           ; 
+ 0000           ; #include <iom48v.h>
+ 0000           ; #include <macros.h>
+ 0000           ; #define  LED_ON()   PORTD  |= BIT(PD3)
+ 0000           ; #define  LED_OFF()   PORTD ^= BIT(PD3)
+ 0000           ; 
+ 0000           ; void port_init(void)
+ 0000           ; {
+ 0000                   .dbline 12
+ 0000           ;  PORTB = 0x00;
+ 0000 2224              clr R2
+ 0002 25B8              out 0x5,R2
+ 0004                   .dbline 13
+ 0004           ;  DDRB  = 0x00;
+ 0004 24B8              out 0x4,R2
+ 0006                   .dbline 14
+ 0006           ;  PORTC = 0x68; //m103 output only
+ 0006 88E6              ldi R24,104
+ 0008 88B9              out 0x8,R24
+ 000A                   .dbline 15
+ 000A           ;  DDRC  = 0x68;
+ 000A 87B9              out 0x7,R24
+ 000C                   .dbline 16
+ 000C           ;  PORTD = 0x68;
+ 000C 8BB9              out 0xb,R24
+ 000E                   .dbline 17
+ 000E           ;  DDRD  = 0xE8;
+ 000E 88EE              ldi R24,232
+ 0010 8AB9              out 0xa,R24
+ 0012                   .dbline -2
+ 0012           L1:
+ 0012                   .dbline 0 ; func end
+ 0012 0895              ret
+ 0014                   .dbend
+ 0014                   .dbfunc e delay_ms _delay_ms fV
+ 0014           ;              i -> R20,R21
+ 0014           ;              j -> R22,R23
+ 0014           ;              n -> R16,R17
+                        .even
+ 0014           _delay_ms::
+ 0014 00D0              rcall push_gset2
+ 0016                   .dbline -1
+ 0016                   .dbline 20
+ 0016           ; }
+ 0016           ; void delay_ms(unsigned int n)
+ 0016           ; {
+ 0016                   .dbline 21
+ 0016           ;  unsigned int i=0,j=1;
+ 0016 4427              clr R20
+ 0018 5527              clr R21
+ 001A                   .dbline 21
+ 001A 61E0              ldi R22,1
+ 001C 70E0              ldi R23,0
+ 001E 0BC0              rjmp L4
+ 0020           L3:
+ 0020                   .dbline 23
+ 0020           ;  while(i<n)
+ 0020           ;  {
+ 0020                   .dbline 24
+ 0020 6627              clr R22
+ 0022 7727              clr R23
+ 0024 02C0              rjmp L9
+ 0026           L6:
+ 0026                   .dbline 24
+ 0026           L7:
+ 0026                   .dbline 24
+ 0026 6F5F              subi R22,255  ; offset = 1
+ 0028 7F4F              sbci R23,255
+ 002A           L9:
+ 002A                   .dbline 24
+ 002A 683E              cpi R22,232
+ 002C E3E0              ldi R30,3
+ 002E 7E07              cpc R23,R30
+ 0030 D0F3              brlo L6
+ 0032                   .dbline 25
+ 0032 4F5F              subi R20,255  ; offset = 1
+ 0034 5F4F              sbci R21,255
+ 0036                   .dbline 26
+ 0036           L4:
+ 0036                   .dbline 22
+ 0036 4017              cp R20,R16
+ 0038 5107              cpc R21,R17
+ 003A 90F3              brlo L3
+ 003C                   .dbline -2
+ 003C           L2:
+ 003C 00D0              rcall pop_gset2
+ 003E                   .dbline 0 ; func end
+ 003E 0895              ret
+ 0040                   .dbsym r i 20 i
+ 0040                   .dbsym r j 22 i
+ 0040                   .dbsym r n 16 i
+ 0040                   .dbend
+ 0040                   .dbfunc e uart0_init _uart0_init fV
+ 0040           ;           temp -> R10,R11
+ 0040           ;            bps -> R10,R11
+                        .even
+ 0040           _uart0_init::
+ 0040 00D0              rcall push_gset3
+ 0042 5801              movw R10,R16
+ 0044                   .dbline -1
+ 0044                   .dbline 42
+ 0044           ;   for (j=0;j<(unsigned int)(1000);j++) ;
+ 0044           ;   i++;
+ 0044           ;  }
+ 0044           ; }
+ 0044           ; 
+ 0044           ; ///-----------------------UART-------------------------------///
+ 0044           ; #define    Bps_Uart0       9600 
+ 0044           ; #define    Fosc            8000000
+ 0044           ; /////////////////////////////////////////////
+ 0044           ; //UART0 初始化
+ 0044           ; // Target : M48
+ 0044           ; // Crystal: 8.0Mhz
+ 0044           ; //UART0 initialize
+ 0044           ; // desired baud rate: 9600
+ 0044           ; // actual: baud rate:9615 (0.2%)
+ 0044           ; // char size: 8 bit
+ 0044           ; // parity: Disabled
+ 0044           ; void uart0_init(int bps)
+ 0044           ; {
+ 0044                   .dbline 44
+ 0044           ;  int  temp;
+ 0044           ;  temp=Fosc/bps/8-1;
+ 0044 1501              movw R2,R10
+ 0046 4424              clr R4
+ 0048 37FC              sbrc R3,7
+ 004A 4094              com R4
+ 004C 5524              clr R5
+ 004E 47FC              sbrc R4,7
+ 0050 5094              com R5
+ 0052 40E0              ldi R20,0
+ 0054 52E1              ldi R21,18
+ 0056 6AE7              ldi R22,122
+ 0058 70E0              ldi R23,0
+ 005A 5A92              st -y,R5
+ 005C 4A92              st -y,R4
+ 005E 3A92              st -y,R3
+ 0060 2A92              st -y,R2
+ 0062 8A01              movw R16,R20
+ 0064 9B01              movw R18,R22
+ 0066 00D0              rcall div32s
+ 0068 48E0              ldi R20,8
+ 006A 50E0              ldi R21,0
+ 006C 60E0              ldi R22,0
+ 006E 70E0              ldi R23,0
+ 0070 7A93              st -y,R23
+ 0072 6A93              st -y,R22
+ 0074 5A93              st -y,R21
+ 0076 4A93              st -y,R20
+ 0078 00D0              rcall div32s
+ 007A 1801              movw R2,R16
+ 007C 2901              movw R4,R18
+ 007E 41E0              ldi R20,1
+ 0080 50E0              ldi R21,0
+ 0082 60E0              ldi R22,0
+ 0084 70E0              ldi R23,0
+ 0086 241A              sub R2,R20
+ 0088 350A              sbc R3,R21
+ 008A 460A              sbc R4,R22
+ 008C 570A              sbc R5,R23
+ 008E 5101              movw R10,R2
+ 0090                   .dbline 46
+ 0090           ; 
+ 0090           ;  UCSR0B = 0x00; //disable while setting baud rate
+ 0090 2224              clr R2
+ 0092 2092C100          sts 193,R2
+ 0096                   .dbline 47
+ 0096           ;  UCSR0A = 0x00;
+ 0096 2092C000          sts 192,R2
+ 009A                   .dbline 49
+ 009A           ;  
+ 009A           ;  UBRR0L =temp;    
+ 009A A092C400          sts 196,R10
+ 009E                   .dbline 50
+ 009E           ;  UBRR0H =(temp>>8);
+ 009E 1501              movw R2,R10
+ 00A0 232C              mov R2,R3
+ 00A2 3324              clr R3
+ 00A4 27FC              sbrc R2,7
+ 00A6 3094              com R3
+ 00A8 2092C500          sts 197,R2
+ 00AC                   .dbline 52
+ 00AC           ; 
+ 00AC           ;  UCSR0C = 0x06;
+ 00AC 86E0              ldi R24,6
+ 00AE 8093C200          sts 194,R24
+ 00B2                   .dbline 53
+ 00B2           ;  UCSR0A = 0x02; //enable    2倍波特率
+ 00B2 82E0              ldi R24,2
+ 00B4 8093C000          sts 192,R24
+ 00B8                   .dbline 54
+ 00B8           ;  UCSR0B = 0x98;  
+ 00B8 88E9              ldi R24,152
+ 00BA 8093C100          sts 193,R24
+ 00BE                   .dbline -2
+ 00BE           L10:
+ 00BE 00D0              rcall pop_gset3
+ 00C0                   .dbline 0 ; func end
+ 00C0 0895              ret
+ 00C2                   .dbsym r temp 10 I
+ 00C2                   .dbsym r bps 10 I
+ 00C2                   .dbend
+                        .area data(ram, con, rel)
+ 0000                   .dbfile G:\发货盘\宛峰电子AVR_MEGA8_48_88_168\实验例程\实验11~1\ICC代码\1查询方式\main.c
+ 0000           _gU8getchar::
+ 0000                   .blkb 1
+                        .area idata
+ 0000 00                .byte 0
+                        .area data(ram, con, rel)
+ 0001                   .dbfile G:\发货盘\宛峰电子AVR_MEGA8_48_88_168\实验例程\实验11~1\ICC代码\1查询方式\main.c
+ 0001                   .dbsym e gU8getchar _gU8getchar c
+ 0001           _gU8RecBuff::
+ 0001                   .blkb 1
+                        .area idata
+ 0001 00                .byte 0
+                        .area data(ram, con, rel)
+ 0002                   .dbfile G:\发货盘\宛峰电子AVR_MEGA8_48_88_168\实验例程\实验11~1\ICC代码\1查询方式\main.c
+ 0002                   .blkb 127
+                        .area idata
+ 0002 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  .word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ 003E 000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000  .word 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+ 007A 00000000000000    .byte 0,0,0,0,0,0,0
+                        .area data(ram, con, rel)
+ 0081                   .dbfile G:\发货盘\宛峰电子AVR_MEGA8_48_88_168\实验例程\实验11~1\ICC代码\1查询方式\main.c
+ 0081                   .dbsym e gU8RecBuff _gU8RecBuff A[128:128]c
+                        .area vector(rom, abs)
+                        .org 36
+ 0024 61C0              rjmp _uart0_rx_isr
+                        .area data(ram, con, rel)
+ 0081                   .dbfile G:\发货盘\宛峰电子AVR_MEGA8_48_88_168\实验例程\实验11~1\ICC代码\1查询方式\main.c
+                        .area text(rom, con, rel)
+ 00C2                   .dbfile G:\发货盘\宛峰电子AVR_MEGA8_48_88_168\实验例程\实验11~1\ICC代码\1查询方式\main.c
+ 00C2                   .dbfunc e uart0_rx_isr _uart0_rx_isr fV
+ 00C2           ;              t -> R16
+                        .even
+ 00C2           _uart0_rx_isr::
+ 00C2 2A92              st -y,R2
+ 00C4 0A93              st -y,R16
+ 00C6 8A93              st -y,R24
+ 00C8 9A93              st -y,R25
+ 00CA EA93              st -y,R30
+ 00CC FA93              st -y,R31
+ 00CE 2FB6              in R2,0x3f
+ 00D0 2A92              st -y,R2
+ 00D2                   .dbline -1
+ 00D2                   .dbline 61
+ 00D2           ; }
+ 00D2           ; unsigned char gU8getchar=0x00;//接收字符的个数
+ 00D2           ; #define BUFLEN  10
+ 00D2           ; unsigned char gU8RecBuff[128]={0};
+ 00D2           ; #pragma interrupt_handler uart0_rx_isr:19
+ 00D2           ; void uart0_rx_isr(void)
+ 00D2           ; {
+ 00D2                   .dbline 64
+ 00D2           ;  //uart has received a character in UDR
+ 00D2           ;  unsigned char t;
+ 00D2           ;  t = UDR0;
+ 00D2 0091C600          lds R16,198
+ 00D6                   .dbline 65
+ 00D6           ;  if(gU8getchar<BUFLEN){
+ 00D6 80910000          lds R24,_gU8getchar
+ 00DA 8A30              cpi R24,10
+ 00DC 48F4              brsh L12
+ 00DE                   .dbline 65
+ 00DE                   .dbline 66
+ 00DE           ;        gU8RecBuff[gU8getchar] = t;
+ 00DE 80E0              ldi R24,<_gU8RecBuff
+ 00E0 90E0              ldi R25,>_gU8RecBuff
+ 00E2 E0910000          lds R30,_gU8getchar
+ 00E6 FF27              clr R31
+ 00E8 E80F              add R30,R24
+ 00EA F91F              adc R31,R25
+ 00EC 0083              std z+0,R16
+ 00EE                   .dbline 67
+ 00EE           ;  }
+ 00EE 0AC0              rjmp L13
+ 00F0           L12:
+ 00F0                   .dbline 68
+ 00F0           ;  else{
+ 00F0                   .dbline 69
+ 00F0           ;      gU8getchar=0;
+ 00F0 2224              clr R2
+ 00F2 20920000          sts _gU8getchar,R2
+ 00F6                   .dbline 70
+ 00F6           ;        gU8RecBuff[gU8getchar] = t;
+ 00F6 80E0              ldi R24,<_gU8RecBuff
+ 00F8 90E0              ldi R25,>_gU8RecBuff
+ 00FA E22D              mov R30,R2
+ 00FC FF27              clr R31
+ 00FE E80F              add R30,R24
+ 0100 F91F              adc R31,R25
+ 0102 0083              std z+0,R16
+ 0104                   .dbline 71
+ 0104           ;  }
+ 0104           L13:
+ 0104                   .dbline 72
+ 0104           ;  gU8getchar++;
+ 0104 80910000          lds R24,_gU8getchar
+ 0108 8F5F              subi R24,255    ; addi 1
+ 010A 80930000          sts _gU8getchar,R24
+ 010E                   .dbline -2
+ 010E           L11:
+ 010E 2990              ld R2,y+
+ 0110 2FBE              out 0x3f,R2
+ 0112 F991              ld R31,y+
+ 0114 E991              ld R30,y+
+ 0116 9991              ld R25,y+
+ 0118 8991              ld R24,y+
+ 011A 0991              ld R16,y+
+ 011C 2990              ld R2,y+
+ 011E                   .dbline 0 ; func end
+ 011E 1895              reti
+ 0120                   .dbsym r t 16 c
+ 0120                   .dbend
+ 0120                   .dbfunc e Uart0_putchar _Uart0_putchar fV
+ 0120           ;         sdbyte -> R16
+                        .even
+ 0120           _Uart0_putchar::
+ 0120                   .dbline -1
+ 0120                   .dbline 79
+ 0120           ; }
+ 0120           ; 
+ 0120           ; 
+ 0120           ; /*********************************************************/
+ 0120           ; //向串口usart0发送一个字节函数   
+ 0120           ;  void Uart0_putchar( unsigned char sdbyte)  
+ 0120           ;  {
+ 0120                   .dbline 80
+ 0120           ;      UDR0=sdbyte;
+ 0120 0093C600          sts 198,R16
+ 0124           L15:
+ 0124                   .dbline 81
+ 0124           L16:
+ 0124                   .dbline 81
+ 0124           ;      while(!(UCSR0A&0x40));
+ 0124 2090C000          lds R2,192
+ 0128 26FE              sbrs R2,6
+ 012A FCCF              rjmp L15
+ 012C                   .dbline 82
+ 012C           ;      UCSR0A|=0x40;
+ 012C 8091C000          lds R24,192
+ 0130 8064              ori R24,64
+ 0132 8093C000          sts 192,R24
+ 0136                   .dbline -2
+ 0136           L14:
+ 0136                   .dbline 0 ; func end
+ 0136 0895              ret
+ 0138                   .dbsym r sdbyte 16 c
+ 0138                   .dbend
+ 0138                   .dbfunc e Uart0_sendbuf _Uart0_sendbuf fV
+ 0138           ;            len -> R20
+ 0138           ;            ptr -> R22,R23
+                        .even
+ 0138           _Uart0_sendbuf::
+ 0138 00D0              rcall push_gset2
+ 013A 422F              mov R20,R18
+ 013C B801              movw R22,R16
+ 013E                   .dbline -1
+ 013E                   .dbline 87
+ 013E           ;  }
+ 013E           ;  /*********************************************************/
+ 013E           ; //向串口usart0发送一个数组函数   
+ 013E           ;  void Uart0_sendbuf(unsigned char *ptr,unsigned char len)  
+ 013E           ;  {
+ 013E 05C0              rjmp L20
+ 0140           L19:
+ 0140                   .dbline 89
+ 0140                   .dbline 90
+ 0140 FB01              movw R30,R22
+ 0142 0191              ld R16,Z+
+ 0144 BF01              movw R22,R30
+ 0146 ECDF              rcall _Uart0_putchar
+ 0148                   .dbline 91
+ 0148 4A95              dec R20
+ 014A                   .dbline 92
+ 014A           L20:
+ 014A                   .dbline 88
+ 014A           ;    while(len>0)
+ 014A 2224              clr R2
+ 014C 2416              cp R2,R20
+ 014E C0F3              brlo L19
+ 0150                   .dbline -2
+ 0150           L18:
+ 0150 00D0              rcall pop_gset2
+ 0152                   .dbline 0 ; func end
+ 0152 0895              ret
+ 0154                   .dbsym r len 20 c
+ 0154                   .dbsym r ptr 22 pc
+ 0154                   .dbend
+ 0154                   .dbfunc e init_devices _init_devices fV
+                        .even
+ 0154           _init_devices::
+ 0154                   .dbline -1
+ 0154                   .dbline 98
+ 0154           ;    {
+ 0154           ;      Uart0_putchar(*ptr++);
+ 0154           ;      len--;   
+ 0154           ;    }
+ 0154           ;  }
+ 0154           ; ///-----------------------UART-------------------------------///
+ 0154           ; 
+ 0154           ; //call this routine to initialize all peripherals
+ 0154           ; void init_devices(void)
+ 0154           ; {
+ 0154                   .dbline 100
+ 0154           ;  //stop errant interrupts until set up
+ 0154           ;  CLI(); //disable all interrupts
+ 0154 F894              cli
+ 0156                   .dbline 101
+ 0156           ;  port_init();
+ 0156 54DF              rcall _port_init
+ 0158                   .dbline 104
+ 0158           ; // uart0_init();
+ 0158           ; 
+ 0158           ;  MCUCR = 0x00;
+ 0158 2224              clr R2
+ 015A 25BE              out 0x35,R2
+ 015C                   .dbline 119
+ 015C           ; /*
+ 015C           ;  EICRA = 0x00; //extended ext ints
+ 015C           ;  EIMSK = 0x00;
+ 015C           ;  
+ 015C           ;  TIMSK0 = 0x00; //timer 0 interrupt sources
+ 015C           ;  TIMSK1 = 0x00; //timer 1 interrupt sources
+ 015C           ;  TIMSK2 = 0x00; //timer 2 interrupt sources
+ 015C           ;  
+ 015C           ;  PCMSK0 = 0x00; //pin change mask 0 
+ 015C           ;  PCMSK1 = 0x00; //pin change mask 1 
+ 015C           ;  PCMSK2 = 0x00; //pin change mask 2
+ 015C           ;  PCICR = 0x00; //pin change enable 
+ 015C           ;  PRR = 0x00; //power controller
+ 015C           ;  */
+ 015C           ;  SEI(); //re-enable interrupts
+ 015C 7894              sei
+ 015E                   .dbline -2
+ 015E           L22:
+ 015E                   .dbline 0 ; func end
+ 015E 0895              ret
+ 0160                   .dbend
+ 0160                   .dbfunc e main _main fV
+ 0160           ;              i -> <dead>
+                        .even
+ 0160           _main::
+ 0160                   .dbline -1
+ 0160                   .dbline 125
+ 0160           ;  //all peripherals are now initialized
+ 0160           ;  
+ 0160           ; }
+ 0160           ; 
+ 0160           ; void main()
+ 0160           ; {
+ 0160                   .dbline 127
+ 0160           ;   int i;
+ 0160           ;   init_devices();
+ 0160 F9DF              rcall _init_devices
+ 0162                   .dbline 129
+ 0162           ; 
+ 0162           ;   uart0_init(Bps_Uart0);
+ 0162 00E8              ldi R16,9600
+ 0164 15E2              ldi R17,37
+ 0166 6CDF              rcall _uart0_init
+ 0168                   .dbline 131
+ 0168           ;   
+ 0168           ;   delay_ms(100);
+ 0168 04E6              ldi R16,100
+ 016A 10E0              ldi R17,0
+ 016C 53DF              rcall _delay_ms
+ 016E 08C0              rjmp L25
+ 0170           L24:
+ 0170                   .dbline 134
+ 0170           ;   
+ 0170           ;   while(1)                     //循环
+ 0170           ;   {
+ 0170                   .dbline 136
+ 0170           ;   
+ 0170           ;    if(gU8getchar==BUFLEN){
+ 0170 80910000          lds R24,_gU8getchar
+ 0174 8A30              cpi R24,10
+ 0176 21F4              brne L27
+ 0178                   .dbline 136
+ 0178                   .dbline 137
+ 0178           ;               Uart0_sendbuf(gU8RecBuff,BUFLEN);
+ 0178 2AE0              ldi R18,10
+ 017A 00E0              ldi R16,<_gU8RecBuff
+ 017C 10E0              ldi R17,>_gU8RecBuff
+ 017E DCDF              rcall _Uart0_sendbuf
+ 0180                   .dbline 138
+ 0180           ;    }
+ 0180           L27:
+ 0180                   .dbline 139
+ 0180           L25:
+ 0180                   .dbline 133
+ 0180 F7CF              rjmp L24
+ 0182           X0:
+ 0182                   .dbline -2
+ 0182           L23:
+ 0182                   .dbline 0 ; func end
+ 0182 0895              ret
+ 0184                   .dbsym l i 1 I
+ 0184                   .dbend

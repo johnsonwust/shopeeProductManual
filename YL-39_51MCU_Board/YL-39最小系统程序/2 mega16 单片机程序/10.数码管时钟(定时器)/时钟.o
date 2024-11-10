@@ -1,0 +1,232 @@
+XL
+H 4 areas F global symbols
+M _Ê
+S push_arg4 Ref0000
+S mod8u Ref0000
+S div8u Ref0000
+A text size 1CE flags 0
+dbfile D:\¹¤×÷\ÖÆ°æ³É¹¦\YL-60A~2\YL-60A~2\4.Ïà¹ØÀý³Ì\10.ÊýÂë¹ÜÊ±ÖÓ(¶¨Ê±Æ÷)\Ê±ÖÓ.c
+dbfunc e delay 0 fV
+dbsym r i 10 c
+dbline FFFFFFFF 0
+dbline 18 0
+dbline 19 0
+dbline 19 4
+dbline 19 4
+dbline 19 6
+dbline FFFFFFFE A
+dbline 0 A
+dbfunc e timer1_init C fV
+dbline FFFFFFFF C
+dbline 1C C
+dbline 1D C
+dbline 1E 10
+dbline 1F 14
+dbline 26 18
+dbline 27 1A
+dbline 28 1E
+dbline 29 20
+dbline 2A 22
+dbline FFFFFFFE 24
+dbline 0 24
+dbfunc e Display 26 fV
+dbline FFFFFFFF 2A
+dbline 2E 2A
+dbline 2F 2A
+dbline 30 3C
+dbline 31 40
+dbline 32 42
+dbline 34 46
+dbline 35 58
+dbline 36 5C
+dbline 37 5E
+dbline 38 62
+dbline 3B 80
+dbline 3B 94
+dbline 3D 96
+dbline 3D A8
+dbline 3E A8
+dbline 40 A8
+dbline 41 AC
+dbline 42 AE
+dbline 43 B2
+dbline 44 C4
+dbline 45 C8
+dbline 46 CA
+dbline FFFFFFFE CE
+dbline 0 CE
+dbfunc e Process D4 fV
+dbsym r disbuf 14 pc
+dbsym l p 2 pc
+dbline FFFFFFFF DE
+dbline 4B DE
+dbline 4C DE
+dbline 4D EC
+dbline 4E FA
+dbline 4F 108
+dbline FFFFFFFE 116
+dbline 0 116
+dbfunc e PORT_INT 11E fV
+dbline FFFFFFFF 11E
+dbline 53 11E
+dbline 54 11E
+dbline 55 122
+dbline 56 124
+dbline 57 126
+dbline FFFFFFFE 128
+dbline 0 128
+dbfunc e main 12A fV
+dbline FFFFFFFF 12A
+dbline 5B 12A
+dbline 5C 12A
+dbline 5D 12C
+dbline 5E 12E
+dbline 60 132
+dbline 61 132
+dbline 62 13C
+dbline 63 13E
+dbline 5F 13E
+dbline FFFFFFFE 140
+dbline 0 140
+dbfunc e timer1_ovf_isr 142 fV
+dbline FFFFFFFF 154
+dbline 68 154
+dbline 68 154
+dbline 69 158
+dbline 6A 15C
+dbline 6B 166
+dbline 6D 182
+dbline 6D 182
+dbline 6E 18C
+dbline 6F 190
+dbline 6F 190
+dbline 70 196
+dbline 71 1A0
+dbline 72 1A4
+dbline 72 1A4
+dbline 73 1A8
+dbline 74 1B2
+dbline 75 1B6
+dbline 76 1BA
+dbline 78 1BA
+dbline 79 1BA
+dbline 7A 1BA
+dbline 7B 1BA
+dbline 7C 1BA
+dbline FFFFFFFE 1BA
+dbline 0 1BA
+S _main Def012A
+S _timer1_ovf_isr Def0142
+S _Display Def0026
+S _Process Def00D4
+S _delay Def0000
+S _timer1_init Def000C
+S _PORT_INT Def011E
+A data size 13 flags 20
+dbfile D:\¹¤×÷\ÖÆ°æ³É¹¦\YL-60A~2\YL-60A~2\4.Ïà¹ØÀý³Ì\10.ÊýÂë¹ÜÊ±ÖÓ(¶¨Ê±Æ÷)\Ê±ÖÓ.c
+dbsym e disbuf 0 A[4:4]c
+dbsym e discode 4 A[10:10]kc
+dbsym e cnt E c
+dbsym e flag F c
+dbsym e timer 10 A[3:3]c
+S _discode Def0004
+S _timer Def0010
+S _cnt Def000E
+S _disbuf Def0000
+S _flag Def000F
+A idata size 13 flags 0
+A vector size 24 flags C
+T 00 00 00 00
+R 00 00 02 00
+T 02 00 00 00
+R 00 00 02 00
+T 04 00 C0 F9
+R 00 00 02 00
+T 06 00 A4 B0
+R 00 00 02 00
+T 08 00 99 92
+R 00 00 02 00
+T 0A 00 82 F8
+R 00 00 02 00
+T 0C 00 80 90
+R 00 00 02 00
+T 0E 00 00
+R 00 00 02 00
+T 0F 00 00
+R 00 00 02 00
+T 10 00 00 00
+R 00 00 02 00
+T 12 00 00
+R 00 00 02 00
+T 00 00 00 27 01 C0 03 95 0F 3F E8 F3 08 95
+R 00 00 00 00
+T 0C 00 22 24 2E BC 87 EC 8D BD 80 EC 8C BD 2F BC
+R 00 00 00 00
+T 1A 00 84 E0 8E BD 25 BE 2B BE 89 BF 08 95
+R 00 00 00 00
+T 26 00 4A 93 5A 93 80 E0 90 E0 E0 91
+R 00 00 00 00 20 06 01 00 04 00 40 08 01 00 04 00
+T 30 00 00 00 FF 27 E8 0F F9 1F 20 80 28 BA 87 EF
+R 00 00 00 00 00 02 01 00
+T 3E 00 8B BB DF DF 8F EF 8B BB 80 E0 90 E0 E0 91
+R 00 00 00 00 20 0A 01 00 04 00 40 0C 01 00 04 00
+T 4C 00 01 00 FF 27 E8 0F F9 1F 20 80 28 BA 8B EF
+R 00 00 00 00 00 02 01 00
+T 5A 00 8B BB D1 DF 8F EF 8B BB 40 91 0F 00 55 27
+R 00 00 00 00 00 0C 01 00
+T 68 00 40 30 45 07 49 F0 40 30 E0 E0 5E 07 CC F0
+R 00 00 00 00
+T 76 00 4F 3F E0 E0 5E 07 61 F0 14 C0 80 E0 90 E0
+R 00 00 00 00 20 0C 01 00 04 00 40 0E 01 00 04 00
+T 84 00 E0 91 02 00 FF 27 E8 0F F9 1F 80 81 8F 77
+R 00 00 00 00 00 04 01 00
+T 92 00 88 BB 09 C0 80 E0 90 E0 E0 91
+R 00 00 00 00 20 06 01 00 04 00 40 08 01 00 04 00
+T 9C 00 02 00 FF 27 E8 0F F9 1F 20 80 28 BA 8D EF
+R 00 00 00 00 00 02 01 00
+T AA 00 8B BB A9 DF 8F EF 8B BB 80 E0 90 E0 E0 91
+R 00 00 00 00 20 0A 01 00 04 00 40 0C 01 00 04 00
+T B8 00 03 00 FF 27 E8 0F F9 1F 20 80 28 BA 8E EF
+R 00 00 00 00 00 02 01 00
+T C6 00 8B BB 9B DF 8F EF 8B BB 59 91 49 91 08 95
+R 00 00 00 00
+T D4 00 0E 94 00 00 4A 93 5A 93 A9 01 1A E0 00 91
+R 00 00 00 00 12 04 00 00
+T E2 00 11 00 0E 94 00 00 FA 01 03 83 1A E0 00 91
+R 00 00 00 00 00 02 01 00 12 06 02 00
+T F0 00 11 00 0E 94 00 00 FA 01 02 83 1A E0 00 91
+R 00 00 00 00 00 02 01 00 12 06 01 00
+T FE 00 10 00 0E 94 00 00 FA 01 01 83 1A E0 00 91
+R 00 00 00 00 00 02 01 00 12 06 02 00
+T 0C 01 10 00 0E 94 00 00 FA 01 00 83 59 91 49 91
+R 00 00 00 00 00 02 01 00 12 06 01 00
+T 1A 01 24 96 08 95
+R 00 00 00 00
+T 1E 01 8F EF 8A BB 87 BB 8B BB 88 BB 08 95
+R 00 00 00 00
+T 2A 01 F9 DF 6F DF 78 94 06 C0 20 E0 30 E0
+R 00 00 00 00 20 0A 01 00 00 00 40 0C 01 00 00 00
+T 36 01 00 E0 10 E0 CC DF 74 DF F9 CF 08 95
+R 00 00 00 00 20 02 01 00 10 00 40 04 01 00 10 00
+T 20 00 0C 94 A1 00
+R 00 00 03 00 10 04 00 00
+T 42 01 2A 92 0A 93 1A 93 8A 93 9A 93 AA 93 EA 93
+R 00 00 00 00
+T 50 01 2F B6 2A 92 87 EC 8D BD 80 EC 8C BD 20 90
+R 00 00 00 00
+T 5E 01 0F 00 20 94 20 92 0F 00 02 2D 11 27 00 30
+R 00 00 00 00 00 02 01 00 00 08 01 00
+T 6C 01 01 07 49 F0 00 30 E0 E0 1E 07 0C F1 0F 3F
+R 00 00 00 00
+T 7A 01 E0 E0 1E 07 E9 F0 1C C0 80 91 10 00 8F 5F
+R 00 00 00 00 00 0C 01 00
+T 88 01 80 93 10 00 8C 33 A9 F4 22 24 20 92 10 00
+R 00 00 00 00 00 04 01 00 00 0E 01 00
+T 96 01 80 91 11 00 8F 5F 80 93 11 00 8C 33 59 F4
+R 00 00 00 00 00 04 01 00 00 0A 01 00
+T A4 01 20 92 11 00 80 91 12 00 8F 5F 80 93 12 00
+R 00 00 00 00 00 04 01 00 00 08 01 00 00 0E 01 00
+T B2 01 88 31 11 F4 20 92 12 00 29 90 2F BE E9 91
+R 00 00 00 00 00 08 01 00
+T C0 01 A9 91 99 91 89 91 19 91 09 91 29 90 18 95
+R 00 00 00 00

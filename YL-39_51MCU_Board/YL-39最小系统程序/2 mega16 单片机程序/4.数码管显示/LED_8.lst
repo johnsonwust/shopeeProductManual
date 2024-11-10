@@ -1,0 +1,184 @@
+__start:
+__text_start:
+    0033 E5CF      LDI	R28,0x5F
+    0034 E0D4      LDI	R29,4
+    0035 BFCD      OUT	0x3D,R28
+    0036 BFDE      OUT	0x3E,R29
+    0037 51CE      SUBI	R28,0x1E
+    0038 40D0      SBCI	R29,0
+    0039 EA0A      LDI	R16,0xAA
+    003A 8308      STD	Y+0,R16
+    003B 2400      CLR	R0
+    003C E7E2      LDI	R30,0x72
+    003D E0F0      LDI	R31,0
+    003E E010      LDI	R17,0
+    003F 37E2      CPI	R30,0x72
+    0040 07F1      CPC	R31,R17
+    0041 F011      BEQ	0x0044
+    0042 9201      ST	R0,Z+
+    0043 CFFB      RJMP	0x003F
+    0044 8300      STD	Z+0,R16
+    0045 E5E4      LDI	R30,0x54
+    0046 E0F0      LDI	R31,0
+    0047 E6A0      LDI	R26,0x60
+    0048 E0B0      LDI	R27,0
+    0049 E010      LDI	R17,0
+    004A 36E6      CPI	R30,0x66
+    004B 07F1      CPC	R31,R17
+    004C F021      BEQ	0x0051
+    004D 95C8      LPM
+    004E 9631      ADIW	R30,1
+    004F 920D      ST	R0,X+
+    0050 CFF9      RJMP	0x004A
+    0051 940E007D  CALL	_main
+_exit:
+    0053 CFFF      RJMP	_exit
+FILE: E:\制版成功\YL-60\YL-60A~2\4.相关例程\4.数码管显示\led_8.c
+(0001) /******************************************************************************/
+(0002) /*【编写时间】： 2011.07.07
+(0003) * 【作    者】： 雁翎电子
+(0004) * 【版    本】： V1.0
+(0005) * 【网    站】： http://ylelectronic.taobao.com/ 
+(0006) * 【Q      Q】： 348439350
+(0007) * 【编译环境】： ICCAVR  
+(0008) * 【函数功能】： 数码管显示1234 
+(0009) * 【晶    振】:  8M		
+(0010) * 【芯    片】:  ATMEGA16A	 
+(0011) * 【硬件连接】： J2短路帽接上  
+(0012) /******************************************************************************/  
+(0013) 
+(0014)       #define uchar unsigned char
+(0015) 	  #define uint  unsigned int
+(0016) 	  #include <iom16v.h>
+(0017) 	  #define Set_Bit(val, bitn)    (val |=(1<<(bitn))) 
+(0018)       #define Clr_Bit(val, bitn)    (val&=~(1<<(bitn))) 
+(0019)       #define Get_Bit(val, bitn)    (val &(1<<(bitn)) ) 
+(0020)       uchar  disbuf[4]={1,2,3,4};
+(0021)       uchar  discode[10]={ 0xC0, 0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90 };  //段码表
+(0022)       uchar  disbit[4]  ={ 0xFE, 0xFD,0xFB,0xF7}; //选通值   
+(0023) /******************************************************************************/
+(0024) //延时函数
+(0025) /******************************************************************************/  	                                             							
+(0026)       void delay(void)   
+(0027)            {uchar i;
+(0028)              for(i=0;i<255;i++);
+_delay:
+  i                    --> R16
+    0054 2700      CLR	R16
+    0055 C001      RJMP	0x0057
+    0056 9503      INC	R16
+    0057 3F0F      CPI	R16,0xFF
+    0058 F3E8      BCS	0x0056
+    0059 9508      RET
+_Display:
+  i                    --> R20
+    005A 940E008E  CALL	push_gset1
+(0029)            }
+(0030) /******************************************************************************/
+(0031) //显示函数
+(0032) /******************************************************************************/  
+(0033) 	  void Display(void)
+(0034)          {  
+(0035) 		    uchar i;
+(0036)             for(i=0;i<4;i++)
+    005C 2744      CLR	R20
+    005D C01A      RJMP	0x0078
+(0037)                 {
+(0038) 		         PORTB=discode[disbuf[i]];
+    005E E680      LDI	R24,0x60
+    005F E090      LDI	R25,0
+    0060 2FE4      MOV	R30,R20
+    0061 27FF      CLR	R31
+    0062 0FE8      ADD	R30,R24
+    0063 1FF9      ADC	R31,R25
+    0064 81E0      LDD	R30,Z+0
+    0065 27FF      CLR	R31
+    0066 E684      LDI	R24,0x64
+    0067 E090      LDI	R25,0
+    0068 0FE8      ADD	R30,R24
+    0069 1FF9      ADC	R31,R25
+    006A 8020      LDD	R2,Z+0
+    006B BA28      OUT	0x18,R2
+(0039)                  PORTA=disbit[i];
+    006C E68E      LDI	R24,0x6E
+    006D E090      LDI	R25,0
+    006E 2FE4      MOV	R30,R20
+    006F 27FF      CLR	R31
+    0070 0FE8      ADD	R30,R24
+    0071 1FF9      ADC	R31,R25
+    0072 8020      LDD	R2,Z+0
+    0073 BA2B      OUT	0x1B,R2
+(0040)                  delay();
+    0074 DFDF      RCALL	_delay
+(0041)                  PORTA=0xff;
+    0075 EF8F      LDI	R24,0xFF
+    0076 BB8B      OUT	0x1B,R24
+    0077 9543      INC	R20
+    0078 3044      CPI	R20,4
+    0079 F320      BCS	0x005E
+    007A 940E0091  CALL	pop_gset1
+    007C 9508      RET
+(0042) 			    } 
+(0043) 		 }
+(0044) /******************************************************************************/
+(0045) //主函数不断扫描数码管
+(0046) /******************************************************************************/  
+(0047) 	  void main (void)
+(0048)              { 
+(0049)                   DDRA=0xFF;       //设为输出口     
+_main:
+    007D EF8F      LDI	R24,0xFF
+    007E BB8A      OUT	0x1A,R24
+(0050)                   DDRB=0xFF;       //设为输出口 
+    007F BB87      OUT	0x17,R24
+(0051) 		          PORTA=0xFF;      
+    0080 BB8B      OUT	0x1B,R24
+(0052)                   PORTB=0xFF;
+    0081 BB88      OUT	0x18,R24
+    0082 C001      RJMP	0x0084
+(0053)   
+(0054)                   while(1)
+(0055)                  {    
+(0056) 				    Display();  
+FILE: <library>
+    0083 DFD6      RCALL	_Display
+    0084 CFFE      RJMP	0x0083
+    0085 9508      RET
+push_gset5:
+    0086 92FA      ST	R15,-Y
+    0087 92EA      ST	R14,-Y
+push_gset4:
+    0088 92DA      ST	R13,-Y
+    0089 92CA      ST	R12,-Y
+push_gset3:
+    008A 92BA      ST	R11,-Y
+    008B 92AA      ST	R10,-Y
+push_gset2:
+    008C 937A      ST	R23,-Y
+    008D 936A      ST	R22,-Y
+push_gset1:
+    008E 935A      ST	R21,-Y
+    008F 934A      ST	R20,-Y
+    0090 9508      RET
+pop_gset1:
+    0091 E0E1      LDI	R30,1
+pop:
+    0092 9149      LD	R20,Y+
+    0093 9159      LD	R21,Y+
+    0094 FDE0      SBRC	R30,0
+    0095 9508      RET
+    0096 9169      LD	R22,Y+
+    0097 9179      LD	R23,Y+
+    0098 FDE1      SBRC	R30,1
+    0099 9508      RET
+    009A 90A9      LD	R10,Y+
+    009B 90B9      LD	R11,Y+
+    009C FDE2      SBRC	R30,2
+    009D 9508      RET
+    009E 90C9      LD	R12,Y+
+    009F 90D9      LD	R13,Y+
+    00A0 FDE3      SBRC	R30,3
+    00A1 9508      RET
+    00A2 90E9      LD	R14,Y+
+    00A3 90F9      LD	R15,Y+
+    00A4 9508      RET

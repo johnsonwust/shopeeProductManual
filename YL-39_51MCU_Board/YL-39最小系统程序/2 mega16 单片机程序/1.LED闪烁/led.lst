@@ -1,0 +1,104 @@
+__start:
+__text_start:
+    002A E5CF      LDI	R28,0x5F
+    002B E0D4      LDI	R29,4
+    002C BFCD      OUT	0x3D,R28
+    002D BFDE      OUT	0x3E,R29
+    002E 51C0      SUBI	R28,0x10
+    002F 40D0      SBCI	R29,0
+    0030 EA0A      LDI	R16,0xAA
+    0031 8308      STD	Y+0,R16
+    0032 2400      CLR	R0
+    0033 E6E0      LDI	R30,0x60
+    0034 E0F0      LDI	R31,0
+    0035 E010      LDI	R17,0
+    0036 36E0      CPI	R30,0x60
+    0037 07F1      CPC	R31,R17
+    0038 F011      BEQ	0x003B
+    0039 9201      ST	R0,Z+
+    003A CFFB      RJMP	0x0036
+    003B 8300      STD	Z+0,R16
+    003C E5E4      LDI	R30,0x54
+    003D E0F0      LDI	R31,0
+    003E E6A0      LDI	R26,0x60
+    003F E0B0      LDI	R27,0
+    0040 E010      LDI	R17,0
+    0041 35E4      CPI	R30,0x54
+    0042 07F1      CPC	R31,R17
+    0043 F021      BEQ	0x0048
+    0044 95C8      LPM
+    0045 9631      ADIW	R30,1
+    0046 920D      ST	R0,X+
+    0047 CFF9      RJMP	0x0041
+    0048 940E005E  CALL	_main
+_exit:
+    004A CFFF      RJMP	_exit
+FILE: E:\制版成功\YL-60\YL-60A~2\4.相关例程\1.LED闪烁\led.c
+(0001) /******************************************************************************/
+(0002) /*【编写时间】： 2011.07.07
+(0003) * 【作    者】： 雁翎电子
+(0004) * 【版    本】： V1.0
+(0005) * 【网    站】： http://ylelectronic.taobao.com/ 
+(0006) * 【Q      Q】： 348439350
+(0007) * 【编译环境】： ICCAVR  
+(0008) * 【函数功能】： 闪烁LED灯	
+(0009) * 【晶    振】:  8M		
+(0010) * 【芯    片】:  ATMEGA16A	 
+(0011) * 【硬件连接】： J1短路帽接上               
+(0012) /******************************************************************************/
+(0013) 	  #include <iom16v.h>
+(0014) 	   void delayms(void)	 // 延时子程序       
+(0015)           {						
+(0016) 	         unsigned int i,j;
+(0017) 			 for(i=0;i<255;i++)
+_delayms:
+  i                    --> R16
+  j                    --> R18
+    004B 2700      CLR	R16
+    004C 2711      CLR	R17
+    004D C00B      RJMP	0x0059
+(0018) 			    for(j=0;j<3000;j++);
+    004E 2722      CLR	R18
+    004F 2733      CLR	R19
+    0050 C002      RJMP	0x0053
+    0051 5F2F      SUBI	R18,0xFF
+    0052 4F3F      SBCI	R19,0xFF
+    0053 3B28      CPI	R18,0xB8
+    0054 E0EB      LDI	R30,0xB
+    0055 073E      CPC	R19,R30
+    0056 F3D0      BCS	0x0051
+    0057 5F0F      SUBI	R16,0xFF
+    0058 4F1F      SBCI	R17,0xFF
+    0059 3F0F      CPI	R16,0xFF
+    005A E0E0      LDI	R30,0
+    005B 071E      CPC	R17,R30
+    005C F388      BCS	0x004E
+    005D 9508      RET
+(0019)           }
+(0020)        void main(void)
+(0021) 	      { 
+(0022) 			 DDRD=0xFF;    //PD口设成输出口
+_main:
+    005E EF8F      LDI	R24,0xFF
+    005F BB81      OUT	0x11,R24
+(0023) 			 PORTD=0xFF; 
+    0060 BB82      OUT	0x12,R24
+    0061 C006      RJMP	0x0068
+(0024) 			 
+(0025) 	
+(0026) 			 while(1)
+(0027) 		     {	
+(0028) 		
+(0029) 	         PORTD=0x00;
+    0062 2422      CLR	R2
+    0063 BA22      OUT	0x12,R2
+(0030)      		 delayms();           //延时300ms
+    0064 DFE6      RCALL	_delayms
+(0031) 	  		 PORTD=0xff; 
+    0065 EF8F      LDI	R24,0xFF
+    0066 BB82      OUT	0x12,R24
+(0032)      		 delayms();           //延时300ms                 
+FILE: <library>
+    0067 DFE3      RCALL	_delayms
+    0068 CFF9      RJMP	0x0062
+    0069 9508      RET

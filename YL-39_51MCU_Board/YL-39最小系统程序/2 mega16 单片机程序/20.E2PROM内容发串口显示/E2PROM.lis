@@ -1,0 +1,214 @@
+                        .module E2PROM.C
+                        .area text(rom, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\20.E2PROM内容发串口显示\E2PROM.C
+ 0000                   .dbfunc e putchar _putchar fV
+ 0000           ;              c -> R16
+                        .even
+ 0000           _putchar::
+ 0000                   .dbline -1
+ 0000                   .dbline 25
+ 0000           ; /******************************************************************************/
+ 0000           ; 
+ 0000           ; /*【编写时间】： 2011.07.07
+ 0000           ; * 【作    者】： 雁翎电子
+ 0000           ; * 【版    本】： V1.0
+ 0000           ; * 【网    站】： http://ylelectronic.taobao.com/ 
+ 0000           ; * 【Q      Q】： 348439350
+ 0000           ; * 【编译环境】： ICCAVR  
+ 0000           ; * 【函数功能】： 把EEPROM 512个字节读到PC串口调试助手显示 
+ 0000           ; * 【晶    振】:  8M           
+ 0000           ; * 【芯    片】:  ATMEGA16A     
+ 0000           ; * 【硬件连接】：    
+ 0000           ; /******************************************************************************/
+ 0000           ; #include <iom16v.h>
+ 0000           ; //#include <stdio.h>   
+ 0000           ; #include <eeprom.h>  
+ 0000           ; #define fosc 8000000 //晶振8MHZ
+ 0000           ; #define baud 19200     //波特率
+ 0000           ; #define Set_Bit(val, bitn)    (val |=(1<<(bitn))) 
+ 0000           ; #define Clr_Bit(val, bitn)    (val&=~(1<<(bitn))) 
+ 0000           ; #define Get_Bit(val, bitn)    (val &(1<<(bitn)) ) 
+ 0000           ; #define Cpl_Bit(val, bitn)    (val^=(1<<(bitn)) )
+ 0000           ; 
+ 0000           ; void putchar(unsigned char c)
+ 0000           ;       {        
+ 0000           L2:
+ 0000                   .dbline 26
+ 0000           ;      while (!(UCSRA&(1<<UDRE)));
+ 0000           L3:
+ 0000                   .dbline 26
+ 0000 5D9B              sbis 0xb,5
+ 0002 FECF              rjmp L2
+ 0004           X0:
+ 0004                   .dbline 27
+ 0004           ;        UDR=c;    
+ 0004 0CB9              out 0xc,R16
+ 0006                   .dbline -2
+ 0006           L1:
+ 0006                   .dbline 0 ; func end
+ 0006 0895              ret
+ 0008                   .dbsym r c 16 c
+ 0008                   .dbend
+ 0008                   .dbfunc e getchar _getchar fc
+                        .even
+ 0008           _getchar::
+ 0008                   .dbline -1
+ 0008                   .dbline 31
+ 0008           ;       }
+ 0008           ; /*            字符输入函数             */     
+ 0008           ; unsigned char getchar(void)
+ 0008           ;       {
+ 0008           L6:
+ 0008                   .dbline 32
+ 0008           ;        while(!(UCSRA& (1<<RXC)));
+ 0008           L7:
+ 0008                   .dbline 32
+ 0008 5F9B              sbis 0xb,7
+ 000A FECF              rjmp L6
+ 000C           X1:
+ 000C                   .dbline 33
+ 000C           ;      return UDR;
+ 000C 0CB1              in R16,0xc
+ 000E                   .dbline -2
+ 000E           L5:
+ 000E                   .dbline 0 ; func end
+ 000E 0895              ret
+ 0010                   .dbend
+ 0010                   .dbfunc e uart_init _uart_init fV
+                        .even
+ 0010           _uart_init::
+ 0010                   .dbline -1
+ 0010                   .dbline 38
+ 0010           ;       }
+ 0010           ; 
+ 0010           ; /*                    UART初始化                              */      
+ 0010           ; void uart_init(void)
+ 0010           ; {
+ 0010                   .dbline 39
+ 0010           ;  UCSRB=(1<<RXEN)|(1<<TXEN);//允许发送和接收
+ 0010 88E1              ldi R24,24
+ 0012 8AB9              out 0xa,R24
+ 0014                   .dbline 40
+ 0014           ;  UBRRL=(fosc/16/(baud+1))%256;
+ 0014 8AE1              ldi R24,26
+ 0016 89B9              out 0x9,R24
+ 0018                   .dbline 41
+ 0018           ;  UBRRH=(fosc/16/(baud+1))/256;
+ 0018 2224              clr R2
+ 001A 20BC              out 0x20,R2
+ 001C                   .dbline 42
+ 001C           ;  UCSRC=(1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);//8位数据+1位STOP位
+ 001C 86E8              ldi R24,134
+ 001E 80BD              out 0x20,R24
+ 0020                   .dbline -2
+ 0020           L9:
+ 0020                   .dbline 0 ; func end
+ 0020 0895              ret
+ 0022                   .dbend
+ 0022                   .dbfunc e main _main fV
+ 0022           ;              i -> R10
+ 0022           ;              j -> R20,R21
+                        .even
+ 0022           _main::
+ 0022                   .dbline -1
+ 0022                   .dbline 48
+ 0022           ; }
+ 0022           ; /*                    RS232通信main函数               */
+ 0022           ; 
+ 0022           ; 
+ 0022           ; void main(void)
+ 0022           ; {
+ 0022                   .dbline 52
+ 0022           ;  unsigned char i;
+ 0022           ;  unsigned int  j;
+ 0022           ; 
+ 0022           ;  uart_init();
+ 0022 F6DF              xcall _uart_init
+ 0024                   .dbline 54
+ 0024           ;  
+ 0024           ;  for(j=0;j<512;j++)
+ 0024 4427              clr R20
+ 0026 5527              clr R21
+ 0028 07C0              xjmp L14
+ 002A           L11:
+ 002A                   .dbline 55
+ 002A           ;    {
+ 002A                   .dbline 56
+ 002A           ;    putchar(EEPROMread(i));
+ 002A 0A2D              mov R16,R10
+ 002C 1127              clr R17
+ 002E 0E940000          xcall _EEPROMread
+ 0032 E6DF              xcall _putchar
+ 0034                   .dbline 57
+ 0034           ;    }
+ 0034           L12:
+ 0034                   .dbline 54
+ 0034 4F5F              subi R20,255  ; offset = 1
+ 0036 5F4F              sbci R21,255
+ 0038           L14:
+ 0038                   .dbline 54
+ 0038 4030              cpi R20,0
+ 003A E2E0              ldi R30,2
+ 003C 5E07              cpc R21,R30
+ 003E A8F3              brlo L11
+ 0040           X2:
+ 0040 11C0              xjmp L16
+ 0042           L15:
+ 0042                   .dbline 59
+ 0042           ;  while(1)
+ 0042           ;     {
+ 0042                   .dbline 60
+ 0042           ;        i=getchar();
+ 0042 E2DF              xcall _getchar
+ 0044 A02E              mov R10,R16
+ 0046                   .dbline 61
+ 0046           ;        if (i!=0)//按PC键盘开始测试
+ 0046 0023              tst R16
+ 0048 69F0              breq L18
+ 004A           X3:
+ 004A                   .dbline 62
+ 004A           ;          {
+ 004A                   .dbline 64
+ 004A           ;           
+ 004A           ;               for(j=0;j<512;j++)
+ 004A 4427              clr R20
+ 004C 5527              clr R21
+ 004E 06C0              xjmp L23
+ 0050           L20:
+ 0050                   .dbline 65
+ 0050           ;                 {
+ 0050                   .dbline 66
+ 0050           ;                 EEPROMwrite(j,i);
+ 0050 2A2D              mov R18,R10
+ 0052 8A01              movw R16,R20
+ 0054 0E940000          xcall _EEPROMwrite
+ 0058                   .dbline 67
+ 0058           ;                 }
+ 0058           L21:
+ 0058                   .dbline 64
+ 0058 4F5F              subi R20,255  ; offset = 1
+ 005A 5F4F              sbci R21,255
+ 005C           L23:
+ 005C                   .dbline 64
+ 005C 4030              cpi R20,0
+ 005E E2E0              ldi R30,2
+ 0060 5E07              cpc R21,R30
+ 0062 B0F3              brlo L20
+ 0064           X4:
+ 0064                   .dbline 68
+ 0064           ;          }     
+ 0064           L18:
+ 0064                   .dbline 69
+ 0064           ;       }
+ 0064           L16:
+ 0064                   .dbline 58
+ 0064 EECF              xjmp L15
+ 0066           X5:
+ 0066                   .dbline -2
+ 0066           L10:
+ 0066                   .dbline 0 ; func end
+ 0066 0895              ret
+ 0068                   .dbsym r i 10 c
+ 0068                   .dbsym r j 20 i
+ 0068                   .dbend
+ 0068           ; }

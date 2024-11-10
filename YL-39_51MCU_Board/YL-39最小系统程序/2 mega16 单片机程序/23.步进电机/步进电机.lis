@@ -1,0 +1,172 @@
+                        .module _步进电机.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\23.步进电机\步进电机.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\23.步进电机\步进电机.c
+ 0000           _TAB::
+ 0000                   .blkb 2
+                        .area idata
+ 0000 0401              .byte 4,1
+                        .area data(ram, con, rel)
+ 0002                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\23.步进电机\步进电机.c
+ 0002                   .blkb 2
+                        .area idata
+ 0002 0802              .byte 8,2
+                        .area data(ram, con, rel)
+ 0004                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\23.步进电机\步进电机.c
+ 0004                   .dbsym e TAB _TAB A[4:4]c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\23.步进电机\步进电机.c
+ 0000                   .dbfunc e delay _delay fV
+ 0000           ;              i -> R16
+ 0000           ;              j -> R18
+                        .even
+ 0000           _delay::
+ 0000                   .dbline -1
+ 0000                   .dbline 22
+ 0000           ; /******************************************************************************/
+ 0000           ; /*【编写时间】： 2011.07.07
+ 0000           ; * 【作    者】： 雁翎电子
+ 0000           ; * 【版    本】： V1.0
+ 0000           ; * 【网    站】： http://ylelectronic.taobao.com/ 
+ 0000           ; * 【Q      Q】： 348439350
+ 0000           ; * 【编译环境】： ICCAVR  
+ 0000           ; * 【函数功能】： 步进电机试验
+ 0000           ; * 【晶    振】:  8M           
+ 0000           ; * 【芯    片】:  ATMEGA16A     
+ 0000           ; * 【硬件连接】： J1短路帽接上               
+ 0000           ; /******************************************************************************/
+ 0000           ; 
+ 0000           ;  #define uchar unsigned char
+ 0000           ;  #define uint unsigned int
+ 0000           ;  #define Set_Bit(val, bitn)    (val |=(1<<(bitn))) 
+ 0000           ;  #define Clr_Bit(val, bitn)    (val&=~(1<<(bitn)))
+ 0000           ;  #include <iom16v.h>
+ 0000           ;  #include <macros.h>  
+ 0000           ; uchar TAB[4]={0x04,0x01,0x08,0x02};
+ 0000           ; void delay(void)
+ 0000           ;  {
+ 0000                   .dbline 24
+ 0000           ;       uchar i,j;
+ 0000           ;       for(i=0;i<20;i++)
+ 0000 0027              clr R16
+ 0002 06C0              xjmp L5
+ 0004           L2:
+ 0004                   .dbline 25
+ 0004           ;       for(j=0;j<255;j++);
+ 0004 2227              clr R18
+ 0006 01C0              xjmp L9
+ 0008           L6:
+ 0008                   .dbline 25
+ 0008           L7:
+ 0008                   .dbline 25
+ 0008 2395              inc R18
+ 000A           L9:
+ 000A                   .dbline 25
+ 000A 2F3F              cpi R18,255
+ 000C E8F3              brlo L6
+ 000E           X0:
+ 000E           L3:
+ 000E                   .dbline 24
+ 000E 0395              inc R16
+ 0010           L5:
+ 0010                   .dbline 24
+ 0010 0431              cpi R16,20
+ 0012 C0F3              brlo L2
+ 0014           X1:
+ 0014                   .dbline -2
+ 0014           L1:
+ 0014                   .dbline 0 ; func end
+ 0014 0895              ret
+ 0016                   .dbsym r i 16 c
+ 0016                   .dbsym r j 18 c
+ 0016                   .dbend
+ 0016                   .dbfunc e main _main fV
+ 0016           ;              b -> R20
+ 0016           ;              a -> R22
+                        .even
+ 0016           _main::
+ 0016                   .dbline -1
+ 0016                   .dbline 29
+ 0016           ; }
+ 0016           ; 
+ 0016           ; void main(void)
+ 0016           ; {
+ 0016                   .dbline 31
+ 0016           ;       uchar a,b;
+ 0016           ;       DDRB=0XFF;
+ 0016 8FEF              ldi R24,255
+ 0018 87BB              out 0x17,R24
+ 001A                   .dbline 32
+ 001A           ;       PORTB=0XFF;         
+ 001A 88BB              out 0x18,R24
+ 001C                   .dbline 33
+ 001C           ;     for(b=0;b<50;b++)
+ 001C 4427              clr R20
+ 001E 0FC0              xjmp L14
+ 0020           L11:
+ 0020                   .dbline 34
+ 0020           ;                   {
+ 0020                   .dbline 35
+ 0020           ;                      for(a=0;a<4;a++)
+ 0020 6627              clr R22
+ 0022 0AC0              xjmp L18
+ 0024           L15:
+ 0024                   .dbline 36
+ 0024           ;                          {
+ 0024                   .dbline 37
+ 0024           ;                       PORTB=TAB[a];
+ 0024 80E0              ldi R24,<_TAB
+ 0026 90E0              ldi R25,>_TAB
+ 0028 E62F              mov R30,R22
+ 002A FF27              clr R31
+ 002C E80F              add R30,R24
+ 002E F91F              adc R31,R25
+ 0030 2080              ldd R2,z+0
+ 0032 28BA              out 0x18,R2
+ 0034                   .dbline 38
+ 0034           ;                       delay();
+ 0034 E5DF              xcall _delay
+ 0036                   .dbline 39
+ 0036           ;                          }
+ 0036           L16:
+ 0036                   .dbline 35
+ 0036 6395              inc R22
+ 0038           L18:
+ 0038                   .dbline 35
+ 0038 6430              cpi R22,4
+ 003A A0F3              brlo L15
+ 003C           X2:
+ 003C                   .dbline 40
+ 003C           ;                   }
+ 003C           L12:
+ 003C                   .dbline 33
+ 003C 4395              inc R20
+ 003E           L14:
+ 003E                   .dbline 33
+ 003E 4233              cpi R20,50
+ 0040 78F3              brlo L11
+ 0042           X3:
+ 0042                   .dbline 41
+ 0042           ;                       PORTB=0xff;
+ 0042 8FEF              ldi R24,255
+ 0044 88BB              out 0x18,R24
+ 0046           L19:
+ 0046                   .dbline 42
+ 0046           ;                        while(1);
+ 0046           L20:
+ 0046                   .dbline 42
+ 0046 FFCF              xjmp L19
+ 0048           X4:
+ 0048                   .dbline -2
+ 0048           L10:
+ 0048                   .dbline 0 ; func end
+ 0048 0895              ret
+ 004A                   .dbsym r b 20 c
+ 004A                   .dbsym r a 22 c
+ 004A                   .dbend
+ 004A           ;               }
+ 004A           ;                  
+ 004A           ;       
+ 004A           ;               
+ 004A           ;       

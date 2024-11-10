@@ -1,0 +1,617 @@
+                        .module AVR解码.C
+                        .area text(rom, con, rel)
+ 0000                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+                        .area data(ram, con, rel)
+ 0000                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0000           _disbuf::
+ 0000                   .blkb 2
+                        .area idata
+ 0000 0102              .byte 1,2
+                        .area data(ram, con, rel)
+ 0002                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0002                   .blkb 2
+                        .area idata
+ 0002 0304              .byte 3,4
+                        .area data(ram, con, rel)
+ 0004                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0004                   .dbsym e disbuf _disbuf A[4:4]c
+ 0004           _discode::
+ 0004                   .blkb 2
+                        .area idata
+ 0004 C0F9              .byte 192,249
+                        .area data(ram, con, rel)
+ 0006                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0006                   .blkb 2
+                        .area idata
+ 0006 A4B0              .byte 164,176
+                        .area data(ram, con, rel)
+ 0008                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0008                   .blkb 2
+                        .area idata
+ 0008 9992              .byte 153,146
+                        .area data(ram, con, rel)
+ 000A                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 000A                   .blkb 2
+                        .area idata
+ 000A 82F8              .byte 130,248
+                        .area data(ram, con, rel)
+ 000C                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 000C                   .blkb 2
+                        .area idata
+ 000C 8090              .byte 128,144
+                        .area data(ram, con, rel)
+ 000E                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 000E                   .blkb 2
+                        .area idata
+ 000E 8880              .byte 136,128
+                        .area data(ram, con, rel)
+ 0010                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0010                   .blkb 2
+                        .area idata
+ 0010 C6C0              .byte 198,192
+                        .area data(ram, con, rel)
+ 0012                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0012                   .blkb 2
+                        .area idata
+ 0012 868E              .byte 134,142
+                        .area data(ram, con, rel)
+ 0014                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0014                   .dbsym e discode _discode A[16:16]c
+ 0014           _disbit::
+ 0014                   .blkb 2
+                        .area idata
+ 0014 FEFD              .byte 254,253
+                        .area data(ram, con, rel)
+ 0016                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0016                   .blkb 2
+                        .area idata
+ 0016 FBF7              .byte 251,247
+                        .area data(ram, con, rel)
+ 0018                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0018                   .dbsym e disbit _disbit A[4:4]c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0000                   .dbfunc e delay _delay fV
+ 0000           ;              i -> R16
+                        .even
+ 0000           _delay::
+ 0000                   .dbline -1
+ 0000                   .dbline 34
+ 0000           ; /******************************************************************************/
+ 0000           ; /*  Name:  数码管显示地址码与键码J2要插上                                     */
+ 0000           ; /*  编译坏境：ICCAVR 7.16                                                     */
+ 0000           ; /*  Designed by :廖文丹                         Date:2007/6/21                */
+ 0000           ; /*  开发环境:ICCAVR                                                           */
+ 0000           ; /*  QQ:80184985 真红炎神                                                      */
+ 0000           ; /******************************************************************************/  
+ 0000           ;   #include <iom16v.h>
+ 0000           ;   #include <macros.h>  
+ 0000           ;   #define uint  unsigned int
+ 0000           ;   #define uchar unsigned char
+ 0000           ;   #define Set_Bit(val, bitn)    (val |=(1<<(bitn))) 
+ 0000           ;   #define Clr_Bit(val, bitn)    (val&=~(1<<(bitn))) 
+ 0000           ;   #define Get_Bit(val, bitn)    (val &(1<<(bitn)) ) 
+ 0000           ;   #define Cpl_Bit(val, bitn)    (val^=(1<<(bitn)) )
+ 0000           ;   #define fosc 8000000 //晶振8MHZ
+ 0000           ;   #define baud 19200   //波特率
+ 0000           ; //*****************************************************************************/
+ 0000           ;    uchar  disbuf[4]={1,2,3,4};
+ 0000           ;    uchar  discode[]={ 0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0x88,0x80,0xc6,0xc0,0x86,0x8e };  //段码表
+ 0000           ;    uchar  disbit[4]  ={ 0xFE, 0xFD,0xFB,0xF7}; //选通值   
+ 0000           ;    uchar bitcnt;
+ 0000           ;    uint newFall;
+ 0000           ;    uint oldFall;
+ 0000           ;    uint data0;
+ 0000           ;    uint data1;  
+ 0000           ;   //函数声明
+ 0000           ;    void ICEInit(void);
+ 0000           ;  
+ 0000           ; /******************************************************************************/
+ 0000           ; //延时函数
+ 0000           ; /******************************************************************************/                                                                                                      
+ 0000           ;       void delay(void)   
+ 0000           ;            {
+ 0000                   .dbline 36
+ 0000           ;                    uchar i;
+ 0000           ;              for(i=0;i<255;i++);
+ 0000 0027              clr R16
+ 0002 01C0              xjmp L5
+ 0004           L2:
+ 0004                   .dbline 36
+ 0004           L3:
+ 0004                   .dbline 36
+ 0004 0395              inc R16
+ 0006           L5:
+ 0006                   .dbline 36
+ 0006 0F3F              cpi R16,255
+ 0008 E8F3              brlo L2
+ 000A           X0:
+ 000A                   .dbline -2
+ 000A           L1:
+ 000A                   .dbline 0 ; func end
+ 000A 0895              ret
+ 000C                   .dbsym r i 16 c
+ 000C                   .dbend
+ 000C                   .dbfunc e Display _Display fV
+ 000C           ;              i -> R20
+                        .even
+ 000C           _Display::
+ 000C 4A93              st -y,R20
+ 000E                   .dbline -1
+ 000E                   .dbline 42
+ 000E           ;            }
+ 000E           ; /******************************************************************************/
+ 000E           ; //显示函数
+ 000E           ; /******************************************************************************/  
+ 000E           ;         void Display(void)
+ 000E           ;          {  
+ 000E                   .dbline 44
+ 000E           ;                   uchar i;
+ 000E           ;             for(i=0;i<4;i++)
+ 000E 4427              clr R20
+ 0010 1AC0              xjmp L10
+ 0012           L7:
+ 0012                   .dbline 45
+ 0012           ;                 {
+ 0012                   .dbline 46
+ 0012           ;                        PORTB=discode[disbuf[i]];
+ 0012 80E0              ldi R24,<_disbuf
+ 0014 90E0              ldi R25,>_disbuf
+ 0016 E42F              mov R30,R20
+ 0018 FF27              clr R31
+ 001A E80F              add R30,R24
+ 001C F91F              adc R31,R25
+ 001E E081              ldd R30,z+0
+ 0020 FF27              clr R31
+ 0022 80E0              ldi R24,<_discode
+ 0024 90E0              ldi R25,>_discode
+ 0026 E80F              add R30,R24
+ 0028 F91F              adc R31,R25
+ 002A 2080              ldd R2,z+0
+ 002C 28BA              out 0x18,R2
+ 002E                   .dbline 47
+ 002E           ;                  PORTA=disbit[i];
+ 002E 80E0              ldi R24,<_disbit
+ 0030 90E0              ldi R25,>_disbit
+ 0032 E42F              mov R30,R20
+ 0034 FF27              clr R31
+ 0036 E80F              add R30,R24
+ 0038 F91F              adc R31,R25
+ 003A 2080              ldd R2,z+0
+ 003C 2BBA              out 0x1b,R2
+ 003E                   .dbline 48
+ 003E           ;                  delay();
+ 003E E0DF              xcall _delay
+ 0040                   .dbline 49
+ 0040           ;                  PORTA=0xff;
+ 0040 8FEF              ldi R24,255
+ 0042 8BBB              out 0x1b,R24
+ 0044                   .dbline 50
+ 0044           ;                           } 
+ 0044           L8:
+ 0044                   .dbline 44
+ 0044 4395              inc R20
+ 0046           L10:
+ 0046                   .dbline 44
+ 0046 4430              cpi R20,4
+ 0048 20F3              brlo L7
+ 004A           X1:
+ 004A                   .dbline -2
+ 004A           L6:
+ 004A                   .dbline 0 ; func end
+ 004A 4991              ld R20,y+
+ 004C 0895              ret
+ 004E                   .dbsym r i 20 c
+ 004E                   .dbend
+ 004E                   .dbfunc e ICEInit _ICEInit fV
+                        .even
+ 004E           _ICEInit::
+ 004E                   .dbline -1
+ 004E                   .dbline 56
+ 004E           ;                }
+ 004E           ; /******************************************************************************/
+ 004E           ; //T/C1 捕获初始代
+ 004E           ; /******************************************************************************/               
+ 004E           ;  void ICEInit(void) //T/C1初始化
+ 004E           ;  {
+ 004E                   .dbline 57
+ 004E           ;     TIMSK=0X20;   //使能捕获中断
+ 004E 80E2              ldi R24,32
+ 0050 89BF              out 0x39,R24
+ 0052                   .dbline 58
+ 0052           ;     TCCR1A=0X00;  //T/C1时钟与系统相同，本文使用系统AVR内部自带8MHz振荡源.T/C1时钟周期为1μs
+ 0052 2224              clr R2
+ 0054 2FBC              out 0x2f,R2
+ 0056                   .dbline 59
+ 0056           ;     TCCR1B=0X82;  //使能噪音抑制，下降沿触发中断
+ 0056 82E8              ldi R24,130
+ 0058 8EBD              out 0x2e,R24
+ 005A                   .dbline -2
+ 005A           L11:
+ 005A                   .dbline 0 ; func end
+ 005A 0895              ret
+ 005C                   .dbend
+ 005C                   .dbfunc e main _main fV
+                        .even
+ 005C           _main::
+ 005C                   .dbline -1
+ 005C                   .dbline 65
+ 005C           ;  }
+ 005C           ; /******************************************************************************/
+ 005C           ; //主函数 显示用
+ 005C           ; /******************************************************************************/  
+ 005C           ;  void main(void)
+ 005C           ;  {  
+ 005C                   .dbline 66
+ 005C           ;      DDRA=0xFF;       //设为输出口     
+ 005C 8FEF              ldi R24,255
+ 005E 8ABB              out 0x1a,R24
+ 0060                   .dbline 67
+ 0060           ;      DDRB=0xFF;       //设为输出口 
+ 0060 87BB              out 0x17,R24
+ 0062                   .dbline 68
+ 0062           ;      PORTA=0xFF;      
+ 0062 8BBB              out 0x1b,R24
+ 0064                   .dbline 69
+ 0064           ;      PORTB=0xFF; 
+ 0064 88BB              out 0x18,R24
+ 0066                   .dbline 70
+ 0066           ;      ICEInit();
+ 0066 F3DF              xcall _ICEInit
+ 0068                   .dbline 71
+ 0068           ;      SEI();
+ 0068 7894              sei
+ 006A 01C0              xjmp L14
+ 006C           L13:
+ 006C                   .dbline 74
+ 006C           ;        
+ 006C           ;    while(1)
+ 006C           ;    {
+ 006C                   .dbline 75
+ 006C           ;       Display();
+ 006C CFDF              xcall _Display
+ 006E                   .dbline 76
+ 006E           ;    }
+ 006E           L14:
+ 006E                   .dbline 73
+ 006E FECF              xjmp L13
+ 0070           X2:
+ 0070                   .dbline -2
+ 0070           L12:
+ 0070                   .dbline 0 ; func end
+ 0070 0895              ret
+ 0072                   .dbend
+                        .area vector(rom, abs)
+                        .org 20
+ 0014 0C943900          jmp _CAPT_ISR
+                        .area text(rom, con, rel)
+ 0072                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0072                   .dbfunc e CAPT_ISR _CAPT_ISR fV
+ 0072           ;              a -> <dead>
+ 0072           ;           temp -> R16,R17
+                        .even
+ 0072           _CAPT_ISR::
+ 0072 1A92              st -y,R1
+ 0074 2A92              st -y,R2
+ 0076 3A92              st -y,R3
+ 0078 4A92              st -y,R4
+ 007A 5A92              st -y,R5
+ 007C 0A93              st -y,R16
+ 007E 1A93              st -y,R17
+ 0080 8A93              st -y,R24
+ 0082 9A93              st -y,R25
+ 0084 AA93              st -y,R26
+ 0086 EA93              st -y,R30
+ 0088 1FB6              in R1,0x3f
+ 008A 1A92              st -y,R1
+ 008C                   .dbline -1
+ 008C                   .dbline 85
+ 008C           ;   } 
+ 008C           ;   
+ 008C           ; /******************************************************************************/
+ 008C           ; //捕获中断用作解码
+ 008C           ; /******************************************************************************/  
+ 008C           ; #pragma interrupt_handler CAPT_ISR:iv_TIMER1_CAPT 
+ 008C           ; 
+ 008C           ; void CAPT_ISR(void)
+ 008C           ; {
+ 008C                   .dbline 88
+ 008C           ;   uchar a;
+ 008C           ;   uint temp;
+ 008C           ;   newFall=ICR1;
+ 008C 26B4              in R2,0x26
+ 008E 37B4              in R3,0x27
+ 0090 30920700          sts _newFall+1,R3
+ 0094 20920600          sts _newFall,R2
+ 0098                   .dbline 89
+ 0098           ;   temp=newFall-oldFall; //计算脉冲加间隔的时间
+ 0098 20900400          lds R2,_oldFall
+ 009C 30900500          lds R3,_oldFall+1
+ 00A0 00910600          lds R16,_newFall
+ 00A4 10910700          lds R17,_newFall+1
+ 00A8 0219              sub R16,R2
+ 00AA 1309              sbc R17,R3
+ 00AC                   .dbline 90
+ 00AC           ;   oldFall=newFall;
+ 00AC 20900600          lds R2,_newFall
+ 00B0 30900700          lds R3,_newFall+1
+ 00B4 30920500          sts _oldFall+1,R3
+ 00B8 20920400          sts _oldFall,R2
+ 00BC                   .dbline 92
+ 00BC           ;    
+ 00BC           ;  if(temp>1024 && temp<1225) // "0"信号
+ 00BC 80E0              ldi R24,1024
+ 00BE 94E0              ldi R25,4
+ 00C0 8017              cp R24,R16
+ 00C2 9107              cpc R25,R17
+ 00C4 38F4              brsh L17
+ 00C6           X3:
+ 00C6 093C              cpi R16,201
+ 00C8 E4E0              ldi R30,4
+ 00CA 1E07              cpc R17,R30
+ 00CC 18F4              brsh L17
+ 00CE           X4:
+ 00CE                   .dbline 93
+ 00CE           ;    {
+ 00CE                   .dbline 94
+ 00CE           ;     temp=0;
+ 00CE 0027              clr R16
+ 00D0 1127              clr R17
+ 00D2                   .dbline 95
+ 00D2           ;    }
+ 00D2 24C0              xjmp L18
+ 00D4           L17:
+ 00D4                   .dbline 97
+ 00D4           ; 
+ 00D4           ; else if(temp>2145 && temp<2345) //“1”信号
+ 00D4 81E6              ldi R24,2145
+ 00D6 98E0              ldi R25,8
+ 00D8 8017              cp R24,R16
+ 00DA 9107              cpc R25,R17
+ 00DC 38F4              brsh L19
+ 00DE           X5:
+ 00DE 0932              cpi R16,41
+ 00E0 E9E0              ldi R30,9
+ 00E2 1E07              cpc R17,R30
+ 00E4 18F4              brsh L19
+ 00E6           X6:
+ 00E6                   .dbline 98
+ 00E6           ;    {
+ 00E6                   .dbline 99
+ 00E6           ;     temp=1;
+ 00E6 01E0              ldi R16,1
+ 00E8 10E0              ldi R17,0
+ 00EA                   .dbline 100
+ 00EA           ;    }
+ 00EA 18C0              xjmp L20
+ 00EC           L19:
+ 00EC                   .dbline 102
+ 00EC           ; 
+ 00EC           ; else if(temp>13400 && temp<13600) //header信号
+ 00EC 88E5              ldi R24,13400
+ 00EE 94E3              ldi R25,52
+ 00F0 8017              cp R24,R16
+ 00F2 9107              cpc R25,R17
+ 00F4 08F0              brlo X13
+ 00F6 90C0              xjmp L16
+ 00F8           X13:
+ 00F8           X7:
+ 00F8 0032              cpi R16,32
+ 00FA E5E3              ldi R30,53
+ 00FC 1E07              cpc R17,R30
+ 00FE 08F0              brlo X14
+ 0100 8BC0              xjmp L16
+ 0102           X14:
+ 0102           X8:
+ 0102                   .dbline 104
+ 0102           ; 
+ 0102           ;   {
+ 0102                   .dbline 105
+ 0102           ;    bitcnt=0;
+ 0102 2224              clr R2
+ 0104 20920800          sts _bitcnt,R2
+ 0108                   .dbline 106
+ 0108           ;    data0=0;
+ 0108 3324              clr R3
+ 010A 30920300          sts _data0+1,R3
+ 010E 20920200          sts _data0,R2
+ 0112                   .dbline 107
+ 0112           ;    data1=0;
+ 0112 30920100          sts _data1+1,R3
+ 0116 20920000          sts _data1,R2
+ 011A                   .dbline 108
+ 011A           ;    return; //返回，等待下次开始接收
+ 011A 7EC0              xjmp L16
+ 011C           L20:
+ 011C           L18:
+ 011C                   .dbline 115
+ 011C           ;   }
+ 011C           ; 
+ 011C           ; else ///干扰信号
+ 011C           ;   {
+ 011C           ;     return;
+ 011C           ;   }
+ 011C           ;   bitcnt++;
+ 011C 80910800          lds R24,_bitcnt
+ 0120 8F5F              subi R24,255    ; addi 1
+ 0122 80930800          sts _bitcnt,R24
+ 0126                   .dbline 116
+ 0126           ;     if(bitcnt<16) //开始接收前16位
+ 0126 8031              cpi R24,16
+ 0128 88F4              brsh L23
+ 012A           X9:
+ 012A                   .dbline 117
+ 012A           ;   {
+ 012A                   .dbline 118
+ 012A           ;     data0=data0|(uint)temp;
+ 012A 20900200          lds R2,_data0
+ 012E 30900300          lds R3,_data0+1
+ 0132 202A              or R2,R16
+ 0134 312A              or R3,R17
+ 0136 30920300          sts _data0+1,R3
+ 013A 20920200          sts _data0,R2
+ 013E                   .dbline 119
+ 013E           ;     data0=data0<<1;
+ 013E 220C              lsl R2
+ 0140 331C              rol R3
+ 0142 30920300          sts _data0+1,R3
+ 0146 20920200          sts _data0,R2
+ 014A                   .dbline 120
+ 014A           ;    }
+ 014A 66C0              xjmp L24
+ 014C           L23:
+ 014C                   .dbline 121
+ 014C           ; else if(bitcnt==16)
+ 014C 80910800          lds R24,_bitcnt
+ 0150 8031              cpi R24,16
+ 0152 59F4              brne L25
+ 0154           X10:
+ 0154                   .dbline 122
+ 0154           ;   {
+ 0154                   .dbline 123
+ 0154           ;    data0=data0|(uint)temp;
+ 0154 20900200          lds R2,_data0
+ 0158 30900300          lds R3,_data0+1
+ 015C 202A              or R2,R16
+ 015E 312A              or R3,R17
+ 0160 30920300          sts _data0+1,R3
+ 0164 20920200          sts _data0,R2
+ 0168                   .dbline 124
+ 0168           ;   }
+ 0168 57C0              xjmp L26
+ 016A           L25:
+ 016A                   .dbline 125
+ 016A           ;  else if(bitcnt<32) //开始接收后16位
+ 016A 80910800          lds R24,_bitcnt
+ 016E 8032              cpi R24,32
+ 0170 88F4              brsh L27
+ 0172           X11:
+ 0172                   .dbline 126
+ 0172           ;  { 
+ 0172                   .dbline 127
+ 0172           ;    data1=data1|(uint)temp;
+ 0172 20900000          lds R2,_data1
+ 0176 30900100          lds R3,_data1+1
+ 017A 202A              or R2,R16
+ 017C 312A              or R3,R17
+ 017E 30920100          sts _data1+1,R3
+ 0182 20920000          sts _data1,R2
+ 0186                   .dbline 128
+ 0186           ;    data1=data1<<1;
+ 0186 220C              lsl R2
+ 0188 331C              rol R3
+ 018A 30920100          sts _data1+1,R3
+ 018E 20920000          sts _data1,R2
+ 0192                   .dbline 129
+ 0192           ;  }
+ 0192 42C0              xjmp L28
+ 0194           L27:
+ 0194                   .dbline 130
+ 0194           ;  else if(bitcnt==32) //接收完最后一位
+ 0194 80910800          lds R24,_bitcnt
+ 0198 8032              cpi R24,32
+ 019A F1F5              brne L29
+ 019C           X12:
+ 019C                   .dbline 131
+ 019C           ;  {
+ 019C                   .dbline 132
+ 019C           ;     data1=data1|(uint)temp;
+ 019C 20900000          lds R2,_data1
+ 01A0 30900100          lds R3,_data1+1
+ 01A4 202A              or R2,R16
+ 01A6 312A              or R3,R17
+ 01A8 30920100          sts _data1+1,R3
+ 01AC 20920000          sts _data1,R2
+ 01B0                   .dbline 133
+ 01B0           ;       disbuf[0]=(data0>>8)/16;//更新显示
+ 01B0 20900200          lds R2,_data0
+ 01B4 30900300          lds R3,_data0+1
+ 01B8 232C              mov R2,R3
+ 01BA 3324              clr R3
+ 01BC 3694              lsr R3
+ 01BE 2794              ror R2
+ 01C0 3694              lsr R3
+ 01C2 2794              ror R2
+ 01C4 3694              lsr R3
+ 01C6 2794              ror R2
+ 01C8 3694              lsr R3
+ 01CA 2794              ror R2
+ 01CC 20920000          sts _disbuf,R2
+ 01D0                   .dbline 134
+ 01D0           ;       disbuf[1]=(data0>>8)%16;
+ 01D0 80910200          lds R24,_data0
+ 01D4 90910300          lds R25,_data0+1
+ 01D8 892F              mov R24,R25
+ 01DA 9927              clr R25
+ 01DC 8F70              andi R24,15
+ 01DE 9070              andi R25,0
+ 01E0 80930100          sts _disbuf+1,R24
+ 01E4                   .dbline 135
+ 01E4           ;       disbuf[2]=(data1>>8)/16;
+ 01E4 20900000          lds R2,_data1
+ 01E8 30900100          lds R3,_data1+1
+ 01EC 232C              mov R2,R3
+ 01EE 3324              clr R3
+ 01F0 3694              lsr R3
+ 01F2 2794              ror R2
+ 01F4 3694              lsr R3
+ 01F6 2794              ror R2
+ 01F8 3694              lsr R3
+ 01FA 2794              ror R2
+ 01FC 3694              lsr R3
+ 01FE 2794              ror R2
+ 0200 20920200          sts _disbuf+2,R2
+ 0204                   .dbline 136
+ 0204           ;       disbuf[3]=(data1>>8)%16;
+ 0204 80910000          lds R24,_data1
+ 0208 90910100          lds R25,_data1+1
+ 020C 892F              mov R24,R25
+ 020E 9927              clr R25
+ 0210 8F70              andi R24,15
+ 0212 9070              andi R25,0
+ 0214 80930300          sts _disbuf+3,R24
+ 0218                   .dbline 137
+ 0218           ;  }
+ 0218           L29:
+ 0218           L28:
+ 0218           L26:
+ 0218           L24:
+ 0218                   .dbline -2
+ 0218           L16:
+ 0218                   .dbline 0 ; func end
+ 0218 1990              ld R1,y+
+ 021A 1FBE              out 0x3f,R1
+ 021C E991              ld R30,y+
+ 021E A991              ld R26,y+
+ 0220 9991              ld R25,y+
+ 0222 8991              ld R24,y+
+ 0224 1991              ld R17,y+
+ 0226 0991              ld R16,y+
+ 0228 5990              ld R5,y+
+ 022A 4990              ld R4,y+
+ 022C 3990              ld R3,y+
+ 022E 2990              ld R2,y+
+ 0230 1990              ld R1,y+
+ 0232 1895              reti
+ 0234                   .dbsym l a 1 c
+ 0234                   .dbsym r temp 16 i
+ 0234                   .dbend
+                        .area bss(ram, con, rel)
+ 0000                   .dbfile E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+ 0000           _data1::
+ 0000                   .blkb 2
+ 0002                   .dbsym e data1 _data1 i
+ 0002           _data0::
+ 0002                   .blkb 2
+ 0004                   .dbsym e data0 _data0 i
+ 0004           _oldFall::
+ 0004                   .blkb 2
+ 0006                   .dbsym e oldFall _oldFall i
+ 0006           _newFall::
+ 0006                   .blkb 2
+ 0008                   .dbsym e newFall _newFall i
+ 0008           _bitcnt::
+ 0008                   .blkb 1
+ 0009                   .dbsym e bitcnt _bitcnt c
+ 0009           ;  
+ 0009           ; }

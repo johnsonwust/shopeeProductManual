@@ -1,0 +1,45 @@
+C51 COMPILER V9.00   HONG                                                                  08/10/2012 17:59:34 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE HONG
+OBJECT MODULE PLACED IN hong.OBJ
+COMPILER INVOKED BY: D:\安装软件\keil 51\C51\BIN\C51.EXE hong.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /****************************************************************************
+   2          * 【编写时间】： 2011.07.07
+   3          * 【作    者】： 雁翎电子
+   4          * 【版    本】： V1.0
+   5          * 【网    站】： http://ylelectronic.taobao.com/ 
+   6          * 【Q      Q】： 348439350
+   7          *****************************************************************************
+   8          程序功能：      介绍宏定义的方式与用法。
+   9          ****************************************************************************/
+  10          #include <reg52.h>
+  11          
+  12          #define  uchar unsigned char  //定义uchar 即unsigned char 
+  13          
+  14          #define add(a,b)  a+b             //带参数的宏定义
+  15          
+  16          void main()
+  17          {
+  18   1              uchar he;          //相当与unsigned char he;
+  19   1              he=add(1,2);   //相当于he=1+2
+  20   1              P1=he;
+  21   1              while(1);
+  22   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      5    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,64 @@
+C51 COMPILER V9.00   LED2                                                                  11/16/2011 22:10:46 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE LED2
+OBJECT MODULE PLACED IN led2.OBJ
+COMPILER INVOKED BY: E:\安装软件\keil-51\C51\BIN\C51.EXE led2.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /**************************************************************************************
+   2          *          LED闪烁的简单试验                                                                                              *
+   3          *     连接方法： 8PIN跳线帽连接上                                                                                     *
+   4          *                                                                                                                                                                         *
+   5          ***************************************************************************************/
+   6          
+   7          #include <reg51.h>         //此文件中定义了51的一些特殊功能寄存器
+   8          
+   9          void delay(unsigned int i);  //声明延时函数
+  10          
+  11          main()
+  12          { 
+  13   1         
+  14   1        P1  = 0x00; //置P0口为低电平 
+  15   1        delay(600); // 调用延时程序
+  16   1        P1  = 0xff; //置P0口为高电平
+  17   1        delay(600); // 调用延时程序
+  18   1      
+  19   1      
+  20   1      }
+  21          
+  22          /*******延时函数*************/
+  23          void delay(unsigned int i)
+  24          {
+  25   1          unsigned char j;
+  26   1          for(i; i > 0; i--)   
+  27   1              for(j = 255; j > 0; j--);
+  28   1      }
+  29          
+  30          
+  31          
+  32          
+  33          
+  34          
+  35          
+  36          
+  37          
+  38          
+  39          
+  40          
+*** WARNING C290 IN LINE 20 OF LED2.C: missing return value
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     41    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

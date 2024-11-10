@@ -1,0 +1,93 @@
+XL
+H 1 areas 8 global symbols
+M uart.c
+S push_gset1 Ref0000
+S pop_gset1 Ref0000
+A text size 62 flags 0
+dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\21.UART实验往PC收发数据\uart.c
+dbfunc e port_init 0 fV
+dbline FFFFFFFF 0
+dbline 1F 0
+dbline 20 0
+dbline 21 4
+dbline FFFFFFFE 8
+dbline 0 8
+dbfunc e USART_Init A fV
+dbline FFFFFFFF A
+dbline 2C A
+dbline 2D A
+dbline 2E E
+dbline 2F 12
+dbline 30 16
+dbline FFFFFFFE 1A
+dbline 0 1A
+dbfunc e USART_Transmit 1C fV
+dbsym r data 10 c
+dbline FFFFFFFF 1C
+dbline 3A 1C
+dbline 3B 1C
+dbline 3B 1C
+dbline 3C 20
+dbline FFFFFFFE 22
+dbline 0 22
+dbfunc e USART_Transmit_string 24 fV
+dbsym r ptr 14 pc
+dbline FFFFFFFF 28
+dbline 47 28
+dbline 49 2A
+dbline 4A 2A
+dbline 4B 32
+dbline 48 32
+dbline 4C 3A
+dbline 4D 3E
+dbline FFFFFFFE 42
+dbline 0 44
+dbfunc e USART_Receive 46 fc
+dbline FFFFFFFF 46
+dbline 58 46
+dbline 59 46
+dbline 59 46
+dbline 59 46
+dbline 59 46
+dbline 5A 4A
+dbline FFFFFFFE 4C
+dbline 0 4C
+dbfunc e main 4E fV
+dbsym r temp 14 c
+dbline FFFFFFFF 4E
+dbline 65 4E
+dbline 67 4E
+dbline 6A 52
+dbline 6B 52
+dbline 6C 56
+dbline 6D 5C
+dbline 6E 5E
+dbline 69 5E
+dbline FFFFFFFE 60
+dbline 0 60
+S _main Def004E
+S _USART_Receive Def0046
+S _port_init Def0000
+S _USART_Transmit_string Def0024
+S _USART_Transmit Def001C
+S _USART_Init Def000A
+T 00 00 82 E0 81 BB 8F EF 82 BB 08 95
+R 00 00 00 00
+T 0A 00 88 E9 8A B9 84 E3 89 B9 22 24 20 BC 86 E8
+R 00 00 00 00
+T 18 00 80 BD 08 95
+R 00 00 00 00
+T 1C 00 5D 9B FE CF 0C B9 08 95
+R 00 00 00 00
+T 24 00 00 D0 A8 01 04 C0 FA 01 01 91 AF 01 F5 DF
+R 00 00 00 00 82 02 00 00
+T 32 00 FA 01 20 80 22 20 C1 F7 0D E0 EF DF 0A E0
+R 00 00 00 00
+T 40 00 ED DF 00 D0 08 95
+R 00 00 00 00 82 04 01 00
+T 46 00 5F 9B FE CF 0C B1 08 95
+R 00 00 00 00
+T 4E 00 DD DF 06 C0 F9 DF 40 2F 24 2E 20 94 28 BA
+R 00 00 00 00
+T 5C 00 DF DF F9 CF 08 95
+R 00 00 00 00

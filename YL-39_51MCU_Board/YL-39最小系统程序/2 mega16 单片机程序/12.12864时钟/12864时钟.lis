@@ -1,0 +1,1921 @@
+                        .module _12864时钟.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 0000           _Hour::
+ 0000                   .blkb 1
+                        .area idata
+ 0000 00                .byte 0
+                        .area data(ram, con, rel)
+ 0001                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 0001                   .dbsym e Hour _Hour c
+ 0001           _flag::
+ 0001                   .blkb 1
+                        .area idata
+ 0001 00                .byte 0
+                        .area data(ram, con, rel)
+ 0002                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 0002                   .dbsym e flag _flag c
+ 0002           _disbuf::
+ 0002                   .blkb 2
+                        .area idata
+ 0002 0000              .byte 0,0
+                        .area data(ram, con, rel)
+ 0004                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 0004                   .blkb 2
+                        .area idata
+ 0004 0000              .byte 0,0
+                        .area data(ram, con, rel)
+ 0006                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 0006                   .blkb 2
+                        .area idata
+ 0006 0000              .byte 0,0
+                        .area data(ram, con, rel)
+ 0008                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 0008                   .dbsym e disbuf _disbuf A[6:6]c
+ 0008           _num::
+ 0008                   .blkb 13
+                        .area idata
+ 0008 303132333435363738393A2000        .byte 48,49,50,51,52,53,54,55,56,57,58,32,0
+                        .area data(ram, con, rel)
+ 0015                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 0015                   .dbsym e num _num A[13:13]c
+ 0015           _welcome::
+ 0015                   .blkb 6
+                        .area idata
+ 0015 CAB1BCE43A00      .byte 202,177,188,228,58,0
+                        .area data(ram, con, rel)
+ 001B                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 001B                   .dbsym e welcome _welcome A[6:6]c
+ 001B           _input::
+ 001B                   .blkb 6
+                        .area idata
+ 001B C8D5C6DA3A00      .byte 200,213,198,218,58,0
+                        .area data(ram, con, rel)
+ 0021                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 0021                   .dbsym e input _input A[6:6]c
+                        .area lit(rom, con, rel)
+ 0000           _discode::
+ 0000 C0F9              .byte 192,249
+ 0002 A4B0              .byte 164,176
+ 0004 9992              .byte 153,146
+ 0006 82F8              .byte 130,248
+ 0008 8090              .byte 128,144
+ 000A                   .dbsym e discode _discode A[10:10]kc
+ 000A           _logo::
+ 000A 0000              .byte 0,0
+ 000C 0000              .byte 0,0
+ 000E 0000              .byte 0,0
+ 0010 0000              .byte 0,0
+ 0012 0000              .byte 0,0
+ 0014 0000              .byte 0,0
+ 0016 0000              .byte 0,0
+ 0018 0000              .byte 0,0
+ 001A 0000              .byte 0,0
+ 001C 0000              .byte 0,0
+ 001E 0000              .byte 0,0
+ 0020 0000              .byte 0,0
+ 0022 0000              .byte 0,0
+ 0024 0000              .byte 0,0
+ 0026 0000              .byte 0,0
+ 0028 0000              .byte 0,0
+ 002A 0000              .byte 0,0
+ 002C 0000              .byte 0,0
+ 002E 0000              .byte 0,0
+ 0030 0000              .byte 0,0
+ 0032 0000              .byte 0,0
+ 0034 0000              .byte 0,0
+ 0036 0000              .byte 0,0
+ 0038 0000              .byte 0,0
+ 003A 0000              .byte 0,0
+ 003C 0000              .byte 0,0
+ 003E 0000              .byte 0,0
+ 0040 0000              .byte 0,0
+ 0042 0000              .byte 0,0
+ 0044 0000              .byte 0,0
+ 0046 0000              .byte 0,0
+ 0048 0000              .byte 0,0
+ 004A 0000              .byte 0,0
+ 004C 0000              .byte 0,0
+ 004E 0000              .byte 0,0
+ 0050 0000              .byte 0,0
+ 0052 0000              .byte 0,0
+ 0054 0000              .byte 0,0
+ 0056 0000              .byte 0,0
+ 0058 0000              .byte 0,0
+ 005A 0000              .byte 0,0
+ 005C 0000              .byte 0,0
+ 005E 0000              .byte 0,0
+ 0060 0000              .byte 0,0
+ 0062 0000              .byte 0,0
+ 0064 0000              .byte 0,0
+ 0066 0000              .byte 0,0
+ 0068 0000              .byte 0,0
+ 006A 0000              .byte 0,0
+ 006C 0000              .byte 0,0
+ 006E 0000              .byte 0,0
+ 0070 0000              .byte 0,0
+ 0072 0000              .byte 0,0
+ 0074 0000              .byte 0,0
+ 0076 0000              .byte 0,0
+ 0078 0000              .byte 0,0
+ 007A 0000              .byte 0,0
+ 007C 0000              .byte 0,0
+ 007E 0000              .byte 0,0
+ 0080 0000              .byte 0,0
+ 0082 0000              .byte 0,0
+ 0084 0000              .byte 0,0
+ 0086 0000              .byte 0,0
+ 0088 0000              .byte 0,0
+ 008A 0000              .byte 0,0
+ 008C 0000              .byte 0,0
+ 008E 0000              .byte 0,0
+ 0090 0000              .byte 0,0
+ 0092 0000              .byte 0,0
+ 0094 0000              .byte 0,0
+ 0096 0000              .byte 0,0
+ 0098 0000              .byte 0,0
+ 009A 0000              .byte 0,0
+ 009C 0000              .byte 0,0
+ 009E 0000              .byte 0,0
+ 00A0 0000              .byte 0,0
+ 00A2 0000              .byte 0,0
+ 00A4 0000              .byte 0,0
+ 00A6 0000              .byte 0,0
+ 00A8 0000              .byte 0,0
+ 00AA 0003              .byte 0,3
+ 00AC F3E0              .byte 243,224
+ 00AE 0F8F              .byte 15,143
+ 00B0 FC00              .byte 252,0
+ 00B2 0000              .byte 0,0
+ 00B4 0000              .byte 0,0
+ 00B6 0000              .byte 0,0
+ 00B8 0000              .byte 0,0
+ 00BA 0003              .byte 0,3
+ 00BC F3F0              .byte 243,240
+ 00BE 0F8F              .byte 15,143
+ 00C0 FE00              .byte 254,0
+ 00C2 0000              .byte 0,0
+ 00C4 0000              .byte 0,0
+ 00C6 0000              .byte 0,0
+ 00C8 0000              .byte 0,0
+ 00CA 0007              .byte 0,7
+ 00CC F9F0              .byte 249,240
+ 00CE 0F9F              .byte 15,159
+ 00D0 FF00              .byte 255,0
+ 00D2 0000              .byte 0,0
+ 00D4 0000              .byte 0,0
+ 00D6 0000              .byte 0,0
+ 00D8 0000              .byte 0,0
+ 00DA 0007              .byte 0,7
+ 00DC F9F8              .byte 249,248
+ 00DE 1F9F              .byte 31,159
+ 00E0 FF00              .byte 255,0
+ 00E2 0000              .byte 0,0
+ 00E4 0000              .byte 0,0
+ 00E6 0000              .byte 0,0
+ 00E8 0000              .byte 0,0
+ 00EA 0007              .byte 0,7
+ 00EC F9F8              .byte 249,248
+ 00EE 1F1F              .byte 31,31
+ 00F0 FF80              .byte 255,128
+ 00F2 0000              .byte 0,0
+ 00F4 0000              .byte 0,0
+ 00F6 0000              .byte 0,0
+ 00F8 0000              .byte 0,0
+ 00FA 000F              .byte 0,15
+ 00FC FCF8              .byte 252,248
+ 00FE 1F3F              .byte 31,63
+ 0100 1F80              .byte 31,128
+ 0102 0000              .byte 0,0
+ 0104 0003              .byte 0,3
+ 0106 FFFF              .byte 255,255
+ 0108 FC00              .byte 252,0
+ 010A 000F              .byte 0,15
+ 010C FCFC              .byte 252,252
+ 010E 3F3F              .byte 63,63
+ 0110 1F80              .byte 31,128
+ 0112 0000              .byte 0,0
+ 0114 0007              .byte 0,7
+ 0116 FFFF              .byte 255,255
+ 0118 FC00              .byte 252,0
+ 011A 000F              .byte 0,15
+ 011C FC7C              .byte 252,124
+ 011E 3E3E              .byte 62,62
+ 0120 1F80              .byte 31,128
+ 0122 0000              .byte 0,0
+ 0124 0007              .byte 0,7
+ 0126 FFFF              .byte 255,255
+ 0128 FC00              .byte 252,0
+ 012A 001F              .byte 0,31
+ 012C FE7C              .byte 254,124
+ 012E 7E7E              .byte 126,126
+ 0130 3F00              .byte 63,0
+ 0132 2000              .byte 32,0
+ 0134 0001              .byte 0,1
+ 0136 C000              .byte 192,0
+ 0138 0000              .byte 0,0
+ 013A 001F              .byte 0,31
+ 013C BE7E              .byte 190,126
+ 013E 7E7E              .byte 126,126
+ 0140 FF00              .byte 255,0
+ 0142 7000              .byte 'p,0
+ 0144 000D              .byte 0,13
+ 0146 BFDF              .byte 191,223
+ 0148 B000              .byte 176,0
+ 014A 001F              .byte 0,31
+ 014C 3E3E              .byte 62,62
+ 014E 7C7F              .byte 124,127
+ 0150 FF00              .byte 255,0
+ 0152 7000              .byte 'p,0
+ 0154 001D              .byte 0,29
+ 0156 FFDF              .byte 255,223
+ 0158 B000              .byte 176,0
+ 015A 003F              .byte 0,63
+ 015C 3F3E              .byte 63,62
+ 015E 7CFF              .byte 124,255
+ 0160 FE00              .byte 254,0
+ 0162 7000              .byte 'p,0
+ 0164 001D              .byte 0,29
+ 0166 FFD8              .byte 255,216
+ 0168 3000              .byte 48,0
+ 016A 003F              .byte 0,63
+ 016C 1F3F              .byte 31,63
+ 016E FCFF              .byte 252,255
+ 0170 FC00              .byte 252,0
+ 0172 6000              .byte 96,0
+ 0174 003D              .byte 0,61
+ 0176 F6D8              .byte 246,216
+ 0178 3000              .byte 48,0
+ 017A 003F              .byte 0,63
+ 017C 1F9F              .byte 31,159
+ 017E F8FF              .byte 248,255
+ 0180 F000              .byte 240,0
+ 0182 E000              .byte 224,0
+ 0184 003D              .byte 0,61
+ 0186 F6DF              .byte 246,223
+ 0188 B000              .byte 176,0
+ 018A 003F              .byte 0,63
+ 018C FF9F              .byte 255,159
+ 018E F9FF              .byte 249,255
+ 0190 E000              .byte 224,0
+ 0192 C000              .byte 192,0
+ 0194 007D              .byte 0,125
+ 0196 F6DF              .byte 246,223
+ 0198 B000              .byte 176,0
+ 019A 007F              .byte 0,127
+ 019C FF9F              .byte 255,159
+ 019E F9FB              .byte 249,251
+ 01A0 E000              .byte 224,0
+ 01A2 4000              .byte 64,0
+ 01A4 00ED              .byte 0,237
+ 01A6 F6D8              .byte 246,216
+ 01A8 3000              .byte 48,0
+ 01AA 007F              .byte 0,127
+ 01AC FFCF              .byte 255,207
+ 01AE F1F3              .byte 241,243
+ 01B0 F000              .byte 240,0
+ 01B2 4000              .byte 64,0
+ 01B4 00ED              .byte 0,237
+ 01B6 F6D8              .byte 246,216
+ 01B8 3000              .byte 48,0
+ 01BA 007F              .byte 0,127
+ 01BC FFCF              .byte 255,207
+ 01BE F3F3              .byte 243,243
+ 01C0 F000              .byte 240,0
+ 01C2 4000              .byte 64,0
+ 01C4 00ED              .byte 0,237
+ 01C6 F6DF              .byte 246,223
+ 01C8 B000              .byte 176,0
+ 01CA 00FF              .byte 0,255
+ 01CC FFCF              .byte 255,207
+ 01CE F3F1              .byte 243,241
+ 01D0 F000              .byte 240,0
+ 01D2 6000              .byte 96,0
+ 01D4 01FF              .byte 1,255
+ 01D6 FFFF              .byte 255,255
+ 01D8 FE00              .byte 254,0
+ 01DA 00F8              .byte 0,248
+ 01DC 07E7              .byte 7,231
+ 01DE E3E1              .byte 227,225
+ 01E0 F008              .byte 240,8
+ 01E2 201E              .byte 32,30
+ 01E4 01FF              .byte 1,255
+ 01E6 FFFF              .byte 255,255
+ 01E8 FE00              .byte 254,0
+ 01EA 00F8              .byte 0,248
+ 01EC 03E7              .byte 3,231
+ 01EE E7E1              .byte 231,225
+ 01F0 F8FF              .byte 248,255
+ 01F2 3C3F              .byte 60,63
+ 01F4 0000              .byte 0,0
+ 01F6 0000              .byte 0,0
+ 01F8 0000              .byte 0,0
+ 01FA 01F8              .byte 1,248
+ 01FC 03E3              .byte 3,227
+ 01FE E7E1              .byte 231,225
+ 0200 F9FF              .byte 249,255
+ 0202 FFF7              .byte 255,247
+ 0204 8000              .byte 128,0
+ 0206 0000              .byte 0,0
+ 0208 0000              .byte 0,0
+ 020A 00F0              .byte 0,240
+ 020C 01E3              .byte 1,227
+ 020E C7C0              .byte 199,192
+ 0210 F9E0              .byte 249,224
+ 0212 FFFF              .byte 255,255
+ 0214 C000              .byte 192,0
+ 0216 0000              .byte 0,0
+ 0218 0000              .byte 0,0
+ 021A 0000              .byte 0,0
+ 021C 0003              .byte 0,3
+ 021E C000              .byte 192,0
+ 0220 0080              .byte 0,128
+ 0222 7CFC              .byte 124,252
+ 0224 C000              .byte 192,0
+ 0226 0000              .byte 0,0
+ 0228 0000              .byte 0,0
+ 022A 0000              .byte 0,0
+ 022C 0001              .byte 0,1
+ 022E C000              .byte 192,0
+ 0230 0000              .byte 0,0
+ 0232 7FFC              .byte 127,252
+ 0234 F000              .byte 240,0
+ 0236 0000              .byte 0,0
+ 0238 0000              .byte 0,0
+ 023A 0000              .byte 0,0
+ 023C 0001              .byte 0,1
+ 023E 8000              .byte 128,0
+ 0240 0000              .byte 0,0
+ 0242 7FFF              .byte 127,255
+ 0244 F000              .byte 240,0
+ 0246 0000              .byte 0,0
+ 0248 0000              .byte 0,0
+ 024A 0000              .byte 0,0
+ 024C 0001              .byte 0,1
+ 024E 8000              .byte 128,0
+ 0250 0000              .byte 0,0
+ 0252 27FF              .byte 39,255
+ 0254 B000              .byte 176,0
+ 0256 0000              .byte 0,0
+ 0258 0000              .byte 0,0
+ 025A 0000              .byte 0,0
+ 025C 0000              .byte 0,0
+ 025E 8000              .byte 128,0
+ 0260 0000              .byte 0,0
+ 0262 37FF              .byte 55,255
+ 0264 1000              .byte 16,0
+ 0266 0000              .byte 0,0
+ 0268 0000              .byte 0,0
+ 026A 0000              .byte 0,0
+ 026C 0000              .byte 0,0
+ 026E 0000              .byte 0,0
+ 0270 0000              .byte 0,0
+ 0272 3FFF              .byte 63,255
+ 0274 1C00              .byte 28,0
+ 0276 0000              .byte 0,0
+ 0278 0000              .byte 0,0
+ 027A 0000              .byte 0,0
+ 027C 0000              .byte 0,0
+ 027E 0000              .byte 0,0
+ 0280 0000              .byte 0,0
+ 0282 3FFF              .byte 63,255
+ 0284 0C00              .byte 12,0
+ 0286 0000              .byte 0,0
+ 0288 0000              .byte 0,0
+ 028A 0000              .byte 0,0
+ 028C 0000              .byte 0,0
+ 028E 0000              .byte 0,0
+ 0290 0000              .byte 0,0
+ 0292 FFFF              .byte 255,255
+ 0294 0000              .byte 0,0
+ 0296 0000              .byte 0,0
+ 0298 0000              .byte 0,0
+ 029A 0000              .byte 0,0
+ 029C 0000              .byte 0,0
+ 029E 0000              .byte 0,0
+ 02A0 0001              .byte 0,1
+ 02A2 FFFF              .byte 255,255
+ 02A4 0000              .byte 0,0
+ 02A6 0000              .byte 0,0
+ 02A8 0000              .byte 0,0
+ 02AA 0000              .byte 0,0
+ 02AC 0000              .byte 0,0
+ 02AE 0000              .byte 0,0
+ 02B0 0001              .byte 0,1
+ 02B2 DFFF              .byte 223,255
+ 02B4 0000              .byte 0,0
+ 02B6 0000              .byte 0,0
+ 02B8 0000              .byte 0,0
+ 02BA 0000              .byte 0,0
+ 02BC 0000              .byte 0,0
+ 02BE 0000              .byte 0,0
+ 02C0 0001              .byte 0,1
+ 02C2 1FFF              .byte 31,255
+ 02C4 0000              .byte 0,0
+ 02C6 0000              .byte 0,0
+ 02C8 0000              .byte 0,0
+ 02CA 0000              .byte 0,0
+ 02CC 0000              .byte 0,0
+ 02CE 0000              .byte 0,0
+ 02D0 0001              .byte 0,1
+ 02D2 BFFF              .byte 191,255
+ 02D4 0000              .byte 0,0
+ 02D6 0000              .byte 0,0
+ 02D8 0000              .byte 0,0
+ 02DA 0001              .byte 0,1
+ 02DC F83C              .byte 248,60
+ 02DE 00CC              .byte 0,204
+ 02E0 0000              .byte 0,0
+ 02E2 FFFE              .byte 255,254
+ 02E4 0000              .byte 0,0
+ 02E6 0000              .byte 0,0
+ 02E8 0000              .byte 0,0
+ 02EA 001F              .byte 0,31
+ 02EC 6C37              .byte 'l,55
+ 02EE F18C              .byte 241,140
+ 02F0 0000              .byte 0,0
+ 02F2 E7FE              .byte 231,254
+ 02F4 0000              .byte 0,0
+ 02F6 0000              .byte 0,0
+ 02F8 0000              .byte 0,0
+ 02FA 0003              .byte 0,3
+ 02FC 606F              .byte 96,'o
+ 02FE 37FF              .byte 55,255
+ 0300 8000              .byte 128,0
+ 0302 CFFC              .byte 207,252
+ 0304 0000              .byte 0,0
+ 0306 0000              .byte 0,0
+ 0308 0000              .byte 0,0
+ 030A 001F              .byte 0,31
+ 030C FE6C              .byte 254,'l
+ 030E 3679              .byte 54,'y
+ 0310 8000              .byte 128,0
+ 0312 EEF0              .byte 238,240
+ 0314 0000              .byte 0,0
+ 0316 0000              .byte 0,0
+ 0318 0000              .byte 0,0
+ 031A 0003              .byte 0,3
+ 031C 60EC              .byte 96,236
+ 031E 3671              .byte 54,'q
+ 0320 8000              .byte 128,0
+ 0322 7800              .byte 'x,0
+ 0324 0000              .byte 0,0
+ 0326 0000              .byte 0,0
+ 0328 0000              .byte 0,0
+ 032A 0003              .byte 0,3
+ 032C EC6C              .byte 236,'l
+ 032E 3679              .byte 54,'y
+ 0330 8000              .byte 128,0
+ 0332 3C00              .byte 60,0
+ 0334 0000              .byte 0,0
+ 0336 0000              .byte 0,0
+ 0338 0000              .byte 0,0
+ 033A 0007              .byte 0,7
+ 033C F86C              .byte 248,'l
+ 033E 37ED              .byte 55,237
+ 0340 8000              .byte 128,0
+ 0342 3E00              .byte 62,0
+ 0344 0000              .byte 0,0
+ 0346 0000              .byte 0,0
+ 0348 0000              .byte 0,0
+ 034A 001F              .byte 0,31
+ 034C 306C              .byte 48,'l
+ 034E 366D              .byte 54,'m
+ 0350 8000              .byte 128,0
+ 0352 7600              .byte 'v,0
+ 0354 0000              .byte 0,0
+ 0356 0000              .byte 0,0
+ 0358 0000              .byte 0,0
+ 035A 0003              .byte 0,3
+ 035C 766C              .byte 'v,'l
+ 035E 3661              .byte 54,'a
+ 0360 8000              .byte 128,0
+ 0362 0600              .byte 6,0
+ 0364 0000              .byte 0,0
+ 0366 0000              .byte 0,0
+ 0368 0000              .byte 0,0
+ 036A 0003              .byte 0,3
+ 036C DE6C              .byte 222,'l
+ 036E 37E1              .byte 55,225
+ 0370 8000              .byte 128,0
+ 0372 0600              .byte 6,0
+ 0374 0000              .byte 0,0
+ 0376 0000              .byte 0,0
+ 0378 0000              .byte 0,0
+ 037A 000F              .byte 0,15
+ 037C 0E6C              .byte 14,'l
+ 037E F66F              .byte 246,'o
+ 0380 0000              .byte 0,0
+ 0382 0600              .byte 6,0
+ 0384 0000              .byte 0,0
+ 0386 0000              .byte 0,0
+ 0388 0000              .byte 0,0
+ 038A 0000              .byte 0,0
+ 038C 0000              .byte 0,0
+ 038E 0000              .byte 0,0
+ 0390 0000              .byte 0,0
+ 0392 0000              .byte 0,0
+ 0394 0000              .byte 0,0
+ 0396 0000              .byte 0,0
+ 0398 0000              .byte 0,0
+ 039A 0000              .byte 0,0
+ 039C 0000              .byte 0,0
+ 039E 0000              .byte 0,0
+ 03A0 0000              .byte 0,0
+ 03A2 0000              .byte 0,0
+ 03A4 0000              .byte 0,0
+ 03A6 0000              .byte 0,0
+ 03A8 0000              .byte 0,0
+ 03AA 0000              .byte 0,0
+ 03AC 0000              .byte 0,0
+ 03AE 0000              .byte 0,0
+ 03B0 0000              .byte 0,0
+ 03B2 0000              .byte 0,0
+ 03B4 0000              .byte 0,0
+ 03B6 0000              .byte 0,0
+ 03B8 0000              .byte 0,0
+ 03BA 0000              .byte 0,0
+ 03BC 0000              .byte 0,0
+ 03BE 0000              .byte 0,0
+ 03C0 0000              .byte 0,0
+ 03C2 0000              .byte 0,0
+ 03C4 0000              .byte 0,0
+ 03C6 0000              .byte 0,0
+ 03C8 0000              .byte 0,0
+ 03CA 0000              .byte 0,0
+ 03CC 0000              .byte 0,0
+ 03CE 0000              .byte 0,0
+ 03D0 0000              .byte 0,0
+ 03D2 0000              .byte 0,0
+ 03D4 0000              .byte 0,0
+ 03D6 0000              .byte 0,0
+ 03D8 0000              .byte 0,0
+ 03DA 0000              .byte 0,0
+ 03DC 0000              .byte 0,0
+ 03DE 0000              .byte 0,0
+ 03E0 0000              .byte 0,0
+ 03E2 0000              .byte 0,0
+ 03E4 0000              .byte 0,0
+ 03E6 0000              .byte 0,0
+ 03E8 0000              .byte 0,0
+ 03EA 0000              .byte 0,0
+ 03EC 0000              .byte 0,0
+ 03EE 0000              .byte 0,0
+ 03F0 0000              .byte 0,0
+ 03F2 0000              .byte 0,0
+ 03F4 0000              .byte 0,0
+ 03F6 0000              .byte 0,0
+ 03F8 0000              .byte 0,0
+ 03FA 0000              .byte 0,0
+ 03FC 0000              .byte 0,0
+ 03FE 0000              .byte 0,0
+ 0400 0000              .byte 0,0
+ 0402 0000              .byte 0,0
+ 0404 0000              .byte 0,0
+ 0406 0000              .byte 0,0
+ 0408 0000              .byte 0,0
+ 040A 0000              .byte 0,0
+ 040C 0000              .byte 0,0
+ 040E 0000              .byte 0,0
+ 0410 0000              .byte 0,0
+ 0412 0000              .byte 0,0
+ 0414 0000              .byte 0,0
+ 0416 0000              .byte 0,0
+ 0418 0000              .byte 0,0
+ 041A 0000              .byte 0,0
+ 041C 0000              .byte 0,0
+ 041E 0000              .byte 0,0
+ 0420 0000              .byte 0,0
+ 0422 0000              .byte 0,0
+ 0424 0000              .byte 0,0
+ 0426 0000              .byte 0,0
+ 0428 0000              .byte 0,0
+ 042A 0000              .byte 0,0
+ 042C 0000              .byte 0,0
+ 042E 0000              .byte 0,0
+ 0430 0000              .byte 0,0
+ 0432 0000              .byte 0,0
+ 0434 0000              .byte 0,0
+ 0436 0000              .byte 0,0
+ 0438 0000              .byte 0,0
+ 043A                   .dbsym e logo _logo A[1072:1072]kc
+                        .area text(rom, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 0000                   .dbfunc e Lcd_init _Lcd_init fV
+                        .even
+ 0000           _Lcd_init::
+ 0000                   .dbline -1
+ 0000                   .dbline 108
+ 0000           ;   /******************************************************************************/
+ 0000           ; /*【编写时间】： 2011.07.07
+ 0000           ; * 【作    者】： 雁翎电子
+ 0000           ; * 【版    本】： V1.0
+ 0000           ; * 【网    站】： http://ylelectronic.taobao.com/ 
+ 0000           ; * 【Q      Q】： 348439350
+ 0000           ; * 【编译环境】： ICCAVR  
+ 0000           ; * 【函数功能】： 12864 时钟显示 
+ 0000           ; * 【晶    振】:  8M           
+ 0000           ; * 【芯    片】:  ATMEGA16A     
+ 0000           ; * 【硬件连接】： J2短路帽拿掉   
+ 0000           ; /******************************************************************************/
+ 0000           ; #include <iom16v.h>
+ 0000           ; #include <macros.h>
+ 0000           ; #define Set_Bit(val, bitn)    (val |=(1<<(bitn))) 
+ 0000           ; #define Clr_Bit(val, bitn)    (val&=~(1<<(bitn))) 
+ 0000           ; //12864
+ 0000           ; void Write_char(unsigned char start, unsigned char ddata);
+ 0000           ; void Send_byte (unsigned char bbyte);
+ 0000           ; void Delaynms  (unsigned int di);
+ 0000           ; void Lcd_init  (void);
+ 0000           ; void delay     (void);
+ 0000           ; void Disp_img  (unsigned char const *img);
+ 0000           ; void timer1_init(void);
+ 0000           ; unsigned char  Sec,Min,Hour=0;
+ 0000           ; unsigned char  flag=0;
+ 0000           ; unsigned char  disbuf[6]={0,0,0,0,0,0};
+ 0000           ; unsigned char  num[]=    {"0123456789: "};
+ 0000           ; unsigned char  welcome[]={"时间:"};
+ 0000           ; unsigned char  input[]  ={"日期:"};
+ 0000           ; const unsigned char  discode[10]={ 0xC0, 0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90 }; 
+ 0000           ; /**************************************************************/
+ 0000           ;  unsigned  char const logo[]={  
+ 0000           ; /*--  调入了一幅图像：C:\Documents and Settings\lwd\桌面\AVR程序\AVR_12864_串行\b01.bmp  --*/
+ 0000           ; /*--  宽度x高度=127x63  --*/
+ 0000           ; /*--  宽度不是8的倍数，现调整为：宽度x高度=128x63  --*/
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x03,0xF3,0xE0,0x0F,0x8F,0xFC,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x03,0xF3,0xF0,0x0F,0x8F,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x07,0xF9,0xF0,0x0F,0x9F,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x07,0xF9,0xF8,0x1F,0x9F,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x07,0xF9,0xF8,0x1F,0x1F,0xFF,0x80,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x0F,0xFC,0xF8,0x1F,0x3F,0x1F,0x80,0x00,0x00,0x00,0x03,0xFF,0xFF,0xFC,0x00,
+ 0000           ; 0x00,0x0F,0xFC,0xFC,0x3F,0x3F,0x1F,0x80,0x00,0x00,0x00,0x07,0xFF,0xFF,0xFC,0x00,
+ 0000           ; 0x00,0x0F,0xFC,0x7C,0x3E,0x3E,0x1F,0x80,0x00,0x00,0x00,0x07,0xFF,0xFF,0xFC,0x00,
+ 0000           ; 0x00,0x1F,0xFE,0x7C,0x7E,0x7E,0x3F,0x00,0x20,0x00,0x00,0x01,0xC0,0x00,0x00,0x00,
+ 0000           ; 0x00,0x1F,0xBE,0x7E,0x7E,0x7E,0xFF,0x00,0x70,0x00,0x00,0x0D,0xBF,0xDF,0xB0,0x00,
+ 0000           ; 0x00,0x1F,0x3E,0x3E,0x7C,0x7F,0xFF,0x00,0x70,0x00,0x00,0x1D,0xFF,0xDF,0xB0,0x00,
+ 0000           ; 0x00,0x3F,0x3F,0x3E,0x7C,0xFF,0xFE,0x00,0x70,0x00,0x00,0x1D,0xFF,0xD8,0x30,0x00,
+ 0000           ; 0x00,0x3F,0x1F,0x3F,0xFC,0xFF,0xFC,0x00,0x60,0x00,0x00,0x3D,0xF6,0xD8,0x30,0x00,
+ 0000           ; 0x00,0x3F,0x1F,0x9F,0xF8,0xFF,0xF0,0x00,0xE0,0x00,0x00,0x3D,0xF6,0xDF,0xB0,0x00,
+ 0000           ; 0x00,0x3F,0xFF,0x9F,0xF9,0xFF,0xE0,0x00,0xC0,0x00,0x00,0x7D,0xF6,0xDF,0xB0,0x00,
+ 0000           ; 0x00,0x7F,0xFF,0x9F,0xF9,0xFB,0xE0,0x00,0x40,0x00,0x00,0xED,0xF6,0xD8,0x30,0x00,
+ 0000           ; 0x00,0x7F,0xFF,0xCF,0xF1,0xF3,0xF0,0x00,0x40,0x00,0x00,0xED,0xF6,0xD8,0x30,0x00,
+ 0000           ; 0x00,0x7F,0xFF,0xCF,0xF3,0xF3,0xF0,0x00,0x40,0x00,0x00,0xED,0xF6,0xDF,0xB0,0x00,
+ 0000           ; 0x00,0xFF,0xFF,0xCF,0xF3,0xF1,0xF0,0x00,0x60,0x00,0x01,0xFF,0xFF,0xFF,0xFE,0x00,
+ 0000           ; 0x00,0xF8,0x07,0xE7,0xE3,0xE1,0xF0,0x08,0x20,0x1E,0x01,0xFF,0xFF,0xFF,0xFE,0x00,
+ 0000           ; 0x00,0xF8,0x03,0xE7,0xE7,0xE1,0xF8,0xFF,0x3C,0x3F,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x01,0xF8,0x03,0xE3,0xE7,0xE1,0xF9,0xFF,0xFF,0xF7,0x80,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0xF0,0x01,0xE3,0xC7,0xC0,0xF9,0xE0,0xFF,0xFF,0xC0,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x03,0xC0,0x00,0x00,0x80,0x7C,0xFC,0xC0,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x01,0xC0,0x00,0x00,0x00,0x7F,0xFC,0xF0,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x01,0x80,0x00,0x00,0x00,0x7F,0xFF,0xF0,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x01,0x80,0x00,0x00,0x00,0x27,0xFF,0xB0,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x80,0x00,0x00,0x00,0x37,0xFF,0x10,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3F,0xFF,0x1C,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3F,0xFF,0x0C,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0xFF,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0xFF,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0xDF,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0x1F,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x01,0xBF,0xFF,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x01,0xF8,0x3C,0x00,0xCC,0x00,0x00,0xFF,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x1F,0x6C,0x37,0xF1,0x8C,0x00,0x00,0xE7,0xFE,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x03,0x60,0x6F,0x37,0xFF,0x80,0x00,0xCF,0xFC,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x1F,0xFE,0x6C,0x36,0x79,0x80,0x00,0xEE,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x03,0x60,0xEC,0x36,0x71,0x80,0x00,0x78,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x03,0xEC,0x6C,0x36,0x79,0x80,0x00,0x3C,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x07,0xF8,0x6C,0x37,0xED,0x80,0x00,0x3E,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x1F,0x30,0x6C,0x36,0x6D,0x80,0x00,0x76,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x03,0x76,0x6C,0x36,0x61,0x80,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x03,0xDE,0x6C,0x37,0xE1,0x80,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x0F,0x0E,0x6C,0xF6,0x6F,0x00,0x00,0x06,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+ 0000           ; };
+ 0000           ; 
+ 0000           ; /******************************************************************************/
+ 0000           ; void Lcd_init(void)   //初始化LCD 
+ 0000           ; {
+ 0000                   .dbline 109
+ 0000           ;       Delaynms(10); //启动等待，等LCM讲入工作状态
+ 0000 0AE0              ldi R16,10
+ 0002 10E0              ldi R17,0
+ 0004 49D0              xcall _Delaynms
+ 0006                   .dbline 110
+ 0006           ;       Set_Bit(PORTA,0);
+ 0006 D89A              sbi 0x1b,0
+ 0008                   .dbline 111
+ 0008           ;       Write_char(0,0x30);  //8 位介面，基本指令集
+ 0008 20E3              ldi R18,48
+ 000A 0027              clr R16
+ 000C 0FD0              xcall _Write_char
+ 000E                   .dbline 112
+ 000E           ;       Delaynms(10);
+ 000E 0AE0              ldi R16,10
+ 0010 10E0              ldi R17,0
+ 0012 42D0              xcall _Delaynms
+ 0014                   .dbline 113
+ 0014           ;       Write_char(0,0x0c);  //显示打开，光标关，反白关
+ 0014 2CE0              ldi R18,12
+ 0016 0027              clr R16
+ 0018 09D0              xcall _Write_char
+ 001A                   .dbline 114
+ 001A           ;       Delaynms(10);
+ 001A 0AE0              ldi R16,10
+ 001C 10E0              ldi R17,0
+ 001E 3CD0              xcall _Delaynms
+ 0020                   .dbline 115
+ 0020           ;       Write_char(0,0x01);  //清屏，将DDRAM的地址计数器归零  
+ 0020 21E0              ldi R18,1
+ 0022 0027              clr R16
+ 0024 03D0              xcall _Write_char
+ 0026                   .dbline 116
+ 0026           ;       Delaynms(10);
+ 0026 0AE0              ldi R16,10
+ 0028 10E0              ldi R17,0
+ 002A                   .dbline -2
+ 002A           L1:
+ 002A                   .dbline 0 ; func end
+ 002A 36C0              xjmp _Delaynms
+ 002C                   .dbend
+ 002C                   .dbfunc e Write_char _Write_char fV
+ 002C           ;          Ldata -> R20
+ 002C           ;          Hdata -> R22
+ 002C           ;     start_data -> R10
+ 002C           ;          ddata -> R20
+ 002C           ;          start -> R10
+                        .even
+ 002C           _Write_char::
+ 002C 0E940000          xcall push_xgsetF00C
+ 0030 422F              mov R20,R18
+ 0032 A02E              mov R10,R16
+ 0034                   .dbline -1
+ 0034                   .dbline 121
+ 0034           ; }
+ 0034           ; 
+ 0034           ; /******************************************************************************/
+ 0034           ; void Write_char(unsigned char start, unsigned char ddata) //写指令或数据
+ 0034           ; {
+ 0034                   .dbline 123
+ 0034           ;       unsigned char start_data,Hdata,Ldata;
+ 0034           ;       if(start==0) 
+ 0034 AA20              tst R10
+ 0036 19F4              brne L3
+ 0038           X0:
+ 0038                   .dbline 124
+ 0038           ;               start_data=0xf8;         //写指令
+ 0038 88EF              ldi R24,248
+ 003A A82E              mov R10,R24
+ 003C 02C0              xjmp L4
+ 003E           L3:
+ 003E                   .dbline 126
+ 003E           ;     else    
+ 003E           ;       start_data=0xfa;  //写数据
+ 003E 8AEF              ldi R24,250
+ 0040 A82E              mov R10,R24
+ 0042           L4:
+ 0042                   .dbline 128
+ 0042           ;   
+ 0042           ;       Hdata=ddata&0xf0;                 //取高四位
+ 0042 642F              mov R22,R20
+ 0044 607F              andi R22,240
+ 0046                   .dbline 129
+ 0046           ;       Ldata=(ddata<<4)&0xf0;  //取低四位
+ 0046 842F              mov R24,R20
+ 0048 8F70              andi R24,#0x0F
+ 004A 8295              swap R24
+ 004C 807F              andi R24,240
+ 004E 482F              mov R20,R24
+ 0050                   .dbline 130
+ 0050           ;       Send_byte(start_data);    //发送起始信号
+ 0050 0A2D              mov R16,R10
+ 0052 0FD0              xcall _Send_byte
+ 0054                   .dbline 131
+ 0054           ;       Delaynms(10); //延时是必须的
+ 0054 0AE0              ldi R16,10
+ 0056 10E0              ldi R17,0
+ 0058 1FD0              xcall _Delaynms
+ 005A                   .dbline 132
+ 005A           ;       Send_byte(Hdata);             //发送高四位
+ 005A 062F              mov R16,R22
+ 005C 0AD0              xcall _Send_byte
+ 005E                   .dbline 133
+ 005E           ;       Delaynms(10);  //延时是必须的
+ 005E 0AE0              ldi R16,10
+ 0060 10E0              ldi R17,0
+ 0062 1AD0              xcall _Delaynms
+ 0064                   .dbline 134
+ 0064           ;       Send_byte(Ldata);                 //发送低四位
+ 0064 042F              mov R16,R20
+ 0066 05D0              xcall _Send_byte
+ 0068                   .dbline 135
+ 0068           ;       Delaynms(10);  //延时是必须的
+ 0068 0AE0              ldi R16,10
+ 006A 10E0              ldi R17,0
+ 006C 15D0              xcall _Delaynms
+ 006E                   .dbline -2
+ 006E           L2:
+ 006E                   .dbline 0 ; func end
+ 006E 0C940000          xjmp pop_xgsetF00C
+ 0072                   .dbsym r Ldata 20 c
+ 0072                   .dbsym r Hdata 22 c
+ 0072                   .dbsym r start_data 10 c
+ 0072                   .dbsym r ddata 20 c
+ 0072                   .dbsym r start 10 c
+ 0072                   .dbend
+ 0072                   .dbfunc e Send_byte _Send_byte fV
+ 0072           ;              j -> R22
+ 0072           ;              i -> R20
+ 0072           ;          bbyte -> R16
+                        .even
+ 0072           _Send_byte::
+ 0072 4A93              st -y,R20
+ 0074 6A93              st -y,R22
+ 0076                   .dbline -1
+ 0076                   .dbline 140
+ 0076           ; }
+ 0076           ; 
+ 0076           ; /******************************************************************************/
+ 0076           ; void Send_byte(unsigned char bbyte) //发送一个字节
+ 0076           ; {
+ 0076                   .dbline 142
+ 0076           ;     unsigned char i,j;
+ 0076           ;       for(i=0;i<8;i++)
+ 0076 4427              clr R20
+ 0078 0AC0              xjmp L9
+ 007A           L6:
+ 007A                   .dbline 143
+ 007A           ;       {    
+ 007A                   .dbline 144
+ 007A           ;               j=bbyte&0x80; //取出最高位
+ 007A 602F              mov R22,R16
+ 007C 6078              andi R22,128
+ 007E                   .dbline 145
+ 007E           ;               if(j)
+ 007E 11F0              breq L10
+ 0080           X1:
+ 0080                   .dbline 146
+ 0080           ;                       Set_Bit(PORTA,1);
+ 0080 D99A              sbi 0x1b,1
+ 0082 01C0              xjmp L11
+ 0084           L10:
+ 0084                   .dbline 148
+ 0084           ;               else
+ 0084           ;                       Clr_Bit(PORTA,1);
+ 0084 D998              cbi 0x1b,1
+ 0086           L11:
+ 0086                   .dbline 149
+ 0086           ;               Set_Bit(PORTA,2);
+ 0086 DA9A              sbi 0x1b,2
+ 0088                   .dbline 151
+ 0088           ;               //Delaynms(1);
+ 0088           ;               Clr_Bit(PORTA,2);
+ 0088 DA98              cbi 0x1b,2
+ 008A                   .dbline 152
+ 008A           ;               bbyte<<=1; //左移  
+ 008A 000F              lsl R16
+ 008C                   .dbline 153
+ 008C           ;       }  
+ 008C           L7:
+ 008C                   .dbline 142
+ 008C 4395              inc R20
+ 008E           L9:
+ 008E                   .dbline 142
+ 008E 4830              cpi R20,8
+ 0090 A0F3              brlo L6
+ 0092           X2:
+ 0092                   .dbline -2
+ 0092           L5:
+ 0092                   .dbline 0 ; func end
+ 0092 6991              ld R22,y+
+ 0094 4991              ld R20,y+
+ 0096 0895              ret
+ 0098                   .dbsym r j 22 c
+ 0098                   .dbsym r i 20 c
+ 0098                   .dbsym r bbyte 16 c
+ 0098                   .dbend
+ 0098                   .dbfunc e Delaynms _Delaynms fV
+ 0098           ;             da -> R20,R21
+ 0098           ;             db -> R22,R23
+ 0098           ;             di -> R16,R17
+                        .even
+ 0098           _Delaynms::
+ 0098 0E940000          xcall push_xgsetF000
+ 009C                   .dbline -1
+ 009C                   .dbline 158
+ 009C           ; }
+ 009C           ; 
+ 009C           ; /******************************************************************************/
+ 009C           ; void Delaynms(unsigned int di) //延时
+ 009C           ; {
+ 009C                   .dbline 160
+ 009C           ;       unsigned int da,db;
+ 009C           ;       for(da=0;da<di;da++)
+ 009C 4427              clr R20
+ 009E 5527              clr R21
+ 00A0 0BC0              xjmp L16
+ 00A2           L13:
+ 00A2                   .dbline 161
+ 00A2           ;               for(db=0;db<10;db++);
+ 00A2 6627              clr R22
+ 00A4 7727              clr R23
+ 00A6 02C0              xjmp L20
+ 00A8           L17:
+ 00A8                   .dbline 161
+ 00A8           L18:
+ 00A8                   .dbline 161
+ 00A8 6F5F              subi R22,255  ; offset = 1
+ 00AA 7F4F              sbci R23,255
+ 00AC           L20:
+ 00AC                   .dbline 161
+ 00AC 6A30              cpi R22,10
+ 00AE E0E0              ldi R30,0
+ 00B0 7E07              cpc R23,R30
+ 00B2 D0F3              brlo L17
+ 00B4           X3:
+ 00B4           L14:
+ 00B4                   .dbline 160
+ 00B4 4F5F              subi R20,255  ; offset = 1
+ 00B6 5F4F              sbci R21,255
+ 00B8           L16:
+ 00B8                   .dbline 160
+ 00B8 4017              cp R20,R16
+ 00BA 5107              cpc R21,R17
+ 00BC 90F3              brlo L13
+ 00BE           X4:
+ 00BE                   .dbline -2
+ 00BE           L12:
+ 00BE                   .dbline 0 ; func end
+ 00BE 0C940000          xjmp pop_xgsetF000
+ 00C2                   .dbsym r da 20 i
+ 00C2                   .dbsym r db 22 i
+ 00C2                   .dbsym r di 16 i
+ 00C2                   .dbend
+ 00C2                   .dbfunc e Disp_img _Disp_img fV
+ 00C2           ;              i -> R20
+ 00C2           ;              k -> R22,R23
+ 00C2           ;              j -> R12
+ 00C2           ;            img -> R10,R11
+                        .even
+ 00C2           _Disp_img::
+ 00C2 0E940000          xcall push_xgsetF03C
+ 00C6 5801              movw R10,R16
+ 00C8                   .dbline -1
+ 00C8                   .dbline 166
+ 00C8           ; }
+ 00C8           ; 
+ 00C8           ; /****************************************************************************/
+ 00C8           ; void Disp_img(unsigned char const *img )      //图形方式12864显示字模221 横向取膜
+ 00C8           ; { 
+ 00C8                   .dbline 168
+ 00C8           ;       unsigned char i,j;
+ 00C8           ;       unsigned int k = 0;
+ 00C8 6627              clr R22
+ 00CA 7727              clr R23
+ 00CC                   .dbline 169
+ 00CC           ;     Delaynms(10);//延时好重要!!!!!!AVR太快了
+ 00CC 0AE0              ldi R16,10
+ 00CE 10E0              ldi R17,0
+ 00D0 E3DF              xcall _Delaynms
+ 00D2                   .dbline 170
+ 00D2           ;       Write_char(0,0x36); //图形方式
+ 00D2 26E3              ldi R18,54
+ 00D4 0027              clr R16
+ 00D6 AADF              xcall _Write_char
+ 00D8                   .dbline 171
+ 00D8           ;       Delaynms(10);//延时好重要!!!!!!AVR太快了
+ 00D8 0AE0              ldi R16,10
+ 00DA 10E0              ldi R17,0
+ 00DC DDDF              xcall _Delaynms
+ 00DE                   .dbline 172
+ 00DE           ;       for(i=0;i<32;i++)
+ 00DE 4427              clr R20
+ 00E0 17C0              xjmp L25
+ 00E2           L22:
+ 00E2                   .dbline 173
+ 00E2           ;       { 
+ 00E2                   .dbline 174
+ 00E2           ;               Write_char(0,0x80+i); //列
+ 00E2 242F              mov R18,R20
+ 00E4 2058              subi R18,128    ; addi 128
+ 00E6 0027              clr R16
+ 00E8 A1DF              xcall _Write_char
+ 00EA                   .dbline 175
+ 00EA           ;               Write_char(0,0x80);       //行
+ 00EA 20E8              ldi R18,128
+ 00EC 0027              clr R16
+ 00EE 9EDF              xcall _Write_char
+ 00F0                   .dbline 176
+ 00F0           ;       for(j=0;j<16;j++) 
+ 00F0 CC24              clr R12
+ 00F2 0AC0              xjmp L29
+ 00F4           L26:
+ 00F4                   .dbline 177
+ 00F4           ;               {
+ 00F4                   .dbline 178
+ 00F4           ;                       Write_char(1,img[k++]);
+ 00F4 1B01              movw R2,R22
+ 00F6 6F5F              subi R22,255  ; offset = 1
+ 00F8 7F4F              sbci R23,255
+ 00FA F101              movw R30,R2
+ 00FC EA0D              add R30,R10
+ 00FE FB1D              adc R31,R11
+ 0100 2491              lpm R18,Z
+ 0102 01E0              ldi R16,1
+ 0104 93DF              xcall _Write_char
+ 0106                   .dbline 179
+ 0106           ;               }
+ 0106           L27:
+ 0106                   .dbline 176
+ 0106 C394              inc R12
+ 0108           L29:
+ 0108                   .dbline 176
+ 0108 8C2D              mov R24,R12
+ 010A 8031              cpi R24,16
+ 010C 98F3              brlo L26
+ 010E           X5:
+ 010E                   .dbline 180
+ 010E           ;       }
+ 010E           L23:
+ 010E                   .dbline 172
+ 010E 4395              inc R20
+ 0110           L25:
+ 0110                   .dbline 172
+ 0110 4032              cpi R20,32
+ 0112 38F3              brlo L22
+ 0114           X6:
+ 0114                   .dbline 182
+ 0114           ; 
+ 0114           ;       for(i=0;i<32;i++)
+ 0114 4427              clr R20
+ 0116 17C0              xjmp L33
+ 0118           L30:
+ 0118                   .dbline 183
+ 0118           ;       { 
+ 0118                   .dbline 184
+ 0118           ;               Write_char(0,0x80+i);
+ 0118 242F              mov R18,R20
+ 011A 2058              subi R18,128    ; addi 128
+ 011C 0027              clr R16
+ 011E 86DF              xcall _Write_char
+ 0120                   .dbline 185
+ 0120           ;               Write_char(0,0x88);
+ 0120 28E8              ldi R18,136
+ 0122 0027              clr R16
+ 0124 83DF              xcall _Write_char
+ 0126                   .dbline 186
+ 0126           ;       for(j=0;j<16;j++) 
+ 0126 CC24              clr R12
+ 0128 0AC0              xjmp L37
+ 012A           L34:
+ 012A                   .dbline 187
+ 012A           ;               {
+ 012A                   .dbline 188
+ 012A           ;                       Write_char(1,img[k++]);
+ 012A 1B01              movw R2,R22
+ 012C 6F5F              subi R22,255  ; offset = 1
+ 012E 7F4F              sbci R23,255
+ 0130 F101              movw R30,R2
+ 0132 EA0D              add R30,R10
+ 0134 FB1D              adc R31,R11
+ 0136 2491              lpm R18,Z
+ 0138 01E0              ldi R16,1
+ 013A 78DF              xcall _Write_char
+ 013C                   .dbline 189
+ 013C           ;               }
+ 013C           L35:
+ 013C                   .dbline 186
+ 013C C394              inc R12
+ 013E           L37:
+ 013E                   .dbline 186
+ 013E 8C2D              mov R24,R12
+ 0140 8031              cpi R24,16
+ 0142 98F3              brlo L34
+ 0144           X7:
+ 0144                   .dbline 190
+ 0144           ;       }
+ 0144           L31:
+ 0144                   .dbline 182
+ 0144 4395              inc R20
+ 0146           L33:
+ 0146                   .dbline 182
+ 0146 4032              cpi R20,32
+ 0148 38F3              brlo L30
+ 014A           X8:
+ 014A                   .dbline -2
+ 014A           L21:
+ 014A                   .dbline 0 ; func end
+ 014A 0C940000          xjmp pop_xgsetF03C
+ 014E                   .dbsym r i 20 c
+ 014E                   .dbsym r k 22 i
+ 014E                   .dbsym r j 12 c
+ 014E                   .dbsym r img 10 pkc
+ 014E                   .dbend
+ 014E                   .dbfunc e Clr_Scr _Clr_Scr fV
+                        .even
+ 014E           _Clr_Scr::
+ 014E                   .dbline -1
+ 014E                   .dbline 195
+ 014E           ; }
+ 014E           ; 
+ 014E           ; /******************************************************************************/
+ 014E           ; void Clr_Scr(void)//清屏函数
+ 014E           ; {
+ 014E                   .dbline 196
+ 014E           ;       Write_char(0,0x01);
+ 014E 21E0              ldi R18,1
+ 0150 0027              clr R16
+ 0152                   .dbline -2
+ 0152           L38:
+ 0152                   .dbline 0 ; func end
+ 0152 6CCF              xjmp _Write_char
+ 0154                   .dbend
+ 0154                   .dbfunc e LCD_set_xy _LCD_set_xy fV
+ 0154           ;        address -> R20
+ 0154           ;              y -> R22
+ 0154           ;              x -> R10
+                        .even
+ 0154           _LCD_set_xy::
+ 0154 0E940000          xcall push_xgsetF00C
+ 0158 622F              mov R22,R18
+ 015A A02E              mov R10,R16
+ 015C                   .dbline -1
+ 015C                   .dbline 201
+ 015C           ; }
+ 015C           ; 
+ 015C           ; /******************************************************************************/
+ 015C           ; void LCD_set_xy( unsigned char x, unsigned char y )
+ 015C           ; {     //设置LCD显示的起始位置，X为行，Y为列
+ 015C                   .dbline 203
+ 015C           ;     unsigned char address;
+ 015C           ;       switch(x)
+ 015C 4A2D              mov R20,R10
+ 015E 5527              clr R21
+ 0160 4030              cpi R20,0
+ 0162 4507              cpc R20,R21
+ 0164 89F0              breq L43
+ 0166           X9:
+ 0166 4130              cpi R20,1
+ 0168 E0E0              ldi R30,0
+ 016A 5E07              cpc R21,R30
+ 016C 81F0              breq L44
+ 016E           X10:
+ 016E 4230              cpi R20,2
+ 0170 E0E0              ldi R30,0
+ 0172 5E07              cpc R21,R30
+ 0174 79F0              breq L45
+ 0176           X11:
+ 0176 4330              cpi R20,3
+ 0178 E0E0              ldi R30,0
+ 017A 5E07              cpc R21,R30
+ 017C 71F0              breq L46
+ 017E           X12:
+ 017E 4430              cpi R20,4
+ 0180 E0E0              ldi R30,0
+ 0182 5E07              cpc R21,R30
+ 0184 69F0              breq L47
+ 0186           X13:
+ 0186 0FC0              xjmp L40
+ 0188           L43:
+ 0188                   .dbline 205
+ 0188           ;       {
+ 0188           ;               case 0: address = 0x80 + y; break;    
+ 0188 462F              mov R20,R22
+ 018A 4058              subi R20,128    ; addi 128
+ 018C                   .dbline 205
+ 018C 0EC0              xjmp L41
+ 018E           L44:
+ 018E                   .dbline 206
+ 018E           ;       case 1: address = 0x80 + y; break; 
+ 018E 462F              mov R20,R22
+ 0190 4058              subi R20,128    ; addi 128
+ 0192                   .dbline 206
+ 0192 0BC0              xjmp L41
+ 0194           L45:
+ 0194                   .dbline 207
+ 0194           ;               case 2: address = 0x90 + y; break; 
+ 0194 462F              mov R20,R22
+ 0196 4057              subi R20,112    ; addi 144
+ 0198                   .dbline 207
+ 0198 08C0              xjmp L41
+ 019A           L46:
+ 019A                   .dbline 208
+ 019A           ;               case 3: address = 0x88 + y; break;
+ 019A 462F              mov R20,R22
+ 019C 4857              subi R20,120    ; addi 136
+ 019E                   .dbline 208
+ 019E 05C0              xjmp L41
+ 01A0           L47:
+ 01A0                   .dbline 209
+ 01A0           ;               case 4: address = 0x98 + y; break; 
+ 01A0 462F              mov R20,R22
+ 01A2 4856              subi R20,104    ; addi 152
+ 01A4                   .dbline 209
+ 01A4 02C0              xjmp L41
+ 01A6           L40:
+ 01A6                   .dbline 210
+ 01A6           ;               default:address = 0x80 + y; break;
+ 01A6 462F              mov R20,R22
+ 01A8 4058              subi R20,128    ; addi 128
+ 01AA                   .dbline 210
+ 01AA           L41:
+ 01AA                   .dbline 212
+ 01AA           ;       }
+ 01AA           ;     Write_char(0, address);
+ 01AA 242F              mov R18,R20
+ 01AC 0027              clr R16
+ 01AE 3EDF              xcall _Write_char
+ 01B0                   .dbline -2
+ 01B0           L39:
+ 01B0                   .dbline 0 ; func end
+ 01B0 0C940000          xjmp pop_xgsetF00C
+ 01B4                   .dbsym r address 20 c
+ 01B4                   .dbsym r y 22 c
+ 01B4                   .dbsym r x 10 c
+ 01B4                   .dbend
+ 01B4                   .dbfunc e LCD_Write_string _LCD_Write_string fV
+ 01B4           ;              s -> R20,R21
+ 01B4           ;              Y -> R12
+ 01B4           ;              X -> R10
+                        .even
+ 01B4           _LCD_Write_string::
+ 01B4 0E940000          xcall push_xgset303C
+ 01B8 C22E              mov R12,R18
+ 01BA A02E              mov R10,R16
+ 01BC 4E81              ldd R20,y+6
+ 01BE 5F81              ldd R21,y+7
+ 01C0                   .dbline -1
+ 01C0                   .dbline 217
+ 01C0           ; }
+ 01C0           ; 
+ 01C0           ; /******************************************************************************/
+ 01C0           ; void LCD_Write_string(unsigned char X,unsigned char Y,unsigned char *s)
+ 01C0           ; {     //      中英文字符串显示函数
+ 01C0                   .dbline 218
+ 01C0           ;       LCD_set_xy( X, Y );   
+ 01C0 2C2D              mov R18,R12
+ 01C2 0A2D              mov R16,R10
+ 01C4 C7DF              xcall _LCD_set_xy
+ 01C6 09C0              xjmp L50
+ 01C8           L49:
+ 01C8                   .dbline 220
+ 01C8           ;     while (*s) 
+ 01C8           ;     {
+ 01C8                   .dbline 221
+ 01C8           ;               Write_char( 1, *s );
+ 01C8 FA01              movw R30,R20
+ 01CA 2081              ldd R18,z+0
+ 01CC 01E0              ldi R16,1
+ 01CE 2EDF              xcall _Write_char
+ 01D0                   .dbline 222
+ 01D0           ;           s ++;
+ 01D0 4F5F              subi R20,255  ; offset = 1
+ 01D2 5F4F              sbci R21,255
+ 01D4                   .dbline 223
+ 01D4           ;               Delaynms(1);
+ 01D4 01E0              ldi R16,1
+ 01D6 10E0              ldi R17,0
+ 01D8 5FDF              xcall _Delaynms
+ 01DA                   .dbline 224
+ 01DA           ;       }
+ 01DA           L50:
+ 01DA                   .dbline 219
+ 01DA FA01              movw R30,R20
+ 01DC 2080              ldd R2,z+0
+ 01DE 2220              tst R2
+ 01E0 99F7              brne L49
+ 01E2           X14:
+ 01E2                   .dbline -2
+ 01E2           L48:
+ 01E2                   .dbline 0 ; func end
+ 01E2 0C940000          xjmp pop_xgset303C
+ 01E6                   .dbsym r s 20 pc
+ 01E6                   .dbsym r Y 12 c
+ 01E6                   .dbsym r X 10 c
+ 01E6                   .dbend
+ 01E6                   .dbfunc e LCD_Write_number _LCD_Write_number fV
+ 01E6           ;              s -> R10
+                        .even
+ 01E6           _LCD_Write_number::
+ 01E6 AA92              st -y,R10
+ 01E8 A02E              mov R10,R16
+ 01EA                   .dbline -1
+ 01EA                   .dbline 228
+ 01EA           ; }
+ 01EA           ; /*******************************************************************************/
+ 01EA           ; void LCD_Write_number(unsigned char s)//      数字显示函数
+ 01EA           ; {     
+ 01EA                   .dbline 229
+ 01EA           ;       Write_char(1,num[s]);
+ 01EA 80E0              ldi R24,<_num
+ 01EC 90E0              ldi R25,>_num
+ 01EE EA2D              mov R30,R10
+ 01F0 FF27              clr R31
+ 01F2 E80F              add R30,R24
+ 01F4 F91F              adc R31,R25
+ 01F6 2081              ldd R18,z+0
+ 01F8 01E0              ldi R16,1
+ 01FA 18DF              xcall _Write_char
+ 01FC                   .dbline 230
+ 01FC           ;       Delaynms(1);
+ 01FC 01E0              ldi R16,1
+ 01FE 10E0              ldi R17,0
+ 0200 4BDF              xcall _Delaynms
+ 0202                   .dbline -2
+ 0202           L52:
+ 0202                   .dbline 0 ; func end
+ 0202 A990              ld R10,y+
+ 0204 0895              ret
+ 0206                   .dbsym r s 10 c
+ 0206                   .dbend
+ 0206                   .dbfunc e delay _delay fV
+ 0206           ;              i -> R16,R17
+                        .even
+ 0206           _delay::
+ 0206                   .dbline -1
+ 0206                   .dbline 234
+ 0206           ; }
+ 0206           ; 
+ 0206           ; void delay(void)          
+ 0206           ; {    
+ 0206                   .dbline 236
+ 0206           ;     unsigned i;
+ 0206           ;     for(i=0;i<255;i++);
+ 0206 0027              clr R16
+ 0208 1127              clr R17
+ 020A 02C0              xjmp L57
+ 020C           L54:
+ 020C                   .dbline 236
+ 020C           L55:
+ 020C                   .dbline 236
+ 020C 0F5F              subi R16,255  ; offset = 1
+ 020E 1F4F              sbci R17,255
+ 0210           L57:
+ 0210                   .dbline 236
+ 0210 0F3F              cpi R16,255
+ 0212 E0E0              ldi R30,0
+ 0214 1E07              cpc R17,R30
+ 0216 D0F3              brlo L54
+ 0218           X15:
+ 0218                   .dbline -2
+ 0218           L53:
+ 0218                   .dbline 0 ; func end
+ 0218 0895              ret
+ 021A                   .dbsym r i 16 i
+ 021A                   .dbend
+ 021A                   .dbfunc e Lcd_Mark2 _Lcd_Mark2 fV
+                        .even
+ 021A           _Lcd_Mark2::
+ 021A 2297              sbiw R28,2
+ 021C                   .dbline -1
+ 021C                   .dbline 240
+ 021C           ; }
+ 021C           ; /******************************************************************************/
+ 021C           ; void Lcd_Mark2(void)
+ 021C           ; {
+ 021C                   .dbline 241
+ 021C           ;       Clr_Scr();//清屏
+ 021C 98DF              xcall _Clr_Scr
+ 021E                   .dbline 242
+ 021E           ;       Delaynms(10);
+ 021E 0AE0              ldi R16,10
+ 0220 10E0              ldi R17,0
+ 0222 3ADF              xcall _Delaynms
+ 0224                   .dbline 243
+ 0224           ;       LCD_Write_string(1,0,welcome);//
+ 0224 80E0              ldi R24,<_welcome
+ 0226 90E0              ldi R25,>_welcome
+ 0228 9983              std y+1,R25
+ 022A 8883              std y+0,R24
+ 022C 2227              clr R18
+ 022E 01E0              ldi R16,1
+ 0230 C1DF              xcall _LCD_Write_string
+ 0232                   .dbline 244
+ 0232           ;       LCD_Write_string(2,0,input);
+ 0232 80E0              ldi R24,<_input
+ 0234 90E0              ldi R25,>_input
+ 0236 9983              std y+1,R25
+ 0238 8883              std y+0,R24
+ 023A 2227              clr R18
+ 023C 02E0              ldi R16,2
+ 023E BADF              xcall _LCD_Write_string
+ 0240                   .dbline -2
+ 0240           L58:
+ 0240                   .dbline 0 ; func end
+ 0240 2296              adiw R28,2
+ 0242 0895              ret
+ 0244                   .dbend
+ 0244                   .dbfunc e timer1_init _timer1_init fV
+                        .even
+ 0244           _timer1_init::
+ 0244                   .dbline -1
+ 0244                   .dbline 248
+ 0244           ; }
+ 0244           ; /******************************************************************************/
+ 0244           ;  void timer1_init(void)
+ 0244           ; {
+ 0244                   .dbline 249
+ 0244           ;       TCCR1B = 0x00;  //stop timer
+ 0244 2224              clr R2
+ 0246 2EBC              out 0x2e,R2
+ 0248                   .dbline 250
+ 0248           ;       TCNT1H = 0xc7;  //设置 TC1 的 计数寄存器 高8位值
+ 0248 87EC              ldi R24,199
+ 024A 8DBD              out 0x2d,R24
+ 024C                   .dbline 251
+ 024C           ;       TCNT1L = 0xc0;  //设置 TC1 的 计数寄存器 低8位值
+ 024C 80EC              ldi R24,192
+ 024E 8CBD              out 0x2c,R24
+ 0250                   .dbline 252
+ 0250           ;       TCCR1A = 0x00;
+ 0250 2FBC              out 0x2f,R2
+ 0252                   .dbline 253
+ 0252           ;       TCCR1B = 0x04;  //设置TC1 为 CLK/1024分频，启动TC1
+ 0252 84E0              ldi R24,4
+ 0254 8EBD              out 0x2e,R24
+ 0256                   .dbline 254
+ 0256           ;       MCUCR  = 0x00;  //设置 MCU 的 控制寄存器
+ 0256 25BE              out 0x35,R2
+ 0258                   .dbline 255
+ 0258           ;       GICR   = 0x00;  //设置 中断控制寄存器
+ 0258 2BBE              out 0x3b,R2
+ 025A                   .dbline 256
+ 025A           ;       TIMSK  = 0x04;  //设置 定时计数器 的 屏蔽寄存器
+ 025A 89BF              out 0x39,R24
+ 025C                   .dbline -2
+ 025C           L59:
+ 025C                   .dbline 0 ; func end
+ 025C 0895              ret
+ 025E                   .dbend
+ 025E                   .dbfunc e main _main fV
+                        .even
+ 025E           _main::
+ 025E                   .dbline -1
+ 025E                   .dbline 260
+ 025E           ; }   
+ 025E           ; /******************************************************************************/
+ 025E           ; void main(void)//主函数
+ 025E           ; { 
+ 025E                   .dbline 262
+ 025E           ; 
+ 025E           ;     DDRA|=1<<0|1<<1|1<<2|0<<7;//设置PA0,PA1,PA2为输出,PA7为输入
+ 025E 8AB3              in R24,0x1a
+ 0260 8760              ori R24,7
+ 0262 8ABB              out 0x1a,R24
+ 0264                   .dbline 263
+ 0264           ;       PORTA=0x00;
+ 0264 2224              clr R2
+ 0266 2BBA              out 0x1b,R2
+ 0268                   .dbline 265
+ 0268           ;       
+ 0268           ;       DDRC|=1<<0;//设置PC0为输出
+ 0268 A09A              sbi 0x14,0
+ 026A                   .dbline 266
+ 026A           ;       PORTC=0x00;
+ 026A 25BA              out 0x15,R2
+ 026C                   .dbline 268
+ 026C           ; 
+ 026C           ;       DDRD|=1<<0;
+ 026C 889A              sbi 0x11,0
+ 026E                   .dbline 269
+ 026E           ;       PORTD=0x00;
+ 026E 22BA              out 0x12,R2
+ 0270                   .dbline 272
+ 0270           ;     
+ 0270           ;       
+ 0270           ;       Lcd_init();//设置液晶显示器
+ 0270 C7DE              xcall _Lcd_init
+ 0272                   .dbline 273
+ 0272           ;       Clr_Scr();//清屏        
+ 0272 6DDF              xcall _Clr_Scr
+ 0274                   .dbline 274
+ 0274           ;       Disp_img(logo); //显示我们的AVR
+ 0274 00E0              ldi R16,<_logo
+ 0276 10E0              ldi R17,>_logo
+ 0278 24DF              xcall _Disp_img
+ 027A                   .dbline 275
+ 027A           ;       Delaynms(40000);//显示画面等待时间
+ 027A 00E4              ldi R16,40000
+ 027C 1CE9              ldi R17,156
+ 027E 0CDF              xcall _Delaynms
+ 0280                   .dbline 276
+ 0280           ;     Lcd_init();
+ 0280 BFDE              xcall _Lcd_init
+ 0282                   .dbline 277
+ 0282           ;       Lcd_Mark2();
+ 0282 CBDF              xcall _Lcd_Mark2
+ 0284                   .dbline 278
+ 0284           ;       timer1_init();  
+ 0284 DFDF              xcall _timer1_init
+ 0286                   .dbline 279
+ 0286           ;       SEI();   
+ 0286 7894              sei
+ 0288 38C0              xjmp L62
+ 028A           L61:
+ 028A                   .dbline 281
+ 028A           ;     while(1)
+ 028A           ;       { 
+ 028A                   .dbline 282
+ 028A           ;                 PORTB=discode[disbuf[0]];
+ 028A 80E0              ldi R24,<_discode
+ 028C 90E0              ldi R25,>_discode
+ 028E E0910200          lds R30,_disbuf
+ 0292 FF27              clr R31
+ 0294 E80F              add R30,R24
+ 0296 F91F              adc R31,R25
+ 0298 2490              lpm R2,Z
+ 029A 28BA              out 0x18,R2
+ 029C                   .dbline 283
+ 029C           ;           PORTD=0xEF;
+ 029C 8FEE              ldi R24,239
+ 029E 82BB              out 0x12,R24
+ 02A0                   .dbline 284
+ 02A0           ;           delay();
+ 02A0 B2DF              xcall _delay
+ 02A2                   .dbline 285
+ 02A2           ;           PORTD=0xff;
+ 02A2 8FEF              ldi R24,255
+ 02A4 82BB              out 0x12,R24
+ 02A6                   .dbline 286
+ 02A6           ;                 PORTB=discode[disbuf[1]];
+ 02A6 80E0              ldi R24,<_discode
+ 02A8 90E0              ldi R25,>_discode
+ 02AA E0910300          lds R30,_disbuf+1
+ 02AE FF27              clr R31
+ 02B0 E80F              add R30,R24
+ 02B2 F91F              adc R31,R25
+ 02B4 2490              lpm R2,Z
+ 02B6 28BA              out 0x18,R2
+ 02B8                   .dbline 287
+ 02B8           ;           PORTD=0xDF;
+ 02B8 8FED              ldi R24,223
+ 02BA 82BB              out 0x12,R24
+ 02BC                   .dbline 288
+ 02BC           ;           delay();
+ 02BC A4DF              xcall _delay
+ 02BE                   .dbline 289
+ 02BE           ;           PORTD=0xff;
+ 02BE 8FEF              ldi R24,255
+ 02C0 82BB              out 0x12,R24
+ 02C2                   .dbline 290
+ 02C2           ;                 PORTB=discode[disbuf[2]];                                  
+ 02C2 80E0              ldi R24,<_discode
+ 02C4 90E0              ldi R25,>_discode
+ 02C6 E0910400          lds R30,_disbuf+2
+ 02CA FF27              clr R31
+ 02CC E80F              add R30,R24
+ 02CE F91F              adc R31,R25
+ 02D0 2490              lpm R2,Z
+ 02D2 28BA              out 0x18,R2
+ 02D4                   .dbline 291
+ 02D4           ;           PORTD=0xBF;
+ 02D4 8FEB              ldi R24,191
+ 02D6 82BB              out 0x12,R24
+ 02D8                   .dbline 292
+ 02D8           ;           delay();
+ 02D8 96DF              xcall _delay
+ 02DA                   .dbline 293
+ 02DA           ;           PORTD=0xff;
+ 02DA 8FEF              ldi R24,255
+ 02DC 82BB              out 0x12,R24
+ 02DE                   .dbline 294
+ 02DE           ;             PORTB=discode[disbuf[3]];
+ 02DE 80E0              ldi R24,<_discode
+ 02E0 90E0              ldi R25,>_discode
+ 02E2 E0910500          lds R30,_disbuf+3
+ 02E6 FF27              clr R31
+ 02E8 E80F              add R30,R24
+ 02EA F91F              adc R31,R25
+ 02EC 2490              lpm R2,Z
+ 02EE 28BA              out 0x18,R2
+ 02F0                   .dbline 295
+ 02F0           ;           PORTD=0x7F;
+ 02F0 8FE7              ldi R24,127
+ 02F2 82BB              out 0x12,R24
+ 02F4                   .dbline 296
+ 02F4           ;           delay();
+ 02F4 88DF              xcall _delay
+ 02F6                   .dbline 297
+ 02F6           ;           PORTD=0xff;
+ 02F6 8FEF              ldi R24,255
+ 02F8 82BB              out 0x12,R24
+ 02FA                   .dbline 298
+ 02FA           ;     }
+ 02FA           L62:
+ 02FA                   .dbline 280
+ 02FA C7CF              xjmp L61
+ 02FC           X16:
+ 02FC                   .dbline -2
+ 02FC           L60:
+ 02FC                   .dbline 0 ; func end
+ 02FC 0895              ret
+ 02FE                   .dbend
+                        .area vector(rom, abs)
+                        .org 32
+ 0020 0C947F01          jmp _timer1_ovf_isr
+                        .area text(rom, con, rel)
+ 02FE                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 02FE                   .dbfunc e timer1_ovf_isr _timer1_ovf_isr fV
+                        .even
+ 02FE           _timer1_ovf_isr::
+ 02FE 0A92              st -y,R0
+ 0300 1A92              st -y,R1
+ 0302 2A92              st -y,R2
+ 0304 3A92              st -y,R3
+ 0306 4A92              st -y,R4
+ 0308 5A92              st -y,R5
+ 030A 6A92              st -y,R6
+ 030C 7A92              st -y,R7
+ 030E 8A92              st -y,R8
+ 0310 9A92              st -y,R9
+ 0312 0A93              st -y,R16
+ 0314 1A93              st -y,R17
+ 0316 2A93              st -y,R18
+ 0318 3A93              st -y,R19
+ 031A 8A93              st -y,R24
+ 031C 9A93              st -y,R25
+ 031E AA93              st -y,R26
+ 0320 BA93              st -y,R27
+ 0322 EA93              st -y,R30
+ 0324 FA93              st -y,R31
+ 0326 0FB6              in R0,0x3f
+ 0328 0A92              st -y,R0
+ 032A                   .dbline -1
+ 032A                   .dbline 303
+ 032A           ; } //ENDmain
+ 032A           ;  
+ 032A           ; #pragma interrupt_handler timer1_ovf_isr:9                    
+ 032A           ; void timer1_ovf_isr(void) 
+ 032A           ;                  { 
+ 032A                   .dbline 305
+ 032A           ;                        
+ 032A           ;                            TCNT1H = 0xc7;             //设置 TC1 的 计数寄存器 高8位值
+ 032A 87EC              ldi R24,199
+ 032C 8DBD              out 0x2d,R24
+ 032E                   .dbline 306
+ 032E           ;                    TCNT1L = 0xc0;             //设置 TC1 的 计数寄存器 低8位值
+ 032E 80EC              ldi R24,192
+ 0330 8CBD              out 0x2c,R24
+ 0332                   .dbline 307
+ 0332           ;                                flag=~flag;
+ 0332 20900100          lds R2,_flag
+ 0336 2094              com R2
+ 0338 20920100          sts _flag,R2
+ 033C                   .dbline 310
+ 033C           ;                          
+ 033C           ;                                
+ 033C           ;                                Sec++;
+ 033C 80910100          lds R24,_Sec
+ 0340 8F5F              subi R24,255    ; addi 1
+ 0342 80930100          sts _Sec,R24
+ 0346                   .dbline 311
+ 0346           ;                                if(Sec==60)
+ 0346 8C33              cpi R24,60
+ 0348 A9F4              brne L68
+ 034A           X17:
+ 034A                   .dbline 312
+ 034A           ;                                 { 
+ 034A                   .dbline 313
+ 034A           ;                                  Sec=0;
+ 034A 2224              clr R2
+ 034C 20920100          sts _Sec,R2
+ 0350                   .dbline 314
+ 0350           ;                                  Min++;
+ 0350 80910000          lds R24,_Min
+ 0354 8F5F              subi R24,255    ; addi 1
+ 0356 80930000          sts _Min,R24
+ 035A                   .dbline 315
+ 035A           ;                                       { 
+ 035A                   .dbline 316
+ 035A           ;                                            if(Min==60)
+ 035A 8C33              cpi R24,60
+ 035C 59F4              brne L70
+ 035E           X18:
+ 035E                   .dbline 317
+ 035E           ;                                              { Min=0;
+ 035E                   .dbline 317
+ 035E 20920000          sts _Min,R2
+ 0362                   .dbline 318
+ 0362           ;                                                 Hour++;
+ 0362 80910000          lds R24,_Hour
+ 0366 8F5F              subi R24,255    ; addi 1
+ 0368 80930000          sts _Hour,R24
+ 036C                   .dbline 319
+ 036C           ;                                                      if(Hour==24)
+ 036C 8831              cpi R24,24
+ 036E 11F4              brne L72
+ 0370           X19:
+ 0370                   .dbline 320
+ 0370           ;                                                           {
+ 0370                   .dbline 321
+ 0370           ;                                                       Hour=0; 
+ 0370 20920000          sts _Hour,R2
+ 0374                   .dbline 322
+ 0374           ;                                                               } 
+ 0374           L72:
+ 0374                   .dbline 323
+ 0374           ;                                              }
+ 0374           L70:
+ 0374                   .dbline 325
+ 0374           ;                                               
+ 0374           ;                                           }
+ 0374                   .dbline 327
+ 0374           ;                                       
+ 0374           ;                              }
+ 0374           L68:
+ 0374                   .dbline 328
+ 0374           ;                        disbuf[5]=Hour/10;
+ 0374 1AE0              ldi R17,10
+ 0376 00910000          lds R16,_Hour
+ 037A 0E940000          xcall div8u
+ 037E 00930700          sts _disbuf+5,R16
+ 0382                   .dbline 329
+ 0382           ;                        disbuf[4]=Hour%10;
+ 0382 1AE0              ldi R17,10
+ 0384 00910000          lds R16,_Hour
+ 0388 0E940000          xcall mod8u
+ 038C 00930600          sts _disbuf+4,R16
+ 0390                   .dbline 330
+ 0390           ;                        disbuf[3]=Min/10;
+ 0390 1AE0              ldi R17,10
+ 0392 00910000          lds R16,_Min
+ 0396 0E940000          xcall div8u
+ 039A 00930500          sts _disbuf+3,R16
+ 039E                   .dbline 331
+ 039E           ;                        disbuf[2]=Min%10;
+ 039E 1AE0              ldi R17,10
+ 03A0 00910000          lds R16,_Min
+ 03A4 0E940000          xcall mod8u
+ 03A8 00930400          sts _disbuf+2,R16
+ 03AC                   .dbline 332
+ 03AC           ;                        disbuf[1]=Sec/10;
+ 03AC 1AE0              ldi R17,10
+ 03AE 00910100          lds R16,_Sec
+ 03B2 0E940000          xcall div8u
+ 03B6 00930300          sts _disbuf+1,R16
+ 03BA                   .dbline 333
+ 03BA           ;                        disbuf[0]=Sec%10;
+ 03BA 1AE0              ldi R17,10
+ 03BC 00910100          lds R16,_Sec
+ 03C0 0E940000          xcall mod8u
+ 03C4 00930200          sts _disbuf,R16
+ 03C8                   .dbline 334
+ 03C8           ;                        LCD_set_xy(1,4);
+ 03C8 24E0              ldi R18,4
+ 03CA 01E0              ldi R16,1
+ 03CC C3DE              xcall _LCD_set_xy
+ 03CE                   .dbline 335
+ 03CE           ;                        LCD_Write_number(disbuf[5]);
+ 03CE 00910700          lds R16,_disbuf+5
+ 03D2 09DF              xcall _LCD_Write_number
+ 03D4                   .dbline 336
+ 03D4           ;                        LCD_Write_number(disbuf[4]);
+ 03D4 00910600          lds R16,_disbuf+4
+ 03D8 06DF              xcall _LCD_Write_number
+ 03DA                   .dbline 338
+ 03DA           ;                        
+ 03DA           ;                        if(flag==0)
+ 03DA 20900100          lds R2,_flag
+ 03DE 2220              tst R2
+ 03E0 89F4              brne L81
+ 03E2           X20:
+ 03E2                   .dbline 339
+ 03E2           ;                        {
+ 03E2                   .dbline 340
+ 03E2           ;                        LCD_set_xy(1,5);
+ 03E2 25E0              ldi R18,5
+ 03E4 01E0              ldi R16,1
+ 03E6 B6DE              xcall _LCD_set_xy
+ 03E8                   .dbline 341
+ 03E8           ;                        LCD_Write_number(10);
+ 03E8 0AE0              ldi R16,10
+ 03EA FDDE              xcall _LCD_Write_number
+ 03EC                   .dbline 342
+ 03EC           ;                        LCD_Write_number(disbuf[3]);
+ 03EC 00910500          lds R16,_disbuf+3
+ 03F0 FADE              xcall _LCD_Write_number
+ 03F2                   .dbline 343
+ 03F2           ;                        LCD_set_xy(1,6);
+ 03F2 26E0              ldi R18,6
+ 03F4 01E0              ldi R16,1
+ 03F6 AEDE              xcall _LCD_set_xy
+ 03F8                   .dbline 344
+ 03F8           ;                        LCD_Write_number(disbuf[2]);
+ 03F8 00910400          lds R16,_disbuf+2
+ 03FC F4DE              xcall _LCD_Write_number
+ 03FE                   .dbline 345
+ 03FE           ;                        LCD_Write_number(10);
+ 03FE 0AE0              ldi R16,10
+ 0400 F2DE              xcall _LCD_Write_number
+ 0402                   .dbline 346
+ 0402           ;                        }
+ 0402 10C0              xjmp L82
+ 0404           L81:
+ 0404                   .dbline 348
+ 0404           ;                        else
+ 0404           ;                        {
+ 0404                   .dbline 349
+ 0404           ;                        LCD_set_xy(1,5);
+ 0404 25E0              ldi R18,5
+ 0406 01E0              ldi R16,1
+ 0408 A5DE              xcall _LCD_set_xy
+ 040A                   .dbline 350
+ 040A           ;                        LCD_Write_number(11);
+ 040A 0BE0              ldi R16,11
+ 040C ECDE              xcall _LCD_Write_number
+ 040E                   .dbline 351
+ 040E           ;                        LCD_Write_number(disbuf[3]);
+ 040E 00910500          lds R16,_disbuf+3
+ 0412 E9DE              xcall _LCD_Write_number
+ 0414                   .dbline 352
+ 0414           ;                        LCD_set_xy(1,6);
+ 0414 26E0              ldi R18,6
+ 0416 01E0              ldi R16,1
+ 0418 9DDE              xcall _LCD_set_xy
+ 041A                   .dbline 353
+ 041A           ;                        LCD_Write_number(disbuf[2]);
+ 041A 00910400          lds R16,_disbuf+2
+ 041E E3DE              xcall _LCD_Write_number
+ 0420                   .dbline 354
+ 0420           ;                        LCD_Write_number(11);
+ 0420 0BE0              ldi R16,11
+ 0422 E1DE              xcall _LCD_Write_number
+ 0424                   .dbline 355
+ 0424           ;                        }
+ 0424           L82:
+ 0424                   .dbline 357
+ 0424           ;                       
+ 0424           ;                        LCD_set_xy(1,7);
+ 0424 27E0              ldi R18,7
+ 0426 01E0              ldi R16,1
+ 0428 95DE              xcall _LCD_set_xy
+ 042A                   .dbline 358
+ 042A           ;                        LCD_Write_number(disbuf[1]);
+ 042A 00910300          lds R16,_disbuf+1
+ 042E DBDE              xcall _LCD_Write_number
+ 0430                   .dbline 359
+ 0430           ;                        LCD_Write_number(disbuf[0]);
+ 0430 00910200          lds R16,_disbuf
+ 0434 D8DE              xcall _LCD_Write_number
+ 0436                   .dbline -2
+ 0436           L67:
+ 0436                   .dbline 0 ; func end
+ 0436 0990              ld R0,y+
+ 0438 0FBE              out 0x3f,R0
+ 043A F991              ld R31,y+
+ 043C E991              ld R30,y+
+ 043E B991              ld R27,y+
+ 0440 A991              ld R26,y+
+ 0442 9991              ld R25,y+
+ 0444 8991              ld R24,y+
+ 0446 3991              ld R19,y+
+ 0448 2991              ld R18,y+
+ 044A 1991              ld R17,y+
+ 044C 0991              ld R16,y+
+ 044E 9990              ld R9,y+
+ 0450 8990              ld R8,y+
+ 0452 7990              ld R7,y+
+ 0454 6990              ld R6,y+
+ 0456 5990              ld R5,y+
+ 0458 4990              ld R4,y+
+ 045A 3990              ld R3,y+
+ 045C 2990              ld R2,y+
+ 045E 1990              ld R1,y+
+ 0460 0990              ld R0,y+
+ 0462 1895              reti
+ 0464                   .dbend
+                        .area bss(ram, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\12.12864时钟\12864时钟.c
+ 0000           _Min::
+ 0000                   .blkb 1
+ 0001                   .dbsym e Min _Min c
+ 0001           _Sec::
+ 0001                   .blkb 1
+ 0002                   .dbsym e Sec _Sec c
+ 0002           ;                        
+ 0002           ;                       
+ 0002           ;                        
+ 0002           ;       }
+ 0002           ;                                        
+ 0002           ;                                
+ 0002           ;                               

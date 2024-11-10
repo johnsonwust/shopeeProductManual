@@ -1,0 +1,93 @@
+XL
+H 3 areas 8 global symbols
+M led_8.c
+S push_gset1 Ref0000
+S pop_gset1 Ref0000
+A text size 64 flags 0
+dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\4.数码管显示\led_8.c
+dbfunc e delay 0 fV
+dbsym r i 10 c
+dbline FFFFFFFF 0
+dbline 1B 0
+dbline 1C 0
+dbline 1C 4
+dbline 1C 4
+dbline 1C 6
+dbline FFFFFFFE A
+dbline 0 A
+dbfunc e Display C fV
+dbsym r i 14 c
+dbline FFFFFFFF 10
+dbline 22 10
+dbline 24 10
+dbline 25 14
+dbline 26 14
+dbline 27 30
+dbline 28 40
+dbline 29 42
+dbline 2A 46
+dbline 24 46
+dbline 24 48
+dbline FFFFFFFE 4C
+dbline 0 50
+dbfunc e main 52 fV
+dbline FFFFFFFF 52
+dbline 30 52
+dbline 31 52
+dbline 32 56
+dbline 33 58
+dbline 34 5A
+dbline 37 5E
+dbline 38 5E
+dbline 39 60
+dbline 36 60
+dbline FFFFFFFE 62
+dbline 0 62
+S _main Def0052
+S _Display Def000C
+S _delay Def0000
+A data size 12 flags 20
+dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\4.数码管显示\led_8.c
+dbsym e disbuf 0 A[4:4]c
+dbsym e discode 4 A[10:10]c
+dbsym e disbit E A[4:4]c
+S _discode Def0004
+S _disbuf Def0000
+S _disbit Def000E
+A idata size 12 flags 0
+T 00 00 01 02
+R 00 00 02 00
+T 02 00 03 04
+R 00 00 02 00
+T 04 00 C0 F9
+R 00 00 02 00
+T 06 00 A4 B0
+R 00 00 02 00
+T 08 00 99 92
+R 00 00 02 00
+T 0A 00 82 F8
+R 00 00 02 00
+T 0C 00 80 90
+R 00 00 02 00
+T 0E 00 FE FD
+R 00 00 02 00
+T 10 00 FB F7
+R 00 00 02 00
+T 00 00 00 27 01 C0 03 95 0F 3F E8 F3 08 95
+R 00 00 00 00
+T 0C 00 0E 94 00 00 44 27 1A C0 80 E0
+R 00 00 00 00 12 04 00 00 20 0A 01 00 00 00
+T 16 00 90 E0 E4 2F FF 27 E8 0F F9 1F E0 81 FF 27
+R 00 00 00 00 40 02 01 00 00 00
+T 24 00 80 E0 90 E0 E8 0F F9 1F 20 80 28 BA
+R 00 00 00 00 20 02 01 00 04 00 40 04 01 00 04 00
+T 30 00 80 E0 90 E0 E4 2F FF 27 E8 0F F9 1F 20 80
+R 00 00 00 00 20 02 01 00 0E 00 40 04 01 00 0E 00
+T 3E 00 2B BA DF DF 8F EF 8B BB 43 95 44 30 20 F3
+R 00 00 00 00
+T 4C 00 0E 94 00 00 08 95
+R 00 00 00 00 12 04 01 00
+T 52 00 8F EF 8A BB 87 BB 8B BB 88 BB 01 C0 D6 DF
+R 00 00 00 00
+T 60 00 FE CF 08 95
+R 00 00 00 00

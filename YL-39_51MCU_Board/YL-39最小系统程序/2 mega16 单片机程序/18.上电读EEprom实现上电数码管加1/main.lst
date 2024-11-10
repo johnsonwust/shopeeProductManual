@@ -1,0 +1,366 @@
+__start:
+__text_start:
+      34 E5CF      LDI	R28,0x5F
+      35 E0D4      LDI	R29,4
+      36 BFCD      OUT	0x3D,R28
+      37 BFDE      OUT	0x3E,R29
+      38 51CE      SUBI	R28,0x1E
+      39 40D0      SBCI	R29,0
+      3A EA0A      LDI	R16,0xAA
+      3B 8308      STD	Y+0,R16
+      3C 2400      CLR	R0
+      3D E7E3      LDI	R30,0x73
+      3E E0F0      LDI	R31,0
+      3F E010      LDI	R17,0
+      40 37E3      CPI	R30,0x73
+      41 07F1      CPC	R31,R17
+      42 F011      BEQ	0x0045
+      43 9201      ST	R0,Z+
+      44 CFFB      RJMP	0x0040
+      45 8300      STD	Z+0,R16
+      46 E5E4      LDI	R30,0x54
+      47 E0F0      LDI	R31,0
+      48 E6A0      LDI	R26,0x60
+      49 E0B0      LDI	R27,0
+      4A E010      LDI	R17,0
+      4B E000      LDI	R16,0
+      4C BF0B      OUT	0x3B,R16
+      4D 36E7      CPI	R30,0x67
+      4E 07F1      CPC	R31,R17
+      4F F021      BEQ	0x0054
+      50 95C8      LPM
+      51 9631      ADIW	R30,1
+      52 920D      ST	R0,X+
+      53 CFF9      RJMP	0x004D
+      54 940E 00B5 CALL	_main
+_exit:
+      56 CFFF      RJMP	_exit
+_delayms:
+  j                    --> R20
+  K                    --> R16
+      57 934A      ST	R20,-Y
+      58 935A      ST	R21,-Y
+FILE: E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\18.上电读EEprom实现上电数码管加1\main.c
+(0001) /******************************************************************************/
+(0002) /*  Name: 数码管每次上电都加1                                                 */
+(0003) /*  编译坏境：ICCAVR 7.16                                                     */
+(0004) /*  Designed by :廖文丹                         Date:2007/6/21                */
+(0005) /*  开发环境:ICCAVR                                                           */
+(0006) /*  QQ:80184985 真红炎神                                                      */     
+(0007) /******************************************************************************/   
+(0008) 	  #define uchar unsigned char
+(0009) 	  #define uint  unsigned int
+(0010) 	  #define Set_Bit(val, bitn)    (val |=(1<<(bitn))) 
+(0011)       #define Clr_Bit(val, bitn)    (val&=~(1<<(bitn))) 
+(0012)       #define Get_Bit(val, bitn)    (val &(1<<(bitn)) ) 
+(0013)       #include <iom16v.h>
+(0014)       uchar  disbuf[4]={0,0,0,0};  
+(0015)       uchar  discode[]={ 0xC0, 0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90,0xff};  //段码表
+(0016)       uchar  disbit[4]  ={ 0xFE, 0xFD,0xFB,0xF7}; //选通值   
+(0017) /******************************************************************************/
+(0018) //函数声明
+(0019) /******************************************************************************/  		  
+(0020) 	  void delay(uchar k);
+(0021) 	  void Display(void); 
+(0022) 	  void Write_EEprom(uchar Data,uint address);//写入AVR单片机内部EERPOM函数
+(0023) 	  uchar Read_EEprom (uint address);          //读出AVR单片机内部EERPOM函数   
+(0024) /******************************************************************************/
+(0025) //延时函数
+(0026) /******************************************************************************/  		                                            							
+(0027)       void delayms(uchar K)
+(0028)            {
+(0029) 		    uint j;
+(0030) 		    for(;K!=0;K--)
+      59 C009      RJMP	0x0063
+(0031) 			 for(j=1000;j!=0;j--);  
+      5A EE48      LDI	R20,0xE8
+      5B E053      LDI	R21,3
+      5C C002      RJMP	0x005F
+      5D 5041      SUBI	R20,1
+      5E 4050      SBCI	R21,0
+      5F 3040      CPI	R20,0
+      60 0745      CPC	R20,R21
+      61 F7D9      BNE	0x005D
+      62 950A      DEC	R16
+      63 2300      TST	R16
+      64 F7A9      BNE	0x005A
+      65 9159      LD	R21,Y+
+      66 9149      LD	R20,Y+
+      67 9508      RET
+_Display:
+  i                    --> R20
+      68 934A      ST	R20,-Y
+(0032)            }
+(0033) /******************************************************************************/
+(0034) //显示函数
+(0035) /******************************************************************************/  		      
+(0036) 	  void Display(void)
+(0037)          {  
+(0038) 		    uchar i;
+(0039)             for(i=0;i<4;i++)
+      69 2744      CLR	R20
+      6A C01B      RJMP	0x0086
+(0040)                 {
+(0041) 		         PORTB=discode[disbuf[i]];
+      6B E680      LDI	R24,0x60
+      6C E090      LDI	R25,0
+      6D 2FE4      MOV	R30,R20
+      6E 27FF      CLR	R31
+      6F 0FE8      ADD	R30,R24
+      70 1FF9      ADC	R31,R25
+      71 81E0      LDD	R30,Z+0
+      72 27FF      CLR	R31
+      73 E684      LDI	R24,0x64
+      74 E090      LDI	R25,0
+      75 0FE8      ADD	R30,R24
+      76 1FF9      ADC	R31,R25
+      77 8020      LDD	R2,Z+0
+      78 BA28      OUT	0x18,R2
+(0042)                  PORTA=disbit[i];
+      79 E68F      LDI	R24,0x6F
+      7A E090      LDI	R25,0
+      7B 2FE4      MOV	R30,R20
+      7C 27FF      CLR	R31
+      7D 0FE8      ADD	R30,R24
+      7E 1FF9      ADC	R31,R25
+      7F 8020      LDD	R2,Z+0
+      80 BA2B      OUT	0x1B,R2
+(0043)                  delayms(1);
+      81 E001      LDI	R16,1
+      82 DFD4      RCALL	_delayms
+(0044)                  PORTA=0xff;
+      83 EF8F      LDI	R24,0xFF
+      84 BB8B      OUT	0x1B,R24
+      85 9543      INC	R20
+      86 3044      CPI	R20,4
+      87 F318      BCS	0x006B
+      88 9149      LD	R20,Y+
+      89 9508      RET
+_Read_EEprom:
+  j                    --> R10
+  address              --> R20
+      8A 940E 0129 CALL	push_xgset300C
+      8C 01A8      MOVW	R20,R16
+(0045) 			    } 
+(0046) 		 }
+(0047) /******************************************************************************/
+(0048) //读内部EEPROM函数
+(0049) /******************************************************************************/  				 
+(0050)       uchar Read_EEprom(uint address)
+(0051) 	     {
+(0052) 		  uchar j;
+(0053) 		  if(EECR&0x01)delayms(32);
+      8D 9BE0      SBIS	0x1C,0
+      8E C002      RJMP	0x0091
+      8F E200      LDI	R16,0x20
+      90 DFC6      RCALL	_delayms
+(0054) 		  EEARH=address>>8;
+      91 011A      MOVW	R2,R20
+      92 2C23      MOV	R2,R3
+      93 2433      CLR	R3
+      94 BA2F      OUT	0x1F,R2
+(0055) 		  EEARL=address&0x00ff;
+      95 01CA      MOVW	R24,R20
+      96 7090      ANDI	R25,0
+      97 BB8E      OUT	0x1E,R24
+(0056) 		  EECR=EECR|0x01;
+      98 9AE0      SBI	0x1C,0
+(0057) 		  delayms(32);
+      99 E200      LDI	R16,0x20
+      9A DFBC      RCALL	_delayms
+(0058) 		  j=EEDR;
+      9B B2AD      IN	R10,0x1D
+(0059) 		  return(j);
+      9C 2D0A      MOV	R16,R10
+      9D 940C 012E JMP	pop_xgset300C
+_Write_EEprom:
+  address              --> R20
+  data                 --> R10
+      9F 940E 0129 CALL	push_xgset300C
+      A1 01A9      MOVW	R20,R18
+      A2 2EA0      MOV	R10,R16
+(0060) 		  }
+(0061) /******************************************************************************/
+(0062) //写入EEPORM函数
+(0063) /******************************************************************************/  				  
+(0064) 	 void Write_EEprom(uchar data,uint address)
+(0065) 	     {
+(0066) 		  if(EECR&0x20)delayms(32);
+      A3 9BE5      SBIS	0x1C,5
+      A4 C002      RJMP	0x00A7
+      A5 E200      LDI	R16,0x20
+      A6 DFB0      RCALL	_delayms
+(0067) 		  EEARH=address>>8;
+      A7 011A      MOVW	R2,R20
+      A8 2C23      MOV	R2,R3
+      A9 2433      CLR	R3
+      AA BA2F      OUT	0x1F,R2
+(0068) 		  EEARL=address&0x00ff; 
+      AB 01CA      MOVW	R24,R20
+      AC 7090      ANDI	R25,0
+      AD BB8E      OUT	0x1E,R24
+(0069) 		  EEDR=data;
+      AE BAAD      OUT	0x1D,R10
+(0070) 		  EECR=EECR|0x04;
+      AF 9AE2      SBI	0x1C,2
+(0071) 		  EECR=EECR|0x02;
+      B0 9AE1      SBI	0x1C,1
+(0072) 		  delayms(32);
+      B1 E200      LDI	R16,0x20
+      B2 DFA4      RCALL	_delayms
+      B3 940C 012E JMP	pop_xgset300C
+(0073) 		 }
+(0074) /******************************************************************************/
+(0075) //主函数
+(0076) /******************************************************************************/  			 
+(0077)          void main (void)
+(0078)          { 
+(0079) 		   uchar i;
+(0080) 		   DDRA|=1<<0|1<<1|1<<2|1<<3|0<<4;//设置PA0,PA1,PA2为输出,PA4为输入
+_main:
+  i                    --> R20
+      B5 B38A      IN	R24,0x1A
+      B6 608F      ORI	R24,0xF
+      B7 BB8A      OUT	0x1A,R24
+(0081) 	       PORTA=0x00;
+      B8 2422      CLR	R2
+      B9 BA2B      OUT	0x1B,R2
+(0082) 	
+(0083) 		   DDRB=0XFF;   //数码管段码输出口
+      BA EF8F      LDI	R24,0xFF
+      BB BB87      OUT	0x17,R24
+(0084) 		   PORTB=0xFF;
+      BC BB88      OUT	0x18,R24
+(0085) 		   
+(0086) 			   i=Read_EEprom(1);//读出EEPROM存的数
+      BD E001      LDI	R16,1
+      BE E010      LDI	R17,0
+      BF DFCA      RCALL	_Read_EEprom
+      C0 2F40      MOV	R20,R16
+(0087) 			   i++;             //在原来基础上加1，每次开机数码管加1
+      C1 9543      INC	R20
+(0088) 			   if(i>=255)i=0;
+      C2 3F4F      CPI	R20,0xFF
+      C3 F008      BCS	0x00C5
+      C4 2744      CLR	R20
+(0089) 			   Write_EEprom(i,1);
+      C5 E021      LDI	R18,1
+      C6 E030      LDI	R19,0
+      C7 2F04      MOV	R16,R20
+      C8 DFD6      RCALL	_Write_EEprom
+(0090) 			   disbuf[1]=i/100;
+      C9 E614      LDI	R17,0x64
+      CA 2F04      MOV	R16,R20
+      CB 940E 0113 CALL	div8u
+      CD 9300 0061 STS	disbuf+1,R16
+(0091) 			   disbuf[2]=i%100/10;
+      CF E614      LDI	R17,0x64
+      D0 2F04      MOV	R16,R20
+      D1 940E 0111 CALL	mod8u
+      D3 E01A      LDI	R17,0xA
+      D4 940E 0113 CALL	div8u
+      D6 9300 0062 STS	disbuf+2,R16
+(0092) 			   disbuf[3]=i%100%10;
+      D8 E614      LDI	R17,0x64
+      D9 2F04      MOV	R16,R20
+      DA 940E 0111 CALL	mod8u
+      DC E01A      LDI	R17,0xA
+      DD 940E 0111 CALL	mod8u
+      DF 9300 0063 STS	disbuf+3,R16
+(0093) 			   disbuf[0]=10;
+      E1 E08A      LDI	R24,0xA
+      E2 9380 0060 STS	disbuf,R24
+      E4 C02A      RJMP	0x010F
+(0094)                   while(1)
+(0095)                  {  
+(0096) 				 
+(0097) 				 
+(0098) 				      if(Get_Bit(PINA,4)==0)   //按键加一，并写入EEPROM ,断电重启后，数码管一直显示0123
+      E5 99CC      SBIC	0x19,4
+      E6 C027      RJMP	0x010E
+(0099) 					{
+      E7 C001      RJMP	0x00E9
+(0100) 					    while(!Get_Bit(PINA,4))Display();   
+      E8 DF7F      RCALL	_Display
+      E9 9BCC      SBIS	0x19,4
+      EA CFFD      RJMP	0x00E8
+(0101) 			           { 
+(0102) 					     i++;
+      EB 9543      INC	R20
+(0103) 						 if(i>=255)i=0;
+      EC 3F4F      CPI	R20,0xFF
+      ED F008      BCS	0x00EF
+      EE 2744      CLR	R20
+(0104) 						 Write_EEprom(i,1);
+      EF E021      LDI	R18,1
+      F0 E030      LDI	R19,0
+      F1 2F04      MOV	R16,R20
+      F2 DFAC      RCALL	_Write_EEprom
+(0105) 						 disbuf[1]=i/100;
+      F3 E614      LDI	R17,0x64
+      F4 2F04      MOV	R16,R20
+      F5 940E 0113 CALL	div8u
+      F7 9300 0061 STS	disbuf+1,R16
+(0106) 						 disbuf[2]=i%100/10;
+      F9 E614      LDI	R17,0x64
+      FA 2F04      MOV	R16,R20
+      FB 940E 0111 CALL	mod8u
+      FD E01A      LDI	R17,0xA
+      FE 940E 0113 CALL	div8u
+     100 9300 0062 STS	disbuf+2,R16
+(0107) 						 disbuf[3]=i%100%10;
+     102 E614      LDI	R17,0x64
+     103 2F04      MOV	R16,R20
+     104 940E 0111 CALL	mod8u
+     106 E01A      LDI	R17,0xA
+     107 940E 0111 CALL	mod8u
+     109 9300 0063 STS	disbuf+3,R16
+(0108) 						 disbuf[0]=10;
+     10B E08A      LDI	R24,0xA
+     10C 9380 0060 STS	disbuf,R24
+(0109) 				       }
+(0110) 					 }
+(0111) 					Display();    
+FILE: <library>
+     10E DF59      RCALL	_Display
+     10F CFD5      RJMP	0x00E5
+     110 9508      RET
+mod8u:
+     111 9468      BSET	6
+     112 C001      RJMP	xdiv8u
+div8u:
+     113 94E8      BCLR	6
+xdiv8u:
+     114 932A      ST	R18,-Y
+     115 92FA      ST	R15,-Y
+     116 92EA      ST	R14,-Y
+     117 24FF      CLR	R15
+     118 24EE      CLR	R14
+     119 E120      LDI	R18,0x10
+     11A 0F00      LSL	R16
+     11B 1CFF      ROL	R15
+     11C 1CEE      ROL	R14
+     11D 16E1      CP	R14,R17
+     11E F010      BCS	0x0121
+     11F 1AE1      SUB	R14,R17
+     120 9503      INC	R16
+     121 952A      DEC	R18
+     122 F7B9      BNE	0x011A
+     123 F40E      BRTC	0x0125
+     124 2D0E      MOV	R16,R14
+     125 90E9      LD	R14,Y+
+     126 90F9      LD	R15,Y+
+     127 9129      LD	R18,Y+
+     128 9508      RET
+push_xgset300C:
+     129 935A      ST	R21,-Y
+     12A 934A      ST	R20,-Y
+     12B 92BA      ST	R11,-Y
+     12C 92AA      ST	R10,-Y
+     12D 9508      RET
+pop_xgset300C:
+     12E 90A9      LD	R10,Y+
+     12F 90B9      LD	R11,Y+
+     130 9149      LD	R20,Y+
+     131 9159      LD	R21,Y+
+     132 9508      RET

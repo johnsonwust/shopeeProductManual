@@ -1,0 +1,108 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/10/2012  18:00:08  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\安装软件\KEIL 51\C51\BIN\BL51.EXE 0.obj TO 0
+
+
+MEMORY MODEL: SMALL WITH FLOATING POINT ARITHMETIC
+
+
+INPUT MODULES INCLUDED:
+  0.obj (0)
+  D:\安装软件\KEIL 51\C51\LIB\C51FPS.LIB (?C?FPMUL)
+  D:\安装软件\KEIL 51\C51\LIB\C51FPS.LIB (?C?CASTF)
+  D:\安装软件\KEIL 51\C51\LIB\C51FPS.LIB (?C?FPGETOPN)
+  D:\安装软件\KEIL 51\C51\LIB\C51S.LIB (?C_STARTUP)
+  D:\安装软件\KEIL 51\C51\LIB\C51S.LIB (?C?UIDIV)
+  D:\安装软件\KEIL 51\C51\LIB\C51S.LIB (?C?LNEG)
+
+
+LINK MAP OF MODULE:  0 (0)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     000CH     UNIT         _DATA_GROUP_
+            IDATA   0014H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     01EAH     UNIT         ?C?LIB_CODE
+            CODE    01EDH     009FH     UNIT         ?PR?MAIN?0
+            CODE    028CH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   0 (0)
+
+
+SEGMENT                          DATA_GROUP 
+  +--> CALLED SEGMENT          START    LENGTH
+----------------------------------------------
+?C_C51STARTUP                  -----    -----
+  +--> ?PR?MAIN?0
+
+?PR?MAIN?0                     0008H    000CH
+
+
+
+SYMBOL TABLE OF MODULE:  0 (0)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        0
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  C:01EDH         PUBLIC        main
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/10/2012  18:00:08  PAGE 2
+
+
+  -------         PROC          MAIN
+  -------         DO            
+  D:0002H         SYMBOL        zhengshu
+  D:0008H         SYMBOL        ge
+  D:0009H         SYMBOL        shi
+  D:000AH         SYMBOL        bai
+  D:000BH         SYMBOL        qian
+  D:000CH         SYMBOL        xiaoshu
+  D:0010H         SYMBOL        xiaoshu1
+  D:0012H         SYMBOL        xiaoshu2
+  -------         ENDDO         
+  C:01EDH         LINE#         15
+  C:01EDH         LINE#         16
+  C:01EDH         LINE#         17
+  C:01EDH         LINE#         20
+  C:01F9H         LINE#         23
+  C:0206H         LINE#         24
+  C:0220H         LINE#         25
+  C:023AH         LINE#         26
+  C:0247H         LINE#         28
+  C:026BH         LINE#         33
+  C:0287H         LINE#         35
+  C:028AH         LINE#         37
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        0
+
+  -------         MODULE        ?C?FPMUL
+  C:0003H         PUBLIC        ?C?FPMUL
+  -------         ENDMOD        ?C?FPMUL
+
+  -------         MODULE        ?C?CASTF
+  C:0109H         PUBLIC        ?C?CASTF
+  -------         ENDMOD        ?C?CASTF
+
+  -------         MODULE        ?C?UIDIV
+  C:018AH         PUBLIC        ?C?UIDIV
+  -------         ENDMOD        ?C?UIDIV
+
+  -------         MODULE        ?C?LNEG
+  C:01DFH         PUBLIC        ?C?LNEG
+  -------         ENDMOD        ?C?LNEG
+
+Program Size: data=21.0 xdata=0 code=664
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

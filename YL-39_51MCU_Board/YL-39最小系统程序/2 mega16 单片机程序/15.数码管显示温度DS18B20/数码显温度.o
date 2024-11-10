@@ -1,0 +1,274 @@
+XL
+H 3 areas 12 global symbols
+M _数
+S push_xgsetF00C Ref0000
+S push_xgsetF03C Ref0000
+S lsl8 Ref0000
+S pop_xgsetF00C Ref0000
+S pop_xgsetF03C Ref0000
+S mod8u Ref0000
+S div8u Ref0000
+A text size 1C0 flags 0
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\DS18B20.h
+dbfunc e delay_18B20 0 fV
+dbsym r x 10 i
+dbline FFFFFFFF 0
+dbline 14 0
+dbline 16 2
+dbline 17 2
+dbline 18 6
+dbline 15 6
+dbline FFFFFFFE C
+dbline 0 C
+dbfunc e Init_1820 E fV
+dbline FFFFFFFF E
+dbline 1F E
+dbline 21 E
+dbline 22 10
+dbline 23 12
+dbline 24 14
+dbline 25 1A
+dbline 26 1C
+dbline 27 1E
+dbline 28 24
+dbline 28 24
+dbline 29 28
+dbline 2A 2A
+dbline 2B 2C
+dbline FFFFFFFE 30
+dbline 0 30
+dbfunc e Write_1820 32 fI
+dbsym r m 14 c
+dbsym r x A c
+dbline FFFFFFFF 38
+dbline 31 38
+dbline 33 38
+dbline 34 3C
+dbline 35 3C
+dbline 36 3E
+dbline 37 4C
+dbline 39 50
+dbline 3A 52
+dbline 3B 58
+dbline 3C 5A
+dbline 33 5A
+dbline 33 5C
+dbline 3D 60
+dbline FFFFFFFE 62
+dbline 0 62
+dbfunc e Read_1820 68 fc
+dbsym r temp A c
+dbsym r k 16 c
+dbsym r n 14 c
+dbline FFFFFFFF 6C
+dbline 43 6C
+dbline 45 6C
+dbline 46 6E
+dbline 47 72
+dbline 48 72
+dbline 49 74
+dbline 4A 76
+dbline 4B 78
+dbline 4C 7C
+dbline 4D 7E
+dbline 4F 8A
+dbline 50 98
+dbline 51 9E
+dbline 52 A0
+dbline 46 A0
+dbline 46 A2
+dbline 53 A6
+dbline FFFFFFFE A8
+dbline 0 A8
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+dbfunc e delay AC fV
+dbsym r i 10 c
+dbline FFFFFFFF AC
+dbline 1B AC
+dbline 1C AC
+dbline 1C B0
+dbline 1C B0
+dbline 1C B2
+dbline FFFFFFFE B6
+dbline 0 B6
+dbfunc e Display B8 fV
+dbsym r i 14 c
+dbline FFFFFFFF BA
+dbline 22 BA
+dbline 24 BA
+dbline 25 BE
+dbline 26 BE
+dbline 27 C2
+dbline 29 E2
+dbline 2A FE
+dbline 2B 10E
+dbline 2C 110
+dbline 2D 114
+dbline 24 114
+dbline 24 116
+dbline FFFFFFFE 11C
+dbline 0 11C
+dbfunc e ReadTemperature 120 fV
+dbsym r b C c
+dbsym r a A c
+dbsym r num 16 c
+dbsym r Data_L 14 c
+dbline FFFFFFFF 124
+dbline 33 124
+dbline 34 124
+dbline 35 124
+dbline 36 124
+dbline 37 124
+dbline 39 124
+dbline 3A 126
+dbline 3B 12A
+dbline 3C 12E
+dbline 3D 130
+dbline 3E 134
+dbline 3F 138
+dbline 40 13C
+dbline 41 140
+dbline 42 156
+dbline 44 16C
+dbline 45 170
+dbline 46 174
+dbline 47 174
+dbline 48 17A
+dbline 49 18E
+dbline 4A 198
+dbline 45 198
+dbline 45 19A
+dbline FFFFFFFE 19E
+dbline 0 19E
+dbfunc e main 1A2 fV
+dbsym l j 1 i
+dbsym r n 14 c
+dbline FFFFFFFF 1A2
+dbline 50 1A2
+dbline 54 1A2
+dbline 55 1A6
+dbline 56 1A8
+dbline 57 1AA
+dbline 5A 1AE
+dbline 5B 1AE
+dbline 5C 1B0
+dbline 5D 1B4
+dbline 5C 1B6
+dbline 5C 1B8
+dbline 5E 1BC
+dbline 59 1BC
+dbline FFFFFFFE 1BE
+dbline 0 1BE
+S _main Def01A2
+S _Read_1820 Def0068
+S _Init_1820 Def000E
+S _Display Def00B8
+S _ReadTemperature Def0120
+S _delay Def00AC
+S _Write_1820 Def0032
+S _delay_18B20 Def0000
+A data size 17 flags 20
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\DS18B20.h
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+dbsym e tx 0 A[7:7]c
+dbsym e discode 7 A[12:12]c
+dbsym e disbit 13 A[4:4]c
+S _discode Def0007
+S _tx Def0000
+S _disbit Def0013
+A idata size 17 flags 0
+T 00 00 02 C0 01 50 10 40 00 30 01 07 D9 F7 08 95
+R 00 00 00 00
+T 0E 00 A1 9A A9 9A A9 98 08 EB 1B E0 F3 DF A9 9A
+R 00 00 00 00
+T 1C 00 A1 98 02 E3 10 E0 EE DF 99 99 FE CF A1 9A
+R 00 00 00 00
+T 2A 00 A9 9A 06 E9 10 E0 E7 CF
+R 00 00 00 00
+T 32 00 AA 92 4A 93 A0 2E 44 27 10 C0 A9 98 01 E0
+R 00 00 00 00
+T 40 00 14 2F 0E 94 00 00 2A 2C 20 22 11 F0 A9 9A
+R 00 00 00 00 12 06 02 00
+T 4E 00 01 C0 A9 98 08 E2 10 E0 D4 DF A9 9A 43 95
+R 00 00 00 00
+T 5C 00 48 30 70 F3 A9 9A 49 91 A9 90 08 95
+R 00 00 00 00
+T 68 00 0E 94 00 00 AA 24 44 27 18 C0 A9 98 A9 9A
+R 00 00 00 00 12 04 00 00
+T 76 00 A1 98 63 B3 62 70 31 F0 01 E0 14 2F
+R 00 00 00 00
+T 82 00 0E 94 00 00 A0 2A 07 C0 01 E0 14 2F
+R 00 00 00 00 12 04 02 00
+T 8E 00 0E 94 00 00 20 2E 20 94 A2 20 02 E3 10 E0
+R 00 00 00 00 12 04 02 00
+T 9C 00 B1 DF A1 9A 43 95 48 30 30 F3 0A 2D
+R 00 00 00 00
+T A8 00 0C 94 00 00
+R 00 00 00 00 12 04 03 00
+T 00 00 00
+R 00 00 02 00
+T 01 00 00 00 00 00 00 00
+R 00 00 02 00
+T 07 00 C0 F9
+R 00 00 02 00
+T 09 00 A4 B0
+R 00 00 02 00
+T 0B 00 99 92
+R 00 00 02 00
+T 0D 00 82 F8
+R 00 00 02 00
+T 0F 00 80 90
+R 00 00 02 00
+T 11 00 FF
+R 00 00 02 00
+T 12 00 00
+R 00 00 02 00
+T 13 00 FE FD
+R 00 00 02 00
+T 15 00 FB F7
+R 00 00 02 00
+T AC 00 00 27 01 C0 03 95 0F 3F E8 F3 08 95
+R 00 00 00 00
+T B8 00 4A 93 44 27 2C C0 41 30 81 F4 80 E0 90 E0
+R 00 00 00 00 20 0C 01 00 00 00 40 0E 01 00 00 00
+T C6 00 E4 2F FF 27 E8 0F F9 1F E0 81 FF 27 80 E0
+R 00 00 00 00 20 0E 01 00 07 00
+T D4 00 90 E0 E8 0F F9 1F 80 81 8F 77 88 BB 0E C0
+R 00 00 00 00 40 02 01 00 07 00
+T E2 00 80 E0 90 E0 E4 2F FF 27 E8 0F F9 1F E0 81
+R 00 00 00 00 20 02 01 00 00 00 40 04 01 00 00 00
+T F0 00 FF 27 80 E0 90 E0 E8 0F F9 1F 20 80 28 BA
+R 00 00 00 00 20 04 01 00 07 00 40 06 01 00 07 00
+T FE 00 80 E0 90 E0 E4 2F FF 27 E8 0F F9 1F 20 80
+R 00 00 00 00 20 02 01 00 13 00 40 04 01 00 13 00
+T 0C 01 2B BA CE DF 8F EF 8B BB 43 95 44 30 08 F4
+R 00 00 00 00
+T 1A 01 D1 CF 49 91 08 95
+R 00 00 00 00
+T 20 01 0E 94 00 00 74 DF 0C EC 84 DF 04 E4 82 DF
+R 00 00 00 00 12 04 01 00
+T 2E 01 6F DF 0C EC 7F DF 0E EB 7D DF 97 DF A0 2E
+R 00 00 00 00
+T 3C 01 95 DF C0 2E 80 E1 8C 9D 0A 2D 02 95 0F 70
+R 00 00 00 00
+T 4A 01 00 0D 1A E0 0E 94 00 00 00 93 00 00 80 E1
+R 00 00 00 00 12 08 06 00 00 0C 01 00
+T 58 01 8C 9D 0A 2D 02 95 0F 70 00 0D 1A E0
+R 00 00 00 00
+T 64 01 0E 94 00 00 00 93 01 00 4A 2D 4F 70 62 E0
+R 00 00 00 00 12 04 05 00 00 08 01 00
+T 72 01 13 C0 8A E0 84 9F A0 01 80 E0 90 E0 E6 2F
+R 00 00 00 00 20 0A 01 00 00 00 40 0C 01 00 00 00
+T 80 01 FF 27 E8 0F F9 1F 84 2F 82 95 8F 70 80 83
+R 00 00 00 00
+T 8E 01 10 E1 04 2F 0E 94 00 00 40 2F 63 95 66 30
+R 00 00 00 00 12 08 05 00
+T 9C 01 58 F3 0C 94 00 00
+R 00 00 00 00 12 06 04 00
+T A2 01 8F EF 8A BB 87 BB 8B BB 88 BB 07 C0 B8 DF
+R 00 00 00 00
+T B0 01 44 27 02 C0 81 DF 43 95 4E 31 E0 F3 F8 CF
+R 00 00 00 00
+T BE 01 08 95
+R 00 00 00 00

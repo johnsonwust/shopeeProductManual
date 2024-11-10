@@ -1,0 +1,104 @@
+                        .module led.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\Administrator\桌面\1.LED闪烁\led.c
+ 0000                   .dbfunc e delayms _delayms fV
+ 0000           ;              i -> R16,R17
+ 0000           ;              j -> R18,R19
+                        .even
+ 0000           _delayms::
+ 0000                   .dbline -1
+ 0000                   .dbline 15
+ 0000           ; /******************************************************************************/
+ 0000           ; /*【编写时间】： 2011.07.07
+ 0000           ; * 【作    者】： 雁翎电子
+ 0000           ; * 【版    本】： V1.0
+ 0000           ; * 【网    站】： http://ylelectronic.taobao.com/ 
+ 0000           ; * 【Q      Q】： 348439350
+ 0000           ; * 【编译环境】： ICCAVR  
+ 0000           ; * 【函数功能】： 闪烁LED灯    
+ 0000           ; * 【晶    振】:  8M           
+ 0000           ; * 【芯    片】:  ATMEGA16A     
+ 0000           ; * 【硬件连接】： J1短路帽接上               
+ 0000           ; /******************************************************************************/
+ 0000           ;         #include <iom16v.h>
+ 0000           ;          void delayms(void)    // 延时子程序       
+ 0000           ;           {                                           
+ 0000                   .dbline 17
+ 0000           ;                unsigned int i,j;
+ 0000           ;                        for(i=0;i<255;i++)
+ 0000 0027              clr R16
+ 0002 1127              clr R17
+ 0004 0BC0              xjmp L5
+ 0006           L2:
+ 0006                   .dbline 18
+ 0006 2227              clr R18
+ 0008 3327              clr R19
+ 000A 02C0              xjmp L9
+ 000C           L6:
+ 000C                   .dbline 18
+ 000C           L7:
+ 000C                   .dbline 18
+ 000C 2F5F              subi R18,255  ; offset = 1
+ 000E 3F4F              sbci R19,255
+ 0010           L9:
+ 0010                   .dbline 18
+ 0010 283B              cpi R18,184
+ 0012 EBE0              ldi R30,11
+ 0014 3E07              cpc R19,R30
+ 0016 D0F3              brlo L6
+ 0018           L3:
+ 0018                   .dbline 17
+ 0018 0F5F              subi R16,255  ; offset = 1
+ 001A 1F4F              sbci R17,255
+ 001C           L5:
+ 001C                   .dbline 17
+ 001C 0F3F              cpi R16,255
+ 001E E0E0              ldi R30,0
+ 0020 1E07              cpc R17,R30
+ 0022 88F3              brlo L2
+ 0024                   .dbline -2
+ 0024           L1:
+ 0024                   .dbline 0 ; func end
+ 0024 0895              ret
+ 0026                   .dbsym r i 16 i
+ 0026                   .dbsym r j 18 i
+ 0026                   .dbend
+ 0026                   .dbfunc e main _main fV
+                        .even
+ 0026           _main::
+ 0026                   .dbline -1
+ 0026                   .dbline 21
+ 0026           ;                           for(j=0;j<3000;j++);
+ 0026           ;           }
+ 0026           ;        void main(void)
+ 0026           ;             { 
+ 0026                   .dbline 22
+ 0026           ;                        DDRC=0xFF;    //PD口设成输出口
+ 0026 8FEF              ldi R24,255
+ 0028 84BB              out 0x14,R24
+ 002A                   .dbline 23
+ 002A           ;                        PORTC=0xFF; 
+ 002A 85BB              out 0x15,R24
+ 002C 06C0              xjmp L12
+ 002E           L11:
+ 002E                   .dbline 27
+ 002E                   .dbline 29
+ 002E 2224              clr R2
+ 0030 25BA              out 0x15,R2
+ 0032                   .dbline 30
+ 0032 E6DF              xcall _delayms
+ 0034                   .dbline 31
+ 0034 8FEF              ldi R24,255
+ 0036 85BB              out 0x15,R24
+ 0038                   .dbline 32
+ 0038 E3DF              xcall _delayms
+ 003A                   .dbline 33
+ 003A           L12:
+ 003A                   .dbline 26
+ 003A F9CF              xjmp L11
+ 003C           X0:
+ 003C                   .dbline -2
+ 003C           L10:
+ 003C                   .dbline 0 ; func end
+ 003C 0895              ret
+ 003E                   .dbend

@@ -1,0 +1,242 @@
+__text_start:
+__start:
+    0013 E5CF      LDI	R28,0x5F
+    0014 E0D4      LDI	R29,4
+    0015 BFCD      OUT	0x3D,R28
+    0016 BFDE      OUT	0x3E,R29
+    0017 51CE      SUBI	R28,0x1E
+    0018 40D0      SBCI	R29,0
+    0019 EA0A      LDI	R16,0xAA
+    001A 8308      STD	Y+0,R16
+    001B 2400      CLR	R0
+    001C E6E0      LDI	R30,0x60
+    001D E0F0      LDI	R31,0
+    001E E010      LDI	R17,0
+    001F 36E0      CPI	R30,0x60
+    0020 07F1      CPC	R31,R17
+    0021 F011      BEQ	0x0024
+    0022 9201      ST	R0,Z+
+    0023 CFFB      RJMP	0x001F
+    0024 8300      STD	Z+0,R16
+    0025 E2E6      LDI	R30,0x26
+    0026 E0F0      LDI	R31,0
+    0027 E6A0      LDI	R26,0x60
+    0028 E0B0      LDI	R27,0
+    0029 E010      LDI	R17,0
+    002A 32E6      CPI	R30,0x26
+    002B 07F1      CPC	R31,R17
+    002C F021      BEQ	0x0031
+    002D 95C8      LPM
+    002E 9631      ADIW	R30,1
+    002F 920D      ST	R0,X+
+    0030 CFF9      RJMP	0x002A
+    0031 D028      RCALL	_main
+_exit:
+    0032 CFFF      RJMP	_exit
+FILE: E:\制版成功\YL-60\YL-60A~2\4.相关例程\21.UART实验往PC收发数据\uart.c
+(0001) /******************************************************
+(0002)       	
+(0003) /*【编写时间】： 2011.07.07
+(0004) * 【作    者】： 雁翎电子
+(0005) * 【版    本】： V1.0
+(0006) * 【网    站】： http://ylelectronic.taobao.com/ 
+(0007) * 【Q      Q】： 348439350
+(0008) * 【编译环境】： ICCAVR  
+(0009) * 【函数功能】： 用软件查询方式实现用串口调试软件发数据给avr，而avr则将数据回传给pc．
+(0010) * 【晶    振】:  8M		
+(0011) * 【芯    片】:  ATMEGA16A	 
+(0012) * 【硬件连接】： J2短路帽接上   		  
+(0013) 			  										   			  
+(0014) *******************************************************/
+(0015) 
+(0016) #include <iom8v.h>
+(0017) #include <macros.h>
+(0018) 
+(0019) /***********宏定义*************/
+(0020) #define  uchar unsigned char 
+(0021) #define  uint unsigned int
+(0022) #define fosc 8000000
+(0023) #define baud 9600
+(0024) /*******************************************
+(0025) 函数名称: IO口初始化函数
+(0026) 功    能: 实现IO初始化
+(0027) 参    数: 无
+(0028) 返 回 值: 无
+(0029) /********************************************/
+(0030) void port_init(void)
+(0031) {
+(0032)   DDRD = 0x02;
+_port_init:
+    0033 E082      LDI	R24,2
+    0034 BB81      OUT	0x11,R24
+(0033)   PORTD = 0xFF;
+    0035 EF8F      LDI	R24,0xFF
+    0036 BB82      OUT	0x12,R24
+    0037 9508      RET
+(0034) 
+(0035) }
+(0036) 
+(0037) /***********************************************************************
+(0038) 函数名称: 串口初始化函数
+(0039) 功    能: 实现串口初始化
+(0040) 参    数: 无
+(0041) 返 回 值: 无
+(0042) /*********************************************************************/
+(0043) void USART_Init(void)
+(0044) {
+(0045)  UCSRB=(1<<RXEN)|(1<<TXEN)|(1<<RXCIE);//允许收发,打开接收中断
+_USART_Init:
+    0038 E988      LDI	R24,0x98
+    0039 B98A      OUT	0x0A,R24
+(0046)  UBRRL=(fosc/16/(baud+1))%256;//设置波特率寄存器
+    003A E384      LDI	R24,0x34
+    003B B989      OUT	0x09,R24
+(0047)  UBRRH=(fosc/16/(baud+1))/256;
+    003C 2422      CLR	R2
+    003D BC20      OUT	0x20,R2
+(0048)  UCSRC=(1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);//8位数据+1位STOP
+    003E E886      LDI	R24,0x86
+    003F BD80      OUT	0x20,R24
+    0040 9508      RET
+(0049) }
+(0050) 
+(0051) /*******************************************
+(0052) 函数名称: 串口发送一个字节函数
+(0053) 功    能: 实现串口发送一个字节
+(0054) 参    数: data--串口要发送的一个字节
+(0055) 返 回 值: 无
+(0056) /********************************************/
+(0057) void USART_Transmit(uchar data) //发送采用查询方式
+(0058) {
+(0059)   while(!(UCSRA&(1<<UDRE)));//上次发送有没有完成
+_USART_Transmit:
+  data                 --> R16
+    0041 9B5D      SBIS	0x0B,5
+    0042 CFFE      RJMP	_USART_Transmit
+(0060)  UDR=data;                       //发送数据
+    0043 B90C      OUT	0x0C,R16
+    0044 9508      RET
+_USART_Transmit_string:
+  ptr                  --> R20
+    0045 D026      RCALL	push_gset1
+    0046 01A8      MOVW	R20,R16
+(0061)  
+(0062) }
+(0063) 
+(0064) /*******************************************
+(0065) 函数名称: 串口发送数组函数
+(0066) 功    能: 实现串口发送一个数组
+(0067) 参    数: *ptr--串口要发送的数组的首地址
+(0068) 返 回 值: 无
+(0069) /********************************************/
+(0070) void USART_Transmit_string(uchar *ptr)
+(0071) {
+    0047 C004      RJMP	0x004C
+(0072)  while (*ptr)
+(0073)   {
+(0074)     USART_Transmit(*ptr++);
+    0048 01FA      MOVW	R30,R20
+    0049 9101      LD	R16,Z+
+    004A 01AF      MOVW	R20,R30
+    004B DFF5      RCALL	_USART_Transmit
+    004C 01FA      MOVW	R30,R20
+    004D 8020      LDD	R2,Z+0
+    004E 2022      TST	R2
+    004F F7C1      BNE	0x0048
+(0075)   }
+(0076)  USART_Transmit(0x0D);
+    0050 E00D      LDI	R16,0xD
+    0051 DFEF      RCALL	_USART_Transmit
+(0077)  USART_Transmit(0x0A);  //结尾发送回车换行
+    0052 E00A      LDI	R16,0xA
+    0053 DFED      RCALL	_USART_Transmit
+    0054 D01A      RCALL	pop_gset1
+    0055 9508      RET
+(0078) }
+(0079) 
+(0080) /*数据接收，查询方式*/
+(0081) /*******************************************
+(0082) 函数名称: 串口接收一个字节函数
+(0083) 功    能: 实现串口接收一个字节
+(0084) 参    数: 无
+(0085) 返 回 值: 无
+(0086) /********************************************/
+(0087) uchar USART_Receive(void) //接收采用查询方式
+(0088) {
+(0089)   while(!(UCSRA&(1<<RXC))){;}//有没有接收到数据
+_USART_Receive:
+    0056 9B5F      SBIS	0x0B,7
+    0057 CFFE      RJMP	_USART_Receive
+(0090)   return UDR;				      //获取并返回数据
+    0058 B10C      IN	R16,0x0C
+    0059 9508      RET
+(0091) }
+(0092) 
+(0093) 
+(0094) /********************************************
+(0095) 函数名称: 主函数
+(0096) 功    能: 实现函数主体功能。
+(0097) 参    数: 无
+(0098) 返 回 值: 无
+(0099) ********************************************/
+(0100) void main(void)
+(0101) {
+(0102)   uchar temp;
+(0103)   USART_Init();
+_main:
+  temp                 --> R20
+    005A DFDD      RCALL	_USART_Init
+    005B C006      RJMP	0x0062
+(0104)  
+(0105)   while(1)
+(0106)     {
+(0107) 	  temp=USART_Receive();		//等待接收数据
+    005C DFF9      RCALL	_USART_Receive
+    005D 2F40      MOV	R20,R16
+(0108) 	  PORTB = ~temp;			//显示低电平有效
+    005E 2E24      MOV	R2,R20
+    005F 9420      COM	R2
+    0060 BA28      OUT	0x18,R2
+(0109) 	  USART_Transmit(temp);		//发送收到的数据
+FILE: <library>
+    0061 DFDF      RCALL	_USART_Transmit
+    0062 CFF9      RJMP	0x005C
+    0063 9508      RET
+push_gset5:
+    0064 92FA      ST	R15,-Y
+    0065 92EA      ST	R14,-Y
+push_gset4:
+    0066 92DA      ST	R13,-Y
+    0067 92CA      ST	R12,-Y
+push_gset3:
+    0068 92BA      ST	R11,-Y
+    0069 92AA      ST	R10,-Y
+push_gset2:
+    006A 937A      ST	R23,-Y
+    006B 936A      ST	R22,-Y
+push_gset1:
+    006C 935A      ST	R21,-Y
+    006D 934A      ST	R20,-Y
+    006E 9508      RET
+pop_gset1:
+    006F E0E1      LDI	R30,1
+pop:
+    0070 9149      LD	R20,Y+
+    0071 9159      LD	R21,Y+
+    0072 FDE0      SBRC	R30,0
+    0073 9508      RET
+    0074 9169      LD	R22,Y+
+    0075 9179      LD	R23,Y+
+    0076 FDE1      SBRC	R30,1
+    0077 9508      RET
+    0078 90A9      LD	R10,Y+
+    0079 90B9      LD	R11,Y+
+    007A FDE2      SBRC	R30,2
+    007B 9508      RET
+    007C 90C9      LD	R12,Y+
+    007D 90D9      LD	R13,Y+
+    007E FDE3      SBRC	R30,3
+    007F 9508      RET
+    0080 90E9      LD	R14,Y+
+    0081 90F9      LD	R15,Y+
+    0082 9508      RET

@@ -1,0 +1,61 @@
+C51 COMPILER V9.00   0                                                                     08/10/2012 18:00:08 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE 0
+OBJECT MODULE PLACED IN 0.OBJ
+COMPILER INVOKED BY: D:\安装软件\keil 51\C51\BIN\C51.EXE 0.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /****************************************************************************
+   2          * 【编写时间】： 2011.07.07
+   3          * 【作    者】： 雁翎电子
+   4          * 【版    本】： V1.0
+   5          * 【网    站】： http://ylelectronic.taobao.com/ 
+   6          * 【Q      Q】： 348439350
+   7                                                          
+   8          *****************************************************************************
+   9          程序功能：      该函数是一个功能性小函数，告诉大家对整数各位
+  10                                  进行拆分的一种方法（函数中以一个四位数为例），还有对小数进行提取的方法。
+  11          ****************************************************************************/
+  12          #include <reg51.h>
+  13          #include <math.h>
+  14          
+  15          void main()
+  16          {
+  17   1              unsigned int zhengshu=1234;
+  18   1              unsigned char ge,shi,bai,qian;
+  19   1      
+  20   1              float xiaoshu=5.67;
+  21   1              unsigned int xiaoshu1,xiaoshu2;
+  22   1      
+  23   1              ge=zhengshu%10;            //%即为取余数运算符，如8%5=3
+  24   1              shi=(zhengshu%100)/10;   //单斜线/为取整运算符，如8、5=1
+  25   1              bai=(zhengshu%1000)/100;
+  26   1              qian=zhengshu/1000;
+  27   1      
+  28   1              xiaoshu2=(unsigned int)(xiaoshu*100)%10;
+  29   1              //注意(unsigned int)(xiaoshu*100)该部分，它的含义为对(xiaoshu*100)进行强制
+  30   1              //类型转换，因为虽然(xiaoshu*100)的运算结果表面上得到的是567，但实质上它在程序
+  31   1              //中的表现形式是567.0，即仍为float型数据，此时如果无类型转换，进行%取余运算时会
+  32   1              //导致错误出现。(unsigned int)(xiaoshu*100)即将float型强制转换为unsigned int型数据。
+  33   1              xiaoshu1=(unsigned int)(xiaoshu*100)%100/10;
+  34   1      
+  35   1              P1=xiaoshu2;//xiaoshu2结果为7；二进制为00000111 ,故低三位会不亮，其余全亮
+  36   1                                      //同学们可以用此方法，更改一下“P1=”后的变量，通过led的亮灭观察下每个变量的值是否正确。
+  37   1              while(1);//死循环，程序会停止于此处，防止“跑飞”
+  38   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    159    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      12
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

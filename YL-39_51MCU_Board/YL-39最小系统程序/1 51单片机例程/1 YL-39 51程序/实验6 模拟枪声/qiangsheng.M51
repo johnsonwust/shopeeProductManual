@@ -1,0 +1,118 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/30/2016  10:48:00  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\KEIL\C51\BIN\BL51.EXE qiangsheng.obj TO qiangsheng
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  qiangsheng.obj (QIANGSHENG)
+  D:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  qiangsheng (QIANGSHENG)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         ?DT?QIANGSHENG
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0008H                  *** GAP ***
+            CODE    000BH     0003H     ABSOLUTE     
+            CODE    000EH     002FH     UNIT         ?PR?TIME0?QIANGSHENG
+            CODE    003DH     001FH     UNIT         ?PR?MAIN?QIANGSHENG
+            CODE    005CH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   qiangsheng (QIANGSHENG)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?QIANGSHENG
+
+
+
+SYMBOL TABLE OF MODULE:  qiangsheng (QIANGSHENG)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        QIANGSHENG
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  B:00B0H.6       PUBLIC        BEEP
+  C:003DH         PUBLIC        main
+  D:0089H         PUBLIC        TMOD
+  C:000EH         PUBLIC        Time0
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/30/2016  10:48:00  PAGE 2
+
+
+  B:00A8H.1       PUBLIC        ET0
+  D:008CH         PUBLIC        TH0
+  D:008AH         PUBLIC        TL0
+  D:0008H         PUBLIC        H_count
+  B:0088H.4       PUBLIC        TR0
+  D:0009H         PUBLIC        L_count
+  B:00B0H.2       PUBLIC        K1
+  -------         PROC          MAIN
+  C:003DH         LINE#         24
+  C:003DH         LINE#         25
+  C:003DH         LINE#         26
+  C:0040H         LINE#         27
+  C:0042H         LINE#         28
+  C:0045H         LINE#         29
+  C:0048H         LINE#         30
+  C:004BH         LINE#         31
+  C:004EH         LINE#         32
+  C:0051H         LINE#         33
+  C:0053H         LINE#         34
+  C:0055H         LINE#         36
+  C:0055H         LINE#         37
+  C:0055H         LINE#         38
+  C:0058H         LINE#         39
+  C:005AH         LINE#         40
+  -------         ENDPROC       MAIN
+  -------         PROC          TIME0
+  C:000EH         LINE#         46
+  C:0010H         LINE#         48
+  C:0012H         LINE#         49
+  C:0016H         LINE#         50
+  C:0016H         LINE#         51
+  C:0016H         LINE#         52
+  C:0016H         LINE#         53
+  C:0018H         LINE#         55
+  C:001AH         LINE#         57
+  C:0020H         LINE#         58
+  C:0020H         LINE#         59
+  C:0022H         LINE#         60
+  C:0025H         LINE#         61
+  C:002AH         LINE#         63
+  C:002AH         LINE#         65
+  C:002AH         LINE#         66
+  C:002DH         LINE#         67
+  C:0030H         LINE#         68
+  C:0033H         LINE#         69
+  C:0036H         LINE#         70
+  C:0038H         LINE#         71
+  C:003AH         LINE#         72
+  C:003AH         LINE#         73
+  -------         ENDPROC       TIME0
+  -------         ENDMOD        QIANGSHENG
+
+Program Size: data=11.0 xdata=0 code=96
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

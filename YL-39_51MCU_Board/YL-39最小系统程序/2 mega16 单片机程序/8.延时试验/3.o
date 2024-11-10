@@ -1,0 +1,52 @@
+XL
+H 1 areas 2 global symbols
+M _3.c
+A text size 4A flags 0
+dbfile D:\16实验程序\延时试验\3.c
+dbfunc e s_ms 0 fV
+dbsym r aa 14 i
+dbsym r ms 10 i
+dbline FFFFFFFF 4
+dbline 6 4
+dbline 8 4
+dbline 9 6
+dbline A 6
+dbline B C
+dbline B C
+dbline B C
+dbline A C
+dbline A 10
+dbline C 1A
+dbline 8 1A
+dbline 8 1E
+dbline FFFFFFFE 26
+dbline 0 26
+dbfunc e main 2C fI
+dbline FFFFFFFF 2C
+dbline 10 2C
+dbline 11 2C
+dbline 14 32
+dbline 15 32
+dbline 16 36
+dbline 17 3C
+dbline 18 40
+dbline 19 46
+dbline 13 46
+dbline FFFFFFFE 48
+dbline 0 48
+S _main Def002C
+S _s_ms Def0000
+T 00 00 4A 93 5A 93 0C C0 44 27 55 27 02 C0 4F 5F
+R 00 00 00 00
+T 0E 00 5F 4F 80 ED 97 E0 84 17 95 07 C8 F7 01 50
+R 00 00 00 00
+T 1C 00 10 40 01 30 E0 E0 1E 07 80 F7 59 91 49 91
+R 00 00 00 00
+T 2A 00 08 95
+R 00 00 00 00
+T 2C 00 8F EF 81 BB 0A C0 8F EF 82 BB 05 E0 10 E0
+R 00 00 00 00
+T 3A 00 E2 DF 22 24 22 BA 05 E0 10 E0 DD DF F5 CF
+R 00 00 00 00
+T 48 00 08 95
+R 00 00 00 00

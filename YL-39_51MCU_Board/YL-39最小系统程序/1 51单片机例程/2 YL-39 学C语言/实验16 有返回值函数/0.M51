@@ -1,0 +1,93 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/10/2012  18:01:32  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\安装软件\KEIL 51\C51\BIN\BL51.EXE 0.obj TO 0
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  0.obj (0)
+  D:\安装软件\KEIL 51\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  0 (0)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     000CH     UNIT         ?C_C51STARTUP
+            CODE    000FH     000BH     UNIT         ?PR?MAIN?0
+            CODE    001AH     0004H     UNIT         ?PR?_JIA?0
+
+
+
+OVERLAY MAP OF MODULE:   0 (0)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?0
+
+?PR?MAIN?0
+  +--> ?PR?_JIA?0
+
+
+
+SYMBOL TABLE OF MODULE:  0 (0)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        0
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:000FH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  C:001AH         PUBLIC        _jia
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/10/2012  18:01:32  PAGE 2
+
+
+  D:0088H         PUBLIC        TCON
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          _JIA
+  D:0007H         SYMBOL        m
+  D:0005H         SYMBOL        n
+  -------         DO            
+  D:0007H         SYMBOL        he
+  -------         ENDDO         
+  C:001AH         LINE#         13
+  C:001AH         LINE#         14
+  C:001AH         LINE#         16
+  C:001DH         LINE#         17
+  C:001DH         LINE#         18
+  -------         ENDPROC       _JIA
+  -------         PROC          MAIN
+  -------         DO            
+  D:0006H         SYMBOL        i
+  -------         ENDDO         
+  C:000FH         LINE#         20
+  C:000FH         LINE#         21
+  C:000FH         LINE#         23
+  C:0016H         LINE#         25
+  C:0018H         LINE#         26
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        0
+
+Program Size: data=9.0 xdata=0 code=30
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,223 @@
+XL
+H 4 areas F global symbols
+M main.c
+S push_gset2 Ref0000
+S push_gset3 Ref0000
+S div32s Ref0000
+S pop_gset2 Ref0000
+S pop_gset3 Ref0000
+A text size 184 flags 0
+dbfile G:\发货盘\宛峰电子AVR_MEGA8_48_88_168\实验例程\实验11~1\ICC代码\1查询方式\main.c
+dbfunc e port_init 0 fV
+dbline FFFFFFFF 0
+dbline B 0
+dbline C 0
+dbline D 4
+dbline E 6
+dbline F A
+dbline 10 C
+dbline 11 E
+dbline FFFFFFFE 12
+dbline 0 12
+dbfunc e delay_ms 14 fV
+dbsym r i 14 i
+dbsym r j 16 i
+dbsym r n 10 i
+dbline FFFFFFFF 16
+dbline 14 16
+dbline 15 16
+dbline 15 1A
+dbline 17 20
+dbline 18 20
+dbline 18 26
+dbline 18 26
+dbline 18 2A
+dbline 19 32
+dbline 1A 36
+dbline 16 36
+dbline FFFFFFFE 3C
+dbline 0 3E
+dbfunc e uart0_init 40 fV
+dbsym r temp A I
+dbsym r bps A I
+dbline FFFFFFFF 44
+dbline 2A 44
+dbline 2C 44
+dbline 2E 90
+dbline 2F 96
+dbline 31 9A
+dbline 32 9E
+dbline 34 AC
+dbline 35 B2
+dbline 36 B8
+dbline FFFFFFFE BE
+dbline 0 C0
+dbfunc e uart0_rx_isr C2 fV
+dbsym r t 10 c
+dbline FFFFFFFF D2
+dbline 3D D2
+dbline 40 D2
+dbline 41 D6
+dbline 41 DE
+dbline 42 DE
+dbline 43 EE
+dbline 44 F0
+dbline 45 F0
+dbline 46 F6
+dbline 47 104
+dbline 48 104
+dbline FFFFFFFE 10E
+dbline 0 11E
+dbfunc e Uart0_putchar 120 fV
+dbsym r sdbyte 10 c
+dbline FFFFFFFF 120
+dbline 4F 120
+dbline 50 120
+dbline 51 124
+dbline 51 124
+dbline 52 12C
+dbline FFFFFFFE 136
+dbline 0 136
+dbfunc e Uart0_sendbuf 138 fV
+dbsym r len 14 c
+dbsym r ptr 16 pc
+dbline FFFFFFFF 13E
+dbline 57 13E
+dbline 59 140
+dbline 5A 140
+dbline 5B 148
+dbline 5C 14A
+dbline 58 14A
+dbline FFFFFFFE 150
+dbline 0 152
+dbfunc e init_devices 154 fV
+dbline FFFFFFFF 154
+dbline 62 154
+dbline 64 154
+dbline 65 156
+dbline 68 158
+dbline 77 15C
+dbline FFFFFFFE 15E
+dbline 0 15E
+dbfunc e main 160 fV
+dbsym l i 1 I
+dbline FFFFFFFF 160
+dbline 7D 160
+dbline 7F 160
+dbline 81 162
+dbline 83 168
+dbline 86 170
+dbline 88 170
+dbline 88 178
+dbline 89 178
+dbline 8A 180
+dbline 8B 180
+dbline 85 180
+dbline FFFFFFFE 182
+dbline 0 182
+S _main Def0160
+S _port_init Def0000
+S _uart0_rx_isr Def00C2
+S _init_devices Def0154
+S _uart0_init Def0040
+S _Uart0_sendbuf Def0138
+S _Uart0_putchar Def0120
+S _delay_ms Def0014
+A data size 81 flags 20
+dbfile G:\发货盘\宛峰电子AVR_MEGA8_48_88_168\实验例程\实验11~1\ICC代码\1查询方式\main.c
+dbsym e gU8getchar 0 c
+dbsym e gU8RecBuff 1 A[128:128]c
+S _gU8getchar Def0000
+S _gU8RecBuff Def0001
+A idata size 81 flags 0
+A vector size 26 flags C
+T 00 00 22 24 25 B8 24 B8 88 E6 88 B9 87 B9 8B B9
+R 00 00 00 00
+T 0E 00 88 EE 8A B9 08 95
+R 00 00 00 00
+T 14 00 00 D0 44 27 55 27 61 E0 70 E0 0B C0 66 27
+R 00 00 00 00 82 02 00 00
+T 22 00 77 27 02 C0 6F 5F 7F 4F 68 3E E3 E0 7E 07
+R 00 00 00 00
+T 30 00 D0 F3 4F 5F 5F 4F 40 17 51 07 90 F3 00 D0
+R 00 00 00 00 82 0E 03 00
+T 3E 00 08 95
+R 00 00 00 00
+T 40 00 00 D0 58 01 15 01 44 24 37 FC 40 94 55 24
+R 00 00 00 00 82 02 01 00
+T 4E 00 47 FC 50 94 40 E0 52 E1 6A E7 70 E0 5A 92
+R 00 00 00 00
+T 5C 00 4A 92 3A 92 2A 92 8A 01 9B 01 00 D0 48 E0
+R 00 00 00 00 82 0C 02 00
+T 6A 00 50 E0 60 E0 70 E0 7A 93 6A 93 5A 93 4A 93
+R 00 00 00 00
+T 78 00 00 D0 18 01 29 01 41 E0 50 E0 60 E0 70 E0
+R 00 00 00 00 82 02 02 00
+T 86 00 24 1A 35 0A 46 0A 57 0A 51 01 22 24 20 92
+R 00 00 00 00
+T 94 00 C1 00 20 92 C0 00 A0 92 C4 00 15 01 23 2C
+R 00 00 00 00
+T A2 00 33 24 27 FC 30 94 20 92 C5 00 86 E0 80 93
+R 00 00 00 00
+T B0 00 C2 00 82 E0 80 93 C0 00 88 E9 80 93 C1 00
+R 00 00 00 00
+T BE 00 00 D0 08 95
+R 00 00 00 00 82 02 04 00
+T 00 00 00
+R 00 00 02 00
+T 01 00 00
+R 00 00 02 00
+T 02 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 02 00
+T 10 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 02 00
+T 1E 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 02 00
+T 2C 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 02 00
+T 3A 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 02 00
+T 48 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 02 00
+T 56 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 02 00
+T 64 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 02 00
+T 72 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 02 00
+T 80 00 00
+R 00 00 02 00
+T 24 00 61 C0
+R 00 00 03 00 80 02 00 00
+T C2 00 2A 92 0A 93 8A 93 9A 93 EA 93 FA 93 2F B6
+R 00 00 00 00
+T D0 00 2A 92 00 91 C6 00 80 91 00 00 8A 30 48 F4
+R 00 00 00 00 00 0A 01 00
+T DE 00 80 E0 90 E0 E0 91
+R 00 00 00 00 20 02 01 00 01 00 40 04 01 00 01 00
+T E4 00 00 00 FF 27 E8 0F F9 1F 00 83 0A C0 22 24
+R 00 00 00 00 00 02 01 00
+T F2 00 20 92 00 00 80 E0
+R 00 00 00 00 00 04 01 00 20 06 01 00 01 00
+T F8 00 90 E0 E2 2D FF 27 E8 0F F9 1F 00 83 80 91
+R 00 00 00 00 40 02 01 00 01 00
+T 06 01 00 00 8F 5F 80 93 00 00 29 90 2F BE F9 91
+R 00 00 00 00 00 02 01 00 00 08 01 00
+T 14 01 E9 91 99 91 89 91 09 91 29 90 18 95
+R 00 00 00 00
+T 20 01 00 93 C6 00 20 90 C0 00 26 FE FC CF 80 91
+R 00 00 00 00
+T 2E 01 C0 00 80 64 80 93 C0 00 08 95
+R 00 00 00 00
+T 38 01 00 D0 42 2F B8 01 05 C0 FB 01 01 91 BF 01
+R 00 00 00 00 82 02 00 00
+T 46 01 EC DF 4A 95 22 24 24 16 C0 F3 00 D0 08 95
+R 00 00 00 00 82 0C 03 00
+T 54 01 F8 94 54 DF 22 24 25 BE 78 94 08 95
+R 00 00 00 00
+T 60 01 F9 DF 00 E8 15 E2 6C DF 04 E6 10 E0 53 DF
+R 00 00 00 00
+T 6E 01 08 C0 80 91 00 00 8A 30 21 F4 2A E0 00 E0
+R 00 00 00 00 00 06 01 00 20 0E 01 00 01 00
+T 7C 01 10 E0 DC DF F7 CF 08 95
+R 00 00 00 00 40 02 01 00 01 00

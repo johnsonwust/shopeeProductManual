@@ -1,0 +1,621 @@
+                        .module _数码显温度.C
+                        .area text(rom, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\DS18B20.h
+ 0000                   .dbfunc e delay_18B20 _delay_18B20 fV
+ 0000           ;              x -> R16,R17
+                        .even
+ 0000           _delay_18B20::
+ 0000                   .dbline -1
+ 0000                   .dbline 20
+ 0000           ; /******************************************************************************/
+ 0000           ; /*【编写时间】： 2011.07.07
+ 0000           ; * 【作    者】： 雁翎电子
+ 0000           ; * 【版    本】： V1.0
+ 0000           ; * 【网    站】： http://ylelectronic.taobao.com/ 
+ 0000           ; * 【Q      Q】： 348439350
+ 0000           ; * 【编译环境】： ICCAVR  
+ 0000           ; * 【函数功能】： 数码管显示ds18b20温度试验
+ 0000           ; * 【晶    振】:  8M           
+ 0000           ; * 【芯    片】:  ATMEGA16A     
+ 0000           ; * 【硬件连接】： J2短路帽接上   
+ 0000           ; /******************************************************************************/  
+ 0000           ;       #define uchar unsigned char
+ 0000           ;         #define uint  unsigned int
+ 0000           ;         #include <iom16v.h>
+ 0000           ;         #include "DS18B20.h"
+ 0000           ;         #define Set_Bit(val, bitn)    (val |=(1<<(bitn))) 
+ 0000           ;       #define Clr_Bit(val, bitn)    (val&=~(1<<(bitn))) 
+ 0000           ;       #define Get_Bit(val, bitn)    (val &(1<<(bitn)) ) 
+ 0000           ;       uchar  tx[7]={0};
+ 0000 02C0              xjmp L3
+ 0002           L2:
+ 0002                   .dbline 22
+ 0002           ;       uchar  discode[12]={ 0xC0, 0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90,0xff };  //段码表
+ 0002           ;       uchar  disbit[4]  ={ 0xFE, 0xFD,0xFB,0xF7}; //选通值   
+ 0002                   .dbline 23
+ 0002           ; /******************************************************************************/
+ 0002 0150              subi R16,1
+ 0004 1040              sbci R17,0
+ 0006                   .dbline 24
+ 0006           ; //延时函数
+ 0006           L3:
+ 0006                   .dbline 21
+ 0006 0030              cpi R16,0
+ 0008 0107              cpc R16,R17
+ 000A D9F7              brne L2
+ 000C           X0:
+ 000C                   .dbline -2
+ 000C           L1:
+ 000C                   .dbline 0 ; func end
+ 000C 0895              ret
+ 000E                   .dbsym r x 16 i
+ 000E                   .dbend
+ 000E                   .dbfunc e Init_1820 _Init_1820 fV
+                        .even
+ 000E           _Init_1820::
+ 000E                   .dbline -1
+ 000E                   .dbline 31
+ 000E           ; /******************************************************************************/                                                                                                      
+ 000E           ;       void delay(void)   
+ 000E           ;            {uchar i;
+ 000E           ;              for(i=0;i<255;i++);
+ 000E           ;            }
+ 000E           ; /******************************************************************************/
+ 000E           ; //显示函数
+ 000E                   .dbline 33
+ 000E           ; /******************************************************************************/  
+ 000E           ;         void Display(void)
+ 000E A19A              sbi 0x14,1
+ 0010                   .dbline 34
+ 0010           ;          {  
+ 0010 A99A              sbi 0x15,1
+ 0012                   .dbline 35
+ 0012           ;                   uchar i;
+ 0012 A998              cbi 0x15,1
+ 0014                   .dbline 36
+ 0014           ;             for(i=0;i<4;i++)
+ 0014 08EB              ldi R16,3000
+ 0016 1BE0              ldi R17,11
+ 0018 F3DF              xcall _delay_18B20
+ 001A                   .dbline 37
+ 001A           ;                 {
+ 001A A99A              sbi 0x15,1
+ 001C                   .dbline 38
+ 001C           ;                                if(i==1)
+ 001C A198              cbi 0x14,1
+ 001E                   .dbline 39
+ 001E           ;                        PORTB=(discode[tx[i]])&0x7f;//显示数码管的点
+ 001E 02E3              ldi R16,50
+ 0020 10E0              ldi R17,0
+ 0022 EEDF              xcall _delay_18B20
+ 0024           L6:
+ 0024                   .dbline 40
+ 0024           ;                                else 
+ 0024           L7:
+ 0024                   .dbline 40
+ 0024 9999              sbic 0x13,1
+ 0026 FECF              rjmp L6
+ 0028           X1:
+ 0028                   .dbline 41
+ 0028           ;                                PORTB=discode[tx[i]];
+ 0028 A19A              sbi 0x14,1
+ 002A                   .dbline 42
+ 002A           ;                  PORTA=disbit[i];
+ 002A A99A              sbi 0x15,1
+ 002C                   .dbline 43
+ 002C           ;                  delay();
+ 002C 06E9              ldi R16,150
+ 002E 10E0              ldi R17,0
+ 0030                   .dbline -2
+ 0030           L5:
+ 0030                   .dbline 0 ; func end
+ 0030 E7CF              xjmp _delay_18B20
+ 0032                   .dbend
+ 0032                   .dbfunc e Write_1820 _Write_1820 fI
+ 0032           ;              m -> R20
+ 0032           ;              x -> R10
+                        .even
+ 0032           _Write_1820::
+ 0032 AA92              st -y,R10
+ 0034 4A93              st -y,R20
+ 0036 A02E              mov R10,R16
+ 0038                   .dbline -1
+ 0038                   .dbline 49
+ 0038           ;                  PORTA=0xff;
+ 0038           ;                           } 
+ 0038           ;                }
+ 0038           ; /******************************************************************************/
+ 0038           ; //读出温度程序
+ 0038           ; /******************************************************************************/               
+ 0038                   .dbline 51
+ 0038           ; void ReadTemperature(void)
+ 0038           ; {
+ 0038 4427              clr R20
+ 003A 10C0              xjmp L13
+ 003C           L10:
+ 003C                   .dbline 52
+ 003C           ;       unsigned char a=0;
+ 003C                   .dbline 53
+ 003C           ;       unsigned char b=0;
+ 003C A998              cbi 0x15,1
+ 003E                   .dbline 54
+ 003E           ;       unsigned char Data_L=0;
+ 003E 01E0              ldi R16,1
+ 0040 142F              mov R17,R20
+ 0042 0E940000          xcall lsl8
+ 0046 2A2C              mov R2,R10
+ 0048 2022              and R2,R16
+ 004A 11F0              breq L14
+ 004C           X2:
+ 004C                   .dbline 55
+ 004C           ;       unsigned char num=0;
+ 004C A99A              sbi 0x15,1
+ 004E 01C0              xjmp L15
+ 0050           L14:
+ 0050                   .dbline 57
+ 0050           ; 
+ 0050           ;       Init_1820();        //复位18b20 
+ 0050 A998              cbi 0x15,1
+ 0052           L15:
+ 0052                   .dbline 58
+ 0052           ;       Write_1820(0xcc);   // 发出转换命令 
+ 0052 08E2              ldi R16,40
+ 0054 10E0              ldi R17,0
+ 0056 D4DF              xcall _delay_18B20
+ 0058                   .dbline 59
+ 0058           ;     Write_1820(0x44); 
+ 0058 A99A              sbi 0x15,1
+ 005A                   .dbline 60
+ 005A           ;       Init_1820(); 
+ 005A           L11:
+ 005A                   .dbline 51
+ 005A 4395              inc R20
+ 005C           L13:
+ 005C                   .dbline 51
+ 005C 4830              cpi R20,8
+ 005E 70F3              brlo L10
+ 0060           X3:
+ 0060                   .dbline 61
+ 0060           ;       Write_1820(0xcc);  //发出读命令 
+ 0060 A99A              sbi 0x15,1
+ 0062                   .dbline -2
+ 0062           L9:
+ 0062                   .dbline 0 ; func end
+ 0062 4991              ld R20,y+
+ 0064 A990              ld R10,y+
+ 0066 0895              ret
+ 0068                   .dbsym r m 20 c
+ 0068                   .dbsym r x 10 c
+ 0068                   .dbend
+ 0068                   .dbfunc e Read_1820 _Read_1820 fc
+ 0068           ;           temp -> R10
+ 0068           ;              k -> R22
+ 0068           ;              n -> R20
+                        .even
+ 0068           _Read_1820::
+ 0068 0E940000          xcall push_xgsetF00C
+ 006C                   .dbline -1
+ 006C                   .dbline 67
+ 006C           ;     Write_1820(0xbe); 
+ 006C           ;       a=Read_1820();    //读数据 低8位
+ 006C           ;     b=Read_1820();    //       高8位
+ 006C           ;       tx[0] = (a/16+b*16)/10;      //整数部分
+ 006C           ;       tx[1] = (a/16+b*16)%10; 
+ 006C           ; 
+ 006C                   .dbline 69
+ 006C           ;     Data_L=a&0X0F;
+ 006C           ;      for(num=2;num<6;num++)            //小数部分
+ 006C AA24              clr R10
+ 006E                   .dbline 70
+ 006E           ;    {
+ 006E 4427              clr R20
+ 0070 18C0              xjmp L20
+ 0072           L17:
+ 0072                   .dbline 71
+ 0072           ;       Data_L=Data_L*10;                                //10      //100                //40             //80
+ 0072                   .dbline 72
+ 0072           ;       tx[num]=Data_L/16;                       //0      //6                   //2                      //5
+ 0072 A998              cbi 0x15,1
+ 0074                   .dbline 73
+ 0074           ;       Data_L=Data_L%16;                                //10      //4                  //8
+ 0074 A99A              sbi 0x15,1
+ 0076                   .dbline 74
+ 0076           ;       }
+ 0076 A198              cbi 0x14,1
+ 0078                   .dbline 75
+ 0078           ; }
+ 0078 63B3              in R22,0x13
+ 007A 6270              andi R22,2
+ 007C                   .dbline 76
+ 007C           ; /******************************************************************************/
+ 007C 31F0              breq L21
+ 007E           X4:
+ 007E                   .dbline 77
+ 007E           ; //主函数不断扫描数码管
+ 007E 01E0              ldi R16,1
+ 0080 142F              mov R17,R20
+ 0082 0E940000          xcall lsl8
+ 0086 A02A              or R10,R16
+ 0088 07C0              xjmp L22
+ 008A           L21:
+ 008A                   .dbline 79
+ 008A           ; /******************************************************************************/  
+ 008A           ;         void main (void)
+ 008A 01E0              ldi R16,1
+ 008C 142F              mov R17,R20
+ 008E 0E940000          xcall lsl8
+ 0092 202E              mov R2,R16
+ 0094 2094              com R2
+ 0096 A220              and R10,R2
+ 0098           L22:
+ 0098                   .dbline 80
+ 0098           ;              { 
+ 0098 02E3              ldi R16,50
+ 009A 10E0              ldi R17,0
+ 009C B1DF              xcall _delay_18B20
+ 009E                   .dbline 81
+ 009E           ;                        
+ 009E A19A              sbi 0x14,1
+ 00A0                   .dbline 82
+ 00A0           ;                             unsigned char n;
+ 00A0           L18:
+ 00A0                   .dbline 70
+ 00A0 4395              inc R20
+ 00A2           L20:
+ 00A2                   .dbline 70
+ 00A2 4830              cpi R20,8
+ 00A4 30F3              brlo L17
+ 00A6           X5:
+ 00A6                   .dbline 83
+ 00A6           ;                                 unsigned int  j;
+ 00A6 0A2D              mov R16,R10
+ 00A8                   .dbline -2
+ 00A8           L16:
+ 00A8                   .dbline 0 ; func end
+ 00A8 0C940000          xjmp pop_xgsetF00C
+ 00AC                   .dbsym r temp 10 c
+ 00AC                   .dbsym r k 22 c
+ 00AC                   .dbsym r n 20 c
+ 00AC                   .dbend
+                        .area data(ram, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\DS18B20.h
+ 0000           _tx::
+ 0000                   .blkb 1
+                        .area idata
+ 0000 00                .byte 0
+                        .area data(ram, con, rel)
+ 0001                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\DS18B20.h
+ 0001                   .blkb 6
+                        .area idata
+ 0001 000000000000      .byte 0,0,0,0,0,0
+                        .area data(ram, con, rel)
+ 0007                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\DS18B20.h
+ 0007                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 0007                   .dbsym e tx _tx A[7:7]c
+ 0007           _discode::
+ 0007                   .blkb 2
+                        .area idata
+ 0007 C0F9              .byte 192,249
+                        .area data(ram, con, rel)
+ 0009                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 0009                   .blkb 2
+                        .area idata
+ 0009 A4B0              .byte 164,176
+                        .area data(ram, con, rel)
+ 000B                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 000B                   .blkb 2
+                        .area idata
+ 000B 9992              .byte 153,146
+                        .area data(ram, con, rel)
+ 000D                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 000D                   .blkb 2
+                        .area idata
+ 000D 82F8              .byte 130,248
+                        .area data(ram, con, rel)
+ 000F                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 000F                   .blkb 2
+                        .area idata
+ 000F 8090              .byte 128,144
+                        .area data(ram, con, rel)
+ 0011                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 0011                   .blkb 1
+                        .area idata
+ 0011 FF                .byte 255
+                        .area data(ram, con, rel)
+ 0012                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 0012                   .blkb 1
+                        .area idata
+ 0012 00                .byte 0
+                        .area data(ram, con, rel)
+ 0013                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 0013                   .dbsym e discode _discode A[12:12]c
+ 0013           _disbit::
+ 0013                   .blkb 2
+                        .area idata
+ 0013 FEFD              .byte 254,253
+                        .area data(ram, con, rel)
+ 0015                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 0015                   .blkb 2
+                        .area idata
+ 0015 FBF7              .byte 251,247
+                        .area data(ram, con, rel)
+ 0017                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 0017                   .dbsym e disbit _disbit A[4:4]c
+                        .area text(rom, con, rel)
+ 00AC                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\15.数码管显示温度DS18B20\数码显温度.C
+ 00AC                   .dbfunc e delay _delay fV
+ 00AC           ;              i -> R16
+                        .even
+ 00AC           _delay::
+ 00AC                   .dbline -1
+ 00AC                   .dbline 27
+ 00AC                   .dbline 28
+ 00AC 0027              clr R16
+ 00AE 01C0              xjmp L27
+ 00B0           L24:
+ 00B0                   .dbline 28
+ 00B0           L25:
+ 00B0                   .dbline 28
+ 00B0 0395              inc R16
+ 00B2           L27:
+ 00B2                   .dbline 28
+ 00B2 0F3F              cpi R16,255
+ 00B4 E8F3              brlo L24
+ 00B6           X6:
+ 00B6                   .dbline -2
+ 00B6           L23:
+ 00B6                   .dbline 0 ; func end
+ 00B6 0895              ret
+ 00B8                   .dbsym r i 16 c
+ 00B8                   .dbend
+ 00B8                   .dbfunc e Display _Display fV
+ 00B8           ;              i -> R20
+                        .even
+ 00B8           _Display::
+ 00B8 4A93              st -y,R20
+ 00BA                   .dbline -1
+ 00BA                   .dbline 34
+ 00BA                   .dbline 36
+ 00BA 4427              clr R20
+ 00BC 2CC0              xjmp L32
+ 00BE           L29:
+ 00BE                   .dbline 37
+ 00BE                   .dbline 38
+ 00BE 4130              cpi R20,1
+ 00C0 81F4              brne L33
+ 00C2           X7:
+ 00C2                   .dbline 39
+ 00C2 80E0              ldi R24,<_tx
+ 00C4 90E0              ldi R25,>_tx
+ 00C6 E42F              mov R30,R20
+ 00C8 FF27              clr R31
+ 00CA E80F              add R30,R24
+ 00CC F91F              adc R31,R25
+ 00CE E081              ldd R30,z+0
+ 00D0 FF27              clr R31
+ 00D2 80E0              ldi R24,<_discode
+ 00D4 90E0              ldi R25,>_discode
+ 00D6 E80F              add R30,R24
+ 00D8 F91F              adc R31,R25
+ 00DA 8081              ldd R24,z+0
+ 00DC 8F77              andi R24,127
+ 00DE 88BB              out 0x18,R24
+ 00E0 0EC0              xjmp L34
+ 00E2           L33:
+ 00E2                   .dbline 41
+ 00E2 80E0              ldi R24,<_tx
+ 00E4 90E0              ldi R25,>_tx
+ 00E6 E42F              mov R30,R20
+ 00E8 FF27              clr R31
+ 00EA E80F              add R30,R24
+ 00EC F91F              adc R31,R25
+ 00EE E081              ldd R30,z+0
+ 00F0 FF27              clr R31
+ 00F2 80E0              ldi R24,<_discode
+ 00F4 90E0              ldi R25,>_discode
+ 00F6 E80F              add R30,R24
+ 00F8 F91F              adc R31,R25
+ 00FA 2080              ldd R2,z+0
+ 00FC 28BA              out 0x18,R2
+ 00FE           L34:
+ 00FE                   .dbline 42
+ 00FE 80E0              ldi R24,<_disbit
+ 0100 90E0              ldi R25,>_disbit
+ 0102 E42F              mov R30,R20
+ 0104 FF27              clr R31
+ 0106 E80F              add R30,R24
+ 0108 F91F              adc R31,R25
+ 010A 2080              ldd R2,z+0
+ 010C 2BBA              out 0x1b,R2
+ 010E                   .dbline 43
+ 010E CEDF              xcall _delay
+ 0110                   .dbline 44
+ 0110 8FEF              ldi R24,255
+ 0112 8BBB              out 0x1b,R24
+ 0114                   .dbline 45
+ 0114           L30:
+ 0114                   .dbline 36
+ 0114 4395              inc R20
+ 0116           L32:
+ 0116                   .dbline 36
+ 0116 4430              cpi R20,4
+ 0118 08F4              brsh X9
+ 011A D1CF              xjmp L29
+ 011C           X9:
+ 011C           X8:
+ 011C                   .dbline -2
+ 011C           L28:
+ 011C                   .dbline 0 ; func end
+ 011C 4991              ld R20,y+
+ 011E 0895              ret
+ 0120                   .dbsym r i 20 c
+ 0120                   .dbend
+ 0120                   .dbfunc e ReadTemperature _ReadTemperature fV
+ 0120           ;              b -> R12
+ 0120           ;              a -> R10
+ 0120           ;            num -> R22
+ 0120           ;         Data_L -> R20
+                        .even
+ 0120           _ReadTemperature::
+ 0120 0E940000          xcall push_xgsetF03C
+ 0124                   .dbline -1
+ 0124                   .dbline 51
+ 0124                   .dbline 52
+ 0124                   .dbline 53
+ 0124                   .dbline 54
+ 0124                   .dbline 55
+ 0124                   .dbline 57
+ 0124 74DF              xcall _Init_1820
+ 0126                   .dbline 58
+ 0126 0CEC              ldi R16,204
+ 0128 84DF              xcall _Write_1820
+ 012A                   .dbline 59
+ 012A 04E4              ldi R16,68
+ 012C 82DF              xcall _Write_1820
+ 012E                   .dbline 60
+ 012E 6FDF              xcall _Init_1820
+ 0130                   .dbline 61
+ 0130 0CEC              ldi R16,204
+ 0132 7FDF              xcall _Write_1820
+ 0134                   .dbline 62
+ 0134 0EEB              ldi R16,190
+ 0136 7DDF              xcall _Write_1820
+ 0138                   .dbline 63
+ 0138 97DF              xcall _Read_1820
+ 013A A02E              mov R10,R16
+ 013C                   .dbline 64
+ 013C 95DF              xcall _Read_1820
+ 013E C02E              mov R12,R16
+ 0140                   .dbline 65
+ 0140 80E1              ldi R24,16
+ 0142 8C9D              mul R24,R12
+ 0144 0A2D              mov R16,R10
+ 0146 0295              swap R16
+ 0148 0F70              andi R16,#0x0F
+ 014A 000D              add R16,R0
+ 014C 1AE0              ldi R17,10
+ 014E 0E940000          xcall div8u
+ 0152 00930000          sts _tx,R16
+ 0156                   .dbline 66
+ 0156 80E1              ldi R24,16
+ 0158 8C9D              mul R24,R12
+ 015A 0A2D              mov R16,R10
+ 015C 0295              swap R16
+ 015E 0F70              andi R16,#0x0F
+ 0160 000D              add R16,R0
+ 0162 1AE0              ldi R17,10
+ 0164 0E940000          xcall mod8u
+ 0168 00930100          sts _tx+1,R16
+ 016C                   .dbline 68
+ 016C 4A2D              mov R20,R10
+ 016E 4F70              andi R20,15
+ 0170                   .dbline 69
+ 0170 62E0              ldi R22,2
+ 0172 13C0              xjmp L40
+ 0174           L37:
+ 0174                   .dbline 70
+ 0174                   .dbline 71
+ 0174 8AE0              ldi R24,10
+ 0176 849F              mul R24,R20
+ 0178 A001              movw R20,R0
+ 017A                   .dbline 72
+ 017A 80E0              ldi R24,<_tx
+ 017C 90E0              ldi R25,>_tx
+ 017E E62F              mov R30,R22
+ 0180 FF27              clr R31
+ 0182 E80F              add R30,R24
+ 0184 F91F              adc R31,R25
+ 0186 842F              mov R24,R20
+ 0188 8295              swap R24
+ 018A 8F70              andi R24,#0x0F
+ 018C 8083              std z+0,R24
+ 018E                   .dbline 73
+ 018E 10E1              ldi R17,16
+ 0190 042F              mov R16,R20
+ 0192 0E940000          xcall mod8u
+ 0196 402F              mov R20,R16
+ 0198                   .dbline 74
+ 0198           L38:
+ 0198                   .dbline 69
+ 0198 6395              inc R22
+ 019A           L40:
+ 019A                   .dbline 69
+ 019A 6630              cpi R22,6
+ 019C 58F3              brlo L37
+ 019E           X10:
+ 019E                   .dbline -2
+ 019E           L35:
+ 019E                   .dbline 0 ; func end
+ 019E 0C940000          xjmp pop_xgsetF03C
+ 01A2                   .dbsym r b 12 c
+ 01A2                   .dbsym r a 10 c
+ 01A2                   .dbsym r num 22 c
+ 01A2                   .dbsym r Data_L 20 c
+ 01A2                   .dbend
+ 01A2                   .dbfunc e main _main fV
+ 01A2           ;              j -> <dead>
+ 01A2           ;              n -> R20
+                        .even
+ 01A2           _main::
+ 01A2                   .dbline -1
+ 01A2                   .dbline 80
+ 01A2                   .dbline 84
+ 01A2           ;                   DDRA=0xFF;       //设为输出口     
+ 01A2 8FEF              ldi R24,255
+ 01A4 8ABB              out 0x1a,R24
+ 01A6                   .dbline 85
+ 01A6           ;                   DDRB=0xFF;       //设为输出口 
+ 01A6 87BB              out 0x17,R24
+ 01A8                   .dbline 86
+ 01A8           ;                         PORTA=0xFF;      
+ 01A8 8BBB              out 0x1b,R24
+ 01AA                   .dbline 87
+ 01AA           ;                   PORTB=0xFF;
+ 01AA 88BB              out 0x18,R24
+ 01AC 07C0              xjmp L43
+ 01AE           L42:
+ 01AE                   .dbline 90
+ 01AE           ;   
+ 01AE           ;                   while(1)
+ 01AE           ;                  {  
+ 01AE                   .dbline 91
+ 01AE           ;                                  ReadTemperature();
+ 01AE B8DF              xcall _ReadTemperature
+ 01B0                   .dbline 92
+ 01B0           ;                                  for(n=0;n<30;n++)  //显示30次读出一次温度，当作延时
+ 01B0 4427              clr R20
+ 01B2 02C0              xjmp L48
+ 01B4           L45:
+ 01B4                   .dbline 93
+ 01B4           ;                                  Display();
+ 01B4 81DF              xcall _Display
+ 01B6           L46:
+ 01B6                   .dbline 92
+ 01B6 4395              inc R20
+ 01B8           L48:
+ 01B8                   .dbline 92
+ 01B8 4E31              cpi R20,30
+ 01BA E0F3              brlo L45
+ 01BC           X11:
+ 01BC                   .dbline 94
+ 01BC           ;                             }
+ 01BC           L43:
+ 01BC                   .dbline 89
+ 01BC F8CF              xjmp L42
+ 01BE           X12:
+ 01BE                   .dbline -2
+ 01BE           L41:
+ 01BE                   .dbline 0 ; func end
+ 01BE 0895              ret
+ 01C0                   .dbsym l j 1 i
+ 01C0                   .dbsym r n 20 c
+ 01C0                   .dbend
+ 01C0           ;                        }
+ 01C0           ;                                       
+ 01C0           ; 
+ 01C0           ;                       
+ 01C0           ;                       
+ 01C0           ;                        
+ 01C0           ;                             
+ 01C0           ;                

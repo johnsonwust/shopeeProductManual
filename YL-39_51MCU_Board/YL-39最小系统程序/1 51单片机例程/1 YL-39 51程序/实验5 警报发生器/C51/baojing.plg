@@ -1,0 +1,21 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+D:\工作\制版成功\YL-39 51+AVR简易开发板\YL-39 51简易开发板资料\YL-39最小系统程序\1 51单片机例程\2-蜂鸣器\3警报发生器\C51\baojing.uvproj
+Project File Date:  07/07/2011
+
+<h2>Output:</h2>
+Build target 'Target 1'
+compiling 报警器.c...
+linking...
+Program Size: data=9.0 xdata=0 code=57
+creating hex file from "baojing"...
+"baojing" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling 报警器.c...
+linking...
+Program Size: data=9.0 xdata=0 code=57
+creating hex file from "baojing"...
+"baojing" - 0 Error(s), 0 Warning(s).

@@ -1,0 +1,147 @@
+C51 COMPILER V9.00   1602譥符显示                                                          08/10/2012 19:01:47 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE 1602譥符显示
+OBJECT MODULE PLACED IN 1602字符显示.OBJ
+COMPILER INVOKED BY: D:\安装软件\keil 51\C51\BIN\C51.EXE 1602字符显示.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          # include <reg51.h>
+   2          # include <intrins.h>
+   3          typedef unsigned char BYTE;
+   4          typedef unsigned int WORD;
+   5          typedef bit BOOL;
+   6          
+   7          sbit rs=P0^7;
+   8          sbit rw=P0^6;
+   9          sbit ep=P0^5;
+  10          
+  11          BYTE code dis1 []={"  yanlindianzi"};
+  12          BYTE code dis2 []={" 15001162199"};
+  13          
+  14          void delay (int m)
+  15          {
+  16   1       unsigned char i,j;
+  17   1       for (i=0;i<m;i++)
+  18   1       for (j=0;j<253;j++);
+  19   1      }
+  20          
+  21           BOOL lcd_bz()
+  22          {
+  23   1        BOOL result;
+  24   1        rs=0;           // 读忙信号
+  25   1        rw=1;
+  26   1        ep=1;
+  27   1        _nop_();
+  28   1        _nop_();
+  29   1        _nop_();
+  30   1        _nop_();
+  31   1        result = (BOOL)(P2&0x80);
+  32   1        ep=0;
+  33   1        result ;
+*** WARNING C275 IN LINE 33 OF 1602字符显示.C: expression with possibly no effect
+  34   1      }
+*** WARNING C173 IN LINE 34 OF 1602字符显示.C: missing return-expression
+  35          
+  36          void lcd_wcmd (BYTE cmd)
+  37          {
+  38   1        while (lcd_bz());
+  39   1        rs=0;
+  40   1        rw=0;
+  41   1        ep=0;
+  42   1        _nop_();
+  43   1        _nop_();
+  44   1        P2=cmd ;
+  45   1        _nop_();
+  46   1        _nop_();
+  47   1        _nop_();
+  48   1        _nop_();
+  49   1        ep=1;
+  50   1        _nop_();
+  51   1        _nop_();
+  52   1        _nop_();
+  53   1        _nop_();
+C51 COMPILER V9.00   1602譥符显示                                                          08/10/2012 19:01:47 PAGE 2   
+
+  54   1        ep=0;
+  55   1      }
+  56          
+  57          void lcd_pos (BYTE pos)
+  58          {
+  59   1        lcd_wcmd (pos|0x80);
+  60   1      }
+  61          
+  62          void lcd_wdat (BYTE dat)
+  63          {
+  64   1         while (lcd_bz());
+  65   1        rs=1;
+  66   1        rw=0;
+  67   1        ep=0;
+  68   1        _nop_();
+  69   1        _nop_();
+  70   1        P2=dat ;
+  71   1        _nop_();
+  72   1        _nop_();
+  73   1        _nop_();
+  74   1        _nop_();
+  75   1        ep=1;
+  76   1        _nop_();
+  77   1        _nop_();
+  78   1        _nop_();
+  79   1        _nop_();
+  80   1        ep=0;
+  81   1      }
+  82          
+  83          void lcd_init ()
+  84          {
+  85   1        lcd_wcmd (0x38);
+  86   1        delay (1);
+  87   1        lcd_wcmd (0x0c);
+  88   1        delay (1);
+  89   1        lcd_wcmd (0x06);
+  90   1        delay (1);
+  91   1        lcd_wcmd (0x01);
+  92   1        delay (1);
+  93   1      }
+  94          
+  95          main ()
+  96          {
+  97   1        BYTE i;
+  98   1        lcd_init ();
+  99   1        delay (10);
+ 100   1      
+ 101   1        lcd_pos (0);
+ 102   1        i=0;
+ 103   1        while (dis1 [i]!='\0')
+ 104   1         {
+ 105   2           lcd_wdat (dis1 [i]);
+ 106   2           i++;       
+ 107   2         } 
+ 108   1      
+ 109   1         lcd_pos (0x41);
+ 110   1        i=0;
+ 111   1        while (dis2 [i]!='\0')
+ 112   1         {
+ 113   2           lcd_wdat (dis2 [i]);
+ 114   2           i++;       
+ 115   2         } 
+C51 COMPILER V9.00   1602譥符显示                                                          08/10/2012 19:01:47 PAGE 3   
+
+ 116   1         while (1);
+ 117   1      } 
+*** WARNING C290 IN LINE 34 OF 1602字符显示.C: missing return value
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    195    ----
+   CONSTANT SIZE    =     28    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)

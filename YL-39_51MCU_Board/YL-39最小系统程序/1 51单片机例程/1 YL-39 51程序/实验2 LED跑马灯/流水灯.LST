@@ -1,0 +1,84 @@
+C51 COMPILER V9.00   流水灯                                                                07/26/2011 10:28:01 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE 流水灯
+OBJECT MODULE PLACED IN 流水灯.OBJ
+COMPILER INVOKED BY: D:\Keil\C51\BIN\C51.EXE 流水灯.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+*** WARNING C500 IN LINE 1 OF 流水灯.C: LICENSE ERROR (R208: RENEW LICENSE ID CODE (LIC))
+
+   1          /****************************************************************************
+   2          *   编写时间： 2011.07.07
+   3          *   作    者： 雁翎电子
+   4          *       版    本：      V1.0
+   5          *   函数功能： 跑马灯测试                                                           
+   6          *   使用说明： 注意先用跳线冒将J4短接，使用跑马灯模块
+   7          *****************************************************************************/
+   8          #include<reg52.h>    //包含单片机寄存器的头文件
+   9          
+  10          #define uchar unsigned char
+  11          #define uint unsigned int
+  12          
+  13          /* 函数申明 -----------------------------------------------*/
+  14          void delay(uint z);
+  15          
+  16          /*
+  17          ********************************************************************************
+  18          ** 函数名称 ： main(void)
+  19          ** 函数功能 ： 主函数
+  20          ********************************************************************************
+  21          */
+  22          void main()
+  23          {
+  24   1              uchar  num,dat1,dat2;
+  25   1              delay(500);
+  26   1              P0=0;
+  27   1              while(1)
+  28   1              {
+  29   2                      dat1=0xfe;
+  30   2                      dat2=0x7f;
+  31   2                      for(num=0;num<7;num++)
+  32   2                      {
+  33   3                              P1=dat1;          //初始化赋值
+  34   3                              dat1=dat1<<1; //右移一位
+  35   3                              delay(500);   //延时    
+  36   3                      } 
+  37   2                      for(num=0;num<7;num++)
+  38   2                      {
+  39   3                              P1=dat2;          //初始化赋值
+  40   3                              dat2=dat2>>1; //右移一位
+  41   3                              delay(500);   //延时    
+  42   3                      }
+  43   2              }
+  44   1      }
+  45          
+  46          /*
+  47          ********************************************************************************
+  48          ** 函数名称 ： delay(uint z)
+  49          ** 函数功能 ： 延时函数
+  50          ********************************************************************************
+  51          */
+  52          void delay(uint z)
+  53          {
+  54   1          uchar j;
+C51 COMPILER V9.00   流水灯                                                                07/26/2011 10:28:01 PAGE 2   
+
+  55   1          for(z;z>0;z--)
+  56   1              for(j=200;j>0;j--);
+  57   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     87    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

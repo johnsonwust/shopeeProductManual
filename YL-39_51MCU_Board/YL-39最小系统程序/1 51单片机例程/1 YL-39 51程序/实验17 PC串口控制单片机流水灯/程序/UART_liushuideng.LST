@@ -1,0 +1,91 @@
+C51 COMPILER V9.00   UART_LIUSHUIDENG                                                      08/10/2012 19:08:09 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE UART_LIUSHUIDENG
+OBJECT MODULE PLACED IN UART_liushuideng.OBJ
+COMPILER INVOKED BY: D:\安装软件\keil 51\C51\BIN\C51.EXE UART_liushuideng.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*********************************************************************************
+   2          * 【编写时间】： 2011.07.07
+   3          * 【作    者】： 雁翎电子
+   4          * 【版    本】： V1.0
+   5          * 【网    站】： http://ylelectronic.taobao.com/ 
+   6          * 【Q      Q】： 348439350
+   7          * 【声    明】： 此程序仅用于学习与参考，引用请注明版权和作者信息！
+   8          * 【函数功能】： 串口中断程序实验——通过PC上位机软件控制流水灯实验                                                                                 
+   9                                           发送 01 ， D1 led灯亮；
+  10                                           发送 02 ， D2 led灯亮；
+  11                                           发送 03 ， D3 led灯亮；
+  12                                           发送 04 ， D4 led灯亮；
+  13                                           发送 05 ， D5 led灯亮；
+  14                                           发送 06 ， D6 led灯亮；
+  15                                           发送 07 ， D7 led灯亮；
+  16                                           发送 08 ， D8 led灯亮；
+  17          **********************************************************************************/
+  18          
+  19          
+  20          /*预处理命令*/
+  21          #include <reg52.h>                //包含单片机寄存器的头文件
+  22          #define uchar unsigned char
+  23          #define uint unsigned int
+  24          #define LED P1
+  25          uchar dat,num;
+  26          void main()
+  27          {       
+  28   1              TMOD=0x20;                 //用定时器设置串口波特率
+  29   1              TH1=0xfd;
+  30   1              TL1=0xfd;
+  31   1              TR1=1;
+  32   1              REN=1;          //串口初始化
+  33   1              SM0=0;
+  34   1              SM1=1;
+  35   1              EA=1;           //开启总中断
+  36   1              ES=1;                   //开启串口中断
+  37   1              while(1)
+  38   1              {       
+  39   2                      if(num==1)
+  40   2                      {
+  41   3                              switch(dat)    //判断串口接收的数据
+  42   3                              {
+  43   4                                      case 1:LED=0xfe;break; //点亮第1个灯
+  44   4                                      case 2:LED=0xfd;break;  //点亮第2个灯
+  45   4                                      case 3:LED=0xfb;break;  //点亮第3个灯
+  46   4                                      case 4:LED=0xf7;break;  //点亮第4个灯
+  47   4                                      case 5:LED=0xef;break;  //点亮第5个灯
+  48   4                                      case 6:LED=0xdf;break;  //点亮第6个灯
+  49   4                                      case 7:LED=0xbf;break;  //点亮第7个灯
+  50   4                                      case 8:LED=0x7f;break;  //点亮第8个灯
+  51   4                                      case 0:LED=0xff;break;  //清空所有的灯
+  52   4                              //      default :break; 
+  53   4                              }
+  54   3                              ES=1;            //打开串口中断 
+  55   3                              num=0;
+C51 COMPILER V9.00   UART_LIUSHUIDENG                                                      08/10/2012 19:08:09 PAGE 2   
+
+  56   3                      }
+  57   2                      
+  58   2              }       
+  59   1      }
+  60          void ser() interrupt 4
+  61          {
+  62   1              RI=0;
+  63   1              dat=SBUF;                               //接收数据SBUF，即将计算机的数据接收。
+  64   1              ES=0;                               //关闭串口中断
+  65   1              num=1;
+  66   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    128    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      2    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

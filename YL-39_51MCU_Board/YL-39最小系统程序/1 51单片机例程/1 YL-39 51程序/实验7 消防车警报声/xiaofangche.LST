@@ -1,0 +1,120 @@
+C51 COMPILER V9.54   XIAOFANGCHE                                                           06/30/2016 10:48:26 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE XIAOFANGCHE
+OBJECT MODULE PLACED IN xiaofangche.OBJ
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE xiaofangche.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /*********************************************************************************
+   2          * 【编写时间】： 2011.07.07
+   3          * 【作    者】： 雁翎电子
+   4          * 【版    本】： V1.0
+   5          * 【网    站】： http://ylelectronic.taobao.com/ 
+   6          * 【Q      Q】： 348439350
+   7          * 【声    明】： 此程序仅用于学习与参考，引用请注明版权和作者信息！
+   8          * 【函数功能】： 蜂鸣器模拟消防车报警声                                   
+   9          * 【使用说明】： 
+  10                           按下独立按键k6，蜂鸣器模拟消防车报警声
+  11                           按下独立按键k5，停止
+  12          **********************************************************************************/
+  13          
+  14          #include <reg51.h>
+  15          #include <intrins.h>
+  16          
+  17          #define uchar unsigned char
+  18          #define uint  unsigned int
+  19          
+  20          uchar  Count;
+  21            
+  22          sbit  K1 = P3^2 ;
+  23          sbit  K2 = P3^3 ;
+  24          sbit BEEP = P3^6 ;          //蜂鸣器
+  25          
+  26          /********************************************************
+  27           延时函数
+  28          *********************************************************/
+  29          void  delay(void)
+  30          {
+  31   1        uint  k;
+  32   1        for(k=1700;k>0;k--);
+  33   1      }
+  34          
+  35          /********************************************************
+  36           键控制函数
+  37          *********************************************************/
+  38          void key_control()
+  39          {
+  40   1        
+  41   1         if(K1==0)
+  42   1         {
+  43   2           while(K1==0);
+  44   2           TR0=1;
+  45   2         }  
+  46   1         if(K2==0)
+  47   1         {
+  48   2           while(K2==0);
+  49   2           TR0=0;
+  50   2         }
+  51   1      }
+  52          /********************************************************
+  53           主函数
+  54          *********************************************************/
+  55          main()
+C51 COMPILER V9.54   XIAOFANGCHE                                                           06/30/2016 10:48:26 PAGE 2   
+
+  56          {
+  57   1         P0=0x0;
+  58   1         P1=0xff;
+  59   1         P2=0xff;
+  60   1         Count=0x00;
+  61   1         BEEP=1;
+  62   1      
+  63   1         TMOD=0x01; 
+  64   1         TH0=0x00; TL0=0xff;      
+  65   1         EA=1; ET0=1; 
+  66   1      
+  67   1         while(1)
+  68   1         {      
+  69   2           do
+  70   2           {
+  71   3             Count++;
+  72   3           key_control();
+  73   3             delay();
+  74   3           }while(Count!=0xff);
+  75   2      
+  76   2           do
+  77   2           {
+  78   3             Count--;
+  79   3           key_control();
+  80   3             delay();
+  81   3           }while(Count!=0x00);
+  82   2         }
+  83   1      }
+  84          
+  85          /*********************************************************
+  86            Time0中断函数
+  87          **********************************************************/
+  88          void Time0(void) interrupt 1 using 0
+  89          {
+  90   1         TH0=0xfe;               
+  91   1         TL0=Count;
+  92   1         BEEP=~BEEP;
+  93   1      }
+  94             
+  95          /*********************************************************/
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     92    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

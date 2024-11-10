@@ -1,0 +1,207 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/09/2012  19:57:56  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\安装软件\KEIL 51\C51\BIN\BL51.EXE STARTUP.obj, 流水灯.obj TO 流水灯 RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  STARTUP.obj (?C_STARTUP)
+  流水灯.obj (流水灯)
+
+
+LINK MAP OF MODULE:  流水灯 (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0003H     UNIT         _DATA_GROUP_
+            IDATA   000BH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0016H     UNIT         ?PR?INIT_COM?流水灯
+                    0019H     000AH                  *** GAP ***
+            CODE    0023H     0003H     ABSOLUTE     
+            CODE    0026H     0047H     UNIT         ?PR?UART_INTERRUPT_RECEIVE?流水灯
+            CODE    006DH     0043H     UNIT         ?PR?MAIN?流水灯
+            CODE    00B0H     0015H     UNIT         ?PR?_DELAY?流水灯
+            CODE    00C5H     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   流水灯 (?C_STARTUP)
+
+
+SEGMENT                                     DATA_GROUP 
+  +--> CALLED SEGMENT                     START    LENGTH
+---------------------------------------------------------
+?C_C51STARTUP                             -----    -----
+  +--> ?PR?MAIN?流水灯
+
+?PR?MAIN?流水灯                           0008H    0003H
+  +--> ?PR?INIT_COM?流水灯
+  +--> ?PR?_DELAY?流水灯
+
+
+
+SYMBOL TABLE OF MODULE:  流水灯 (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:00C5H         SEGMENT       ?C_C51STARTUP
+  I:000BH         SEGMENT       ?STACK
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/09/2012  19:57:56  PAGE 2
+
+
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:00C8H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:00C5H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:00C5H         LINE#         133
+  C:00C7H         LINE#         134
+  C:00C8H         LINE#         135
+  C:00C9H         LINE#         136
+  C:00CBH         LINE#         185
+  C:00CEH         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        流水灯
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  D:00A8H         PUBLIC        IE
+  C:00B0H         PUBLIC        _delay
+  C:0003H         PUBLIC        Init_Com
+  B:00A8H.4       PUBLIC        ES
+  D:00B8H         PUBLIC        IP
+  C:0026H         PUBLIC        UART_Interrupt_Receive
+  B:0098H.0       PUBLIC        RI
+  B:0098H.1       PUBLIC        TI
+  C:006DH         PUBLIC        main
+  D:0099H         PUBLIC        SBUF
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  D:00E7H         PUBLIC        IAP_CONTR
+  D:008DH         PUBLIC        TH1
+  B:0098H.7       PUBLIC        SM0
+  B:0098H.6       PUBLIC        SM1
+  D:008BH         PUBLIC        TL1
+  B:0088H.6       PUBLIC        TR1
+  B:0098H.4       PUBLIC        REN
+  D:00C8H         PUBLIC        T2CON
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/09/2012  19:57:56  PAGE 3
+
+
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  -------         DO            
+  D:0008H         SYMBOL        num
+  D:0009H         SYMBOL        dat1
+  D:000AH         SYMBOL        dat2
+  -------         ENDDO         
+  C:006DH         LINE#         39
+  C:006DH         LINE#         40
+  C:006DH         LINE#         42
+  C:0070H         LINE#         43
+  C:0070H         LINE#         44
+  C:0070H         LINE#         45
+  C:0073H         LINE#         46
+  C:0076H         LINE#         47
+  C:0079H         LINE#         48
+  C:0079H         LINE#         49
+  C:007CH         LINE#         50
+  C:0082H         LINE#         51
+  C:0089H         LINE#         52
+  C:0092H         LINE#         53
+  C:009CH         LINE#         54
+  C:009CH         LINE#         55
+  C:009FH         LINE#         56
+  C:00A5H         LINE#         57
+  C:00ACH         LINE#         58
+  -------         ENDPROC       MAIN
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        z
+  -------         DO            
+  D:0005H         SYMBOL        j
+  -------         ENDDO         
+  C:00B0H         LINE#         68
+  C:00B0H         LINE#         69
+  C:00B0H         LINE#         71
+  C:00B9H         LINE#         72
+  C:00C4H         LINE#         73
+  -------         ENDPROC       _DELAY
+  -------         PROC          INIT_COM
+  C:0003H         LINE#         76
+  C:0003H         LINE#         77
+  C:0003H         LINE#         78
+  C:0006H         LINE#         79
+  C:0008H         LINE#         80
+  C:000AH         LINE#         81
+  C:000CH         LINE#         82
+  C:000FH         LINE#         83
+  C:0012H         LINE#         84
+  C:0014H         LINE#         85
+  C:0016H         LINE#         86
+  C:0018H         LINE#         87
+  -------         ENDPROC       INIT_COM
+  -------         PROC          UART_INTERRUPT_RECEIVE
+  -------         DO            
+  D:0007H         SYMBOL        k
+  D:0006H         SYMBOL        a
+  D:0004H         SYMBOL        b
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/09/2012  19:57:56  PAGE 4
+
+
+  -------         ENDDO         
+  C:0026H         LINE#         89
+  C:0035H         LINE#         91
+  C:0035H         LINE#         93
+  C:0038H         LINE#         94
+  C:0038H         LINE#         95
+  C:003AH         LINE#         96
+  C:003CH         LINE#         97
+  C:003FH         LINE#         98
+  C:003FH         LINE#         99
+  C:0043H         LINE#         100
+  C:0059H         LINE#         101
+  C:005CH         LINE#         102
+  C:005CH         LINE#         103
+  C:005EH         LINE#         105
+  C:005EH         LINE#         106
+  C:0060H         LINE#         107
+  C:0060H         LINE#         108
+  -------         ENDPROC       UART_INTERRUPT_RECEIVE
+  -------         ENDMOD        流水灯
+
+Program Size: data=12.0 xdata=0 code=199
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

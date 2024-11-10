@@ -1,0 +1,470 @@
+XL
+H 4 areas 26 global symbols
+M MAIN.C
+S push_xgsetF000 Ref0000
+S push_xgsetF00C Ref0000
+S push_xgsetF0FC Ref0000
+S pop_xgsetF000 Ref0000
+S pop_xgsetF00C Ref0000
+S pop_xgsetF0FC Ref0000
+A text size 2F6 flags 0
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\13.12864显示程序_并行\12864显示程序\MAIN.C
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\13.12864显示程序_并行\12864显示程序\delay.h
+dbfunc e Delay_1us 0 fV
+dbsym r t 10 c
+dbline FFFFFFFF 0
+dbline 35 0
+dbline 36 0
+dbline 37 2
+dbline FFFFFFFE 4
+dbline 0 4
+dbfunc e Delay_Us 6 fV
+dbsym r xus 14 i
+dbline FFFFFFFF C
+dbline 3B C
+dbline 3D E
+dbline 3C 10
+dbline FFFFFFFE 1E
+dbline 0 1E
+dbfunc e Delay_1ms 24 fV
+dbsym r i 10 i
+dbline FFFFFFFF 24
+dbline 41 24
+dbline 43 24
+dbline 44 2A
+dbline 43 2A
+dbline 43 2E
+dbline FFFFFFFE 36
+dbline 0 36
+dbfunc e Delay_Ms 38 fV
+dbsym r i 14 i
+dbsym r j 16 i
+dbsym r xms 10 i
+dbline FFFFFFFF 3C
+dbline 48 3C
+dbline 4A 3C
+dbline 4B 42
+dbline 4C 48
+dbline 4D 48
+dbline 4E 4A
+dbline 4F 4C
+dbline 50 4E
+dbline 51 50
+dbline 52 52
+dbline 53 54
+dbline 54 56
+dbline 55 58
+dbline 56 5A
+dbline 4B 5A
+dbline 4B 5E
+dbline 4A 66
+dbline 4A 6A
+dbline FFFFFFFE 70
+dbline 0 70
+dbfunc e Delay10us 74 fV
+dbsym r i 14 i
+dbsym r j 16 c
+dbsym r x10us 10 i
+dbline FFFFFFFF 78
+dbline 5A 78
+dbline 5C 78
+dbline 5D 7E
+dbline 5E 7E
+dbline 5F 82
+dbline 60 82
+dbline 61 84
+dbline 62 86
+dbline 63 88
+dbline 5E 88
+dbline 5E 8A
+dbline 64 8E
+dbline 5C 8E
+dbline 5C 92
+dbline FFFFFFFE 98
+dbline 0 98
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\13.12864显示程序_并行\12864显示程序\initrialm16.h
+dbfunc e Init_Devices 9C fV
+dbline FFFFFFFF 9C
+dbline 10 9C
+dbline 12 9C
+dbline 13 9E
+dbline 14 A2
+dbline 15 A4
+dbline 16 A6
+dbline 17 A8
+dbline FFFFFFFE AA
+dbline 0 AA
+dbfunc e Port_Init AC fV
+dbline FFFFFFFF AC
+dbline 1C AC
+dbline 1D AC
+dbline 1E B0
+dbline 1F B2
+dbline 20 B4
+dbline 21 B6
+dbline 22 B8
+dbline 23 BA
+dbline FFFFFFFE BC
+dbline 0 BC
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\13.12864显示程序_并行\12864显示程序\lcd12864.h
+dbfunc e init12864_Hzk BE fV
+dbline FFFFFFFF BE
+dbline 3A BE
+dbline 3B BE
+dbline 3C C4
+dbline 3D C6
+dbline 3E CC
+dbline 3F CE
+dbline 40 D4
+dbline 41 D6
+dbline 42 DC
+dbline 43 E2
+dbline 44 E8
+dbline 45 EE
+dbline 46 F4
+dbline 47 FA
+dbline 48 100
+dbline 49 106
+dbline 4A 10C
+dbline 4B 112
+dbline 4C 118
+dbline 4D 11E
+dbline 4E 124
+dbline 4F 12A
+dbline FFFFFFFE 12E
+dbline 0 12E
+dbfunc e init12864_Bmp 130 fV
+dbline FFFFFFFF 130
+dbline 55 130
+dbline 56 130
+dbline 57 136
+dbline 58 138
+dbline 59 13E
+dbline 5A 140
+dbline 5B 146
+dbline 5C 148
+dbline 5C 14E
+dbline 5D 14E
+dbline 5E 154
+dbline 5F 15A
+dbline 60 160
+dbline 61 166
+dbline 62 16C
+dbline 63 172
+dbline 64 178
+dbline FFFFFFFE 17C
+dbline 0 17C
+dbfunc e lcd12864_GB16X16 17E fV
+dbsym r num C c
+dbsym r i A c
+dbsym r p E pc
+dbsym r x 14 c
+dbsym r y 16 c
+dbline FFFFFFFF 18A
+dbline 68 18A
+dbline 69 18A
+dbline 69 18C
+dbline 6B 190
+dbline 6A 192
+dbline 6C 1A0
+dbline 6D 1A4
+dbline 6E 1A4
+dbline 6F 1AC
+dbline 70 1AC
+dbline 71 1B0
+dbline 72 1B0
+dbline 73 1B8
+dbline 74 1B8
+dbline 75 1BC
+dbline 76 1BC
+dbline 77 1C4
+dbline 78 1C4
+dbline 79 1C8
+dbline 7A 1C8
+dbline 7B 1D0
+dbline 7C 1D0
+dbline 7D 1D6
+dbline 7E 1DA
+dbline 7F 1DA
+dbline 80 1E8
+dbline 7D 1E8
+dbline 7D 1EA
+dbline FFFFFFFE 1EE
+dbline 0 1EE
+dbfunc e TransferData 1F2 fV
+dbsym r cmdordata C c
+dbsym r data1 A c
+dbline FFFFFFFF 1FA
+dbline 84 1FA
+dbline 85 1FA
+dbline 86 1FC
+dbline 87 1FE
+dbline 88 204
+dbline 89 208
+dbline 8A 208
+dbline 8B 20A
+dbline 8D 20C
+dbline 8E 20C
+dbline 8F 20E
+dbline 90 20E
+dbline 91 214
+dbline 92 216
+dbline 93 218
+dbline 94 21E
+dbline 95 220
+dbline FFFFFFFE 226
+dbline 0 226
+dbfunc e DisplayGraphic 22C fV
+dbsym r i 14 I
+dbsym r j A I
+dbsym r adder 16 pkc
+dbline FFFFFFFF 232
+dbline 9A 232
+dbline 9E 232
+dbline 9F 236
+dbline A0 236
+dbline A1 240
+dbline A2 246
+dbline A3 24A
+dbline A4 24A
+dbline A5 252
+dbline A6 256
+dbline A2 256
+dbline A2 25C
+dbline A7 264
+dbline 9E 264
+dbline 9E 268
+dbline A9 270
+dbline AA 274
+dbline AB 274
+dbline AC 27E
+dbline AD 284
+dbline AE 288
+dbline AF 288
+dbline B0 290
+dbline B1 294
+dbline AD 294
+dbline AD 29A
+dbline B2 2A2
+dbline A9 2A2
+dbline A9 2A6
+dbline FFFFFFFE 2AE
+dbline 0 2AE
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\13.12864显示程序_并行\12864显示程序\MAIN.C
+dbfunc e main 2B2 fV
+dbsym l n 3 c
+dbsym l i 3 c
+dbline FFFFFFFF 2B4
+dbline 18 2B4
+dbline 1B 2B4
+dbline 1C 2B6
+dbline 1F 2B8
+dbline 20 2C6
+dbline 21 2D4
+dbline 22 2E2
+dbline 24 2F0
+dbline 25 2F0
+dbline 26 2F0
+dbline 23 2F0
+dbline FFFFFFFE 2F2
+dbline 0 2F2
+S _main Def02B2
+S _Init_Devices Def009C
+S _TransferData Def01F2
+S _Delay_Ms Def0038
+S _Delay_Us Def0006
+S _init12864_Bmp Def0130
+S _Delay10us Def0074
+S _init12864_Hzk Def00BE
+S _lcd12864_GB16X16 Def017E
+S _Delay_1ms Def0024
+S _Delay_1us Def0000
+S _DisplayGraphic Def022C
+S _Port_Init Def00AC
+A bss size 3A flags 20
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\13.12864显示程序_并行\12864显示程序\MAIN.C
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\13.12864显示程序_并行\12864显示程序\lcd12864.h
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\13.12864显示程序_并行\12864显示程序\define.h
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\13.12864显示程序_并行\12864显示程序\lcd12864.h
+dbsym e pic3 0 A[1:1]kc
+dbsym e pic2 1 A[1:1]kc
+dbsym e pic1 2 A[1:1]kc
+dbsym e IC_DAT 3 A[1:1]kc
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\13.12864显示程序_并行\12864显示程序\define.h
+dbsym e data_adc 4 i
+dbsym e disbuf 6 A[16:16]c
+dbsym e buf 16 A[16:16]c
+dbsym e data_1621 26 l
+dbsym e second 2A c
+dbsym e minute 2B c
+dbsym e hour 2C c
+dbsym e date 2D c
+dbsym e week 2E c
+dbsym e month 2F c
+dbsym e year 30 c
+dbsym e s_wtemp 31 I
+dbsym e u_btemp 33 c
+dbsym e u_wtemp 34 i
+dbsym e u_ltemp 36 l
+S _week Def002E
+S _year Def0030
+S _hour Def002C
+S _data_1621 Def0026
+S _IC_DAT Def0003
+S _u_btemp Def0033
+S _u_ltemp Def0036
+S _s_wtemp Def0031
+S _u_wtemp Def0034
+S _data_adc Def0004
+S _month Def002F
+S _buf Def0016
+S _pic1 Def0002
+S _pic2 Def0001
+S _pic3 Def0000
+S _second Def002A
+S _disbuf Def0006
+S _minute Def002B
+S _date Def002D
+A data size 47 flags 20
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\13.12864显示程序_并行\12864显示程序\define.h
+A idata size 47 flags 0
+T 00 00 02 E0 0A 95 08 95
+R 00 00 00 00
+T 06 00 4A 93 5A 93 A8 01 01 C0 F8 DF 1A 01 41 50
+R 00 00 00 00
+T 14 00 50 40 22 20 D1 F7 33 20 C1 F7 59 91 49 91
+R 00 00 00 00
+T 22 00 08 95
+R 00 00 00 00
+T 24 00 00 27 11 27 02 C0 0F 5F 1F 4F 06 37 E4 E0
+R 00 00 00 00
+T 32 00 1E 07 D0 F3 08 95
+R 00 00 00 00
+T 38 00 0E 94 00 00 44 27 55 27 14 C0 66 27 77 27
+R 00 00 00 00 12 04 00 00
+T 46 00 0B C0 00 00 00 00 00 00 00 00 00 00 00 00
+R 00 00 00 00
+T 54 00 00 00 00 00 00 00 6F 5F 7F 4F 62 3F E1 E0
+R 00 00 00 00
+T 62 00 7E 07 88 F3 4F 5F 5F 4F 40 17 51 07 48 F3
+R 00 00 00 00
+T 70 00 0C 94 00 00
+R 00 00 00 00 12 04 03 00
+T 74 00 0E 94 00 00 44 27 55 27 0A C0 66 27 04 C0
+R 00 00 00 00 12 04 00 00
+T 82 00 00 00 00 00 00 00 63 95 62 30 D0 F3 4F 5F
+R 00 00 00 00
+T 90 00 5F 4F 40 17 51 07 98 F3 0C 94 00 00
+R 00 00 00 00 12 0C 03 00
+T 9C 00 F8 94 22 24 25 BE 2B BE 29 BE 02 D0 78 94
+R 00 00 00 00
+T AA 00 08 95
+R 00 00 00 00
+T AC 00 8F EF 8B BB 8A BB 88 BB 87 BB 85 BB 81 BB
+R 00 00 00 00
+T BA 00 82 BB 08 95
+R 00 00 00 00
+T BE 00 02 E3 10 E0 BA DF D8 9A 01 E0 10 E0 9D DF
+R 00 00 00 00
+T CC 00 DF 98 02 E3 10 E0 B2 DF DF 9A 02 E3 10 E0
+R 00 00 00 00
+T DA 00 AE DF 22 27 00 E3 88 D0 08 E7 10 E0 8F DF
+R 00 00 00 00
+T E8 00 22 27 00 E3 82 D0 08 E2 10 E0 89 DF 22 27
+R 00 00 00 00
+T F6 00 08 E0 7C D0 08 E7 10 E0 83 DF 22 27 00 E1
+R 00 00 00 00
+T 04 01 76 D0 08 E7 10 E0 7D DF 22 27 0C E0 70 D0
+R 00 00 00 00
+T 12 01 08 E7 10 E0 77 DF 22 27 01 E0 6A D0 0F E0
+R 00 00 00 00
+T 20 01 10 E0 8A DF 22 27 06 E0 64 D0 08 E7 10 E0
+R 00 00 00 00
+T 2E 01 6B CF
+R 00 00 00 00
+T 30 01 02 E3 10 E0 81 DF D8 9A 01 E0 10 E0 64 DF
+R 00 00 00 00
+T 3E 01 DF 98 02 E3 10 E0 79 DF DF 9A 0F EF 10 E0
+R 00 00 00 00
+T 4C 01 75 DF 22 27 06 E3 4F D0 08 E7 10 E0 56 DF
+R 00 00 00 00
+T 5A 01 22 27 06 E3 49 D0 08 E2 10 E0 50 DF 22 27
+R 00 00 00 00
+T 68 01 0E E3 43 D0 08 E7 10 E0 4A DF 22 27 01 E0
+R 00 00 00 00
+T 76 01 3D D0 08 E7 10 E0 44 CF
+R 00 00 00 00
+T 7E 01 0E 94 00 00 42 2F 60 2F EA 84 FB 84 AA 24
+R 00 00 00 00 12 04 02 00
+T 8C 01 CC 24 01 C0 C3 94 EC 2D FF 27 EE 0D FF 1D
+R 00 00 00 00
+T 9A 01 20 80 22 20 C1 F7 66 23 21 F4 22 27 04 2F
+R 00 00 00 00
+T A8 01 00 58 23 D0 61 30 21 F4 22 27 04 2F 00 57
+R 00 00 00 00
+T B6 01 1D D0 62 30 21 F4 22 27 04 2F 08 57 17 D0
+R 00 00 00 00
+T C4 01 63 30 21 F4 22 27 04 2F 08 56 11 D0 08 E7
+R 00 00 00 00
+T D2 01 10 E0 18 DF AA 24 08 C0 21 E0 EA 2D FF 27
+R 00 00 00 00
+T E0 01 EE 0D FF 1D 00 81 05 D0 A3 94 AC 14 B0 F3
+R 00 00 00 00
+T EE 01 0C 94 00 00
+R 00 00 00 00 12 04 05 00
+T F2 01 AA 92 CA 92 C2 2E A0 2E DA 98 D9 98 01 E0
+R 00 00 00 00
+T 00 02 10 E0 01 DF CC 20 11 F4 D8 98 01 C0 D8 9A
+R 00 00 00 00
+T 0E 02 01 E0 10 E0 F9 DE A8 BA DA 9A 01 E0 10 E0
+R 00 00 00 00
+T 1C 02 F4 DE DA 98 01 E0 10 E0 F0 DE C9 90 A9 90
+R 00 00 00 00
+T 2A 02 08 95
+R 00 00 00 00
+T 2C 02 0E 94 00 00 B8 01 44 27 55 27 22 27 8A 01
+R 00 00 00 00 12 04 01 00
+T 3A 02 00 58 1F 4F D9 DF 22 27 00 E8 D6 DF AA 24
+R 00 00 00 00
+T 48 02 BB 24 21 E0 FB 01 04 91 D0 DF 6F 5F 7F 4F
+R 00 00 00 00
+T 56 02 C5 01 01 96 5C 01 80 31 E0 E0 9E 07 9C F3
+R 00 00 00 00
+T 64 02 4F 5F 5F 4F 40 32 E0 E0 5E 07 1C F3 44 27
+R 00 00 00 00
+T 72 02 55 27 22 27 8A 01 00 58 1F 4F BA DF 22 27
+R 00 00 00 00
+T 80 02 08 E8 B7 DF AA 24 BB 24 21 E0 FB 01 04 91
+R 00 00 00 00
+T 8E 02 B1 DF 6F 5F 7F 4F C5 01 01 96 5C 01 80 31
+R 00 00 00 00
+T 9C 02 E0 E0 9E 07 9C F3 4F 5F 5F 4F 40 32 E0 E0
+R 00 00 00 00
+T AA 02 5E 07 1C F3 0C 94 00 00
+R 00 00 00 00 12 08 04 00
+T B2 02 22 97 F3 DE 03 DF 80 E0 90 E0 99 83 88 83
+R 00 00 00 00 20 08 02 00 35 00 40 0A 02 00 35 00
+T C0 02 22 27 00 27 5C DF 80 E0 90 E0 99 83 88 83
+R 00 00 00 00 20 08 02 00 24 00 40 0A 02 00 24 00
+T CE 02 22 27 01 E0 55 DF 80 E0 90 E0 99 83 88 83
+R 00 00 00 00 20 08 02 00 12 00 40 0A 02 00 12 00
+T DC 02 22 27 02 E0 4E DF 80 E0 90 E0 99 83 88 83
+R 00 00 00 00 20 08 02 00 00 00 40 0A 02 00 00 00
+T EA 02 22 27 03 E0 47 DF FF CF 22 96 08 95
+R 00 00 00 00
+T 00 00 C7 FD B6 AF 49 43 3A 53 54 37 39 32 30 20
+R 00 00 03 00
+T 0E 00 20 20 20 00
+R 00 00 03 00
+T 12 00 D6 D0 CE C4 31 32 38 36 34 20 D7 D6 BF E2
+R 00 00 03 00
+T 20 00 20 20 20 00
+R 00 00 03 00
+T 24 00 20 20 20 20 CF C3 C3 C5 D6 C7 BF D8 20 20
+R 00 00 03 00
+T 32 00 20 20 00
+R 00 00 03 00
+T 35 00 6D 63 75 73 74 75 64 69 6F 2E 63 6F 6D 2E
+R 00 00 03 00
+T 43 00 63 6E 20 00
+R 00 00 03 00

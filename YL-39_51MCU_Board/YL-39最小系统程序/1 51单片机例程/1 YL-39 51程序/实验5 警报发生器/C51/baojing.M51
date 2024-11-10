@@ -1,0 +1,100 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        06/30/2016  10:47:39  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\KEIL\C51\BIN\BL51.EXE ±¨¾¯Æ÷.obj TO baojing
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  ±¨¾¯Æ÷.obj (______)
+  D:\KEIL\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  baojing (______)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0025H     UNIT         ?PR?MAIN?______
+            CODE    0028H     000CH     UNIT         ?C_C51STARTUP
+            CODE    0034H     0005H     UNIT         ?PR?DELAY500?______
+
+
+
+OVERLAY MAP OF MODULE:   baojing (______)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?______
+
+?PR?MAIN?______
+  +--> ?PR?DELAY500?______
+
+
+
+SYMBOL TABLE OF MODULE:  baojing (______)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ______
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  B:00B0H.6       PUBLIC        BEEP
+  C:0003H         PUBLIC        main
+  C:0034H         PUBLIC        delay500
+BL51 BANKED LINKER/LOCATER V6.22                                                      06/30/2016  10:47:39  PAGE 2
+
+
+  -------         PROC          DELAY500
+  -------         DO            
+  D:0007H         SYMBOL        i
+  -------         ENDDO         
+  C:0034H         LINE#         24
+  C:0034H         LINE#         25
+  C:0034H         LINE#         27
+  C:0038H         LINE#         28
+  -------         ENDPROC       DELAY500
+  -------         PROC          MAIN
+  -------         DO            
+  D:0006H         SYMBOL        j
+  -------         ENDDO         
+  C:0003H         LINE#         33
+  C:0003H         LINE#         34
+  C:0003H         LINE#         36
+  C:0006H         LINE#         37
+  C:0009H         LINE#         38
+  C:000CH         LINE#         39
+  C:000CH         LINE#         40
+  C:000CH         LINE#         41
+  C:000EH         LINE#         42
+  C:000EH         LINE#         43
+  C:0010H         LINE#         44
+  C:0013H         LINE#         45
+  C:0015H         LINE#         47
+  C:001DH         LINE#         48
+  C:001DH         LINE#         49
+  C:001FH         LINE#         50
+  C:0022H         LINE#         51
+  C:0025H         LINE#         52
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        ______
+
+Program Size: data=9.0 xdata=0 code=57
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

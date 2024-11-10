@@ -1,0 +1,41 @@
+C51 COMPILER V9.00   TIAOJIAN                                                              08/10/2012 18:00:40 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE TIAOJIAN
+OBJECT MODULE PLACED IN tiaojian.OBJ
+COMPILER INVOKED BY: D:\安装软件\keil 51\C51\BIN\C51.EXE tiaojian.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /****************************************************************************
+   2          * 【编写时间】： 2011.07.07
+   3          * 【作    者】： 雁翎电子
+   4          * 【版    本】： V1.0
+   5          * 【网    站】： http://ylelectronic.taobao.com/ 
+   6          * 【Q      Q】： 348439350
+   7          *****************************************************************************
+   8          程序功能：      介绍条件运算符的用法，类似于if()...else语句。
+   9          ****************************************************************************/
+  10          #include <reg52.h>
+  11          
+  12          void main()
+  13          {
+  14   1              unsigned char a=1,b=2,max;
+  15   1              max=(a>b)?a:b;//条件运算符?:，若括弧中的a>b为真，则max结果为a，否则为b
+  16   1              P1=max;
+  17   1              while(1);
+  18   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     17    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

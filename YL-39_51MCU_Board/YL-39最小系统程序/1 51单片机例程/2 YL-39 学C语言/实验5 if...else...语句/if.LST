@@ -1,0 +1,49 @@
+C51 COMPILER V9.00   IF                                                                    08/10/2012 17:57:30 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE IF
+OBJECT MODULE PLACED IN if.OBJ
+COMPILER INVOKED BY: D:\安装软件\keil 51\C51\BIN\C51.EXE if.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /****************************************************************************
+   2          * 【编写时间】： 2011.07.07
+   3          * 【作    者】： 雁翎电子
+   4          * 【版    本】： V1.0
+   5          * 【网    站】： http://ylelectronic.taobao.com/ 
+   6          * 【Q      Q】： 348439350
+   7                                                          
+   8          *****************************************************************************
+   9          程序功能：       通过实例，让同学们了解if…else…语句的作用。
+  10                                   当if后面括弧里面的条件表达式为真，则执行if后面大括弧里的指令
+  11                                   否则将执行else语句后面大括弧里的指令
+  12          ****************************************************************************/
+  13          #include <reg52.h>
+  14          
+  15          sbit k1=P3^2;             //本程序中，独立按键K1用作输入。 P1口用作输出
+  16          
+  17          void main()
+  18          {
+  19   1              while(1) //永远无条件的执行这个循环。
+  20   1              {
+  21   2                      if(k1==0)         //当k1键被按下时，P3^2管脚为低电平。也即，若k1为0，即代表k1按键被按下
+  22   2                              P1=0x55;  //此时，P1口电平分布为01010101
+  23   2                      else              //否则，k1未被按下
+  24   2                              P1=0xaa;  //此时，P1口电平分布为10101010
+  25   2              }
+  26   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     13    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

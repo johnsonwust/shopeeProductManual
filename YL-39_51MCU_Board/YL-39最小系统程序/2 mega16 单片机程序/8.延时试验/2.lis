@@ -1,0 +1,87 @@
+                        .module _2.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile D:\16实验程序\延时试验\2.c
+ 0000                   .dbfunc e s_ms _s_ms fV
+ 0000           ;             ms -> R16,R17
+                        .even
+ 0000           _s_ms::
+ 0000                   .dbline -1
+ 0000                   .dbline 6
+ 0000           ; #include "iom16v.h"  
+ 0000           ; 
+ 0000           ; //延时函数
+ 0000           ; //在16MHz时产生ms=2000时产生1ms的延时
+ 0000           ; void s_ms(unsigned int ms)
+ 0000           ; {
+ 0000                   .dbline 7
+ 0000           ;       for(;ms>1;ms--);
+ 0000 02C0              xjmp L5
+ 0002           L2:
+ 0002                   .dbline 7
+ 0002           L3:
+ 0002                   .dbline 7
+ 0002 0150              subi R16,1
+ 0004 1040              sbci R17,0
+ 0006           L5:
+ 0006                   .dbline 7
+ 0006 81E0              ldi R24,1
+ 0008 90E0              ldi R25,0
+ 000A 8017              cp R24,R16
+ 000C 9107              cpc R25,R17
+ 000E C8F3              brlo L2
+ 0010           X0:
+ 0010                   .dbline -2
+ 0010           L1:
+ 0010                   .dbline 0 ; func end
+ 0010 0895              ret
+ 0012                   .dbsym r ms 16 i
+ 0012                   .dbend
+ 0012                   .dbfunc e main _main fI
+                        .even
+ 0012           _main::
+ 0012                   .dbline -1
+ 0012                   .dbline 11
+ 0012           ; }     
+ 0012           ;  
+ 0012           ; main()
+ 0012           ;  {
+ 0012                   .dbline 12
+ 0012           ;  DDRD=0xff;
+ 0012 8FEF              ldi R24,255
+ 0014 81BB              out 0x11,R24
+ 0016 0AC0              xjmp L8
+ 0018           L7:
+ 0018                   .dbline 15
+ 0018           ;  //在端口d产生500Hz的信号
+ 0018           ;  while(1)
+ 0018           ;    {
+ 0018                   .dbline 16
+ 0018           ;    PORTD=0xff;
+ 0018 8FEF              ldi R24,255
+ 001A 82BB              out 0x12,R24
+ 001C                   .dbline 17
+ 001C           ;    s_ms(1000);
+ 001C 08EE              ldi R16,1000
+ 001E 13E0              ldi R17,3
+ 0020 EFDF              xcall _s_ms
+ 0022                   .dbline 18
+ 0022           ;    PORTD=0x00;
+ 0022 2224              clr R2
+ 0024 22BA              out 0x12,R2
+ 0026                   .dbline 19
+ 0026           ;    s_ms(1000);
+ 0026 08EE              ldi R16,1000
+ 0028 13E0              ldi R17,3
+ 002A EADF              xcall _s_ms
+ 002C                   .dbline 20
+ 002C           ;    }
+ 002C           L8:
+ 002C                   .dbline 14
+ 002C F5CF              xjmp L7
+ 002E           X1:
+ 002E                   .dbline -2
+ 002E           L6:
+ 002E                   .dbline 0 ; func end
+ 002E 0895              ret
+ 0030                   .dbend
+ 0030           ;  }

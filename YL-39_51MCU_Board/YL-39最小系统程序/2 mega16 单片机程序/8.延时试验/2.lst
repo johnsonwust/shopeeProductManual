@@ -1,0 +1,85 @@
+__start:
+__text_start:
+      2A E5CF      LDI	R28,0x5F
+      2B E0D4      LDI	R29,4
+      2C BFCD      OUT	0x3D,R28
+      2D BFDE      OUT	0x3E,R29
+      2E 51CE      SUBI	R28,0x1E
+      2F 40D0      SBCI	R29,0
+      30 EA0A      LDI	R16,0xAA
+      31 8308      STD	Y+0,R16
+      32 2400      CLR	R0
+      33 E6E0      LDI	R30,0x60
+      34 E0F0      LDI	R31,0
+      35 E010      LDI	R17,0
+      36 36E0      CPI	R30,0x60
+      37 07F1      CPC	R31,R17
+      38 F011      BEQ	0x003B
+      39 9201      ST	R0,Z+
+      3A CFFB      RJMP	0x0036
+      3B 8300      STD	Z+0,R16
+      3C E5E4      LDI	R30,0x54
+      3D E0F0      LDI	R31,0
+      3E E6A0      LDI	R26,0x60
+      3F E0B0      LDI	R27,0
+      40 E010      LDI	R17,0
+      41 E000      LDI	R16,0
+      42 BF0B      OUT	0x3B,R16
+      43 35E4      CPI	R30,0x54
+      44 07F1      CPC	R31,R17
+      45 F021      BEQ	0x004A
+      46 95C8      LPM
+      47 9631      ADIW	R30,1
+      48 920D      ST	R0,X+
+      49 CFF9      RJMP	0x0043
+      4A 940E 0056 CALL	_main
+_exit:
+      4C CFFF      RJMP	_exit
+FILE: D:\16实验程序\延时试验\2.c
+(0001) #include "iom16v.h"  
+(0002) 
+(0003) //延时函数
+(0004) //在16MHz时产生ms=2000时产生1ms的延时
+(0005) void s_ms(unsigned int ms)
+(0006) {
+(0007) 	for(;ms>1;ms--);
+_s_ms:
+  ms                   --> R16
+      4D C002      RJMP	0x0050
+      4E 5001      SUBI	R16,1
+      4F 4010      SBCI	R17,0
+      50 E081      LDI	R24,1
+      51 E090      LDI	R25,0
+      52 1780      CP	R24,R16
+      53 0791      CPC	R25,R17
+      54 F3C8      BCS	0x004E
+      55 9508      RET
+(0008) }	
+(0009)  
+(0010) main()
+(0011)  {
+(0012)  DDRD=0xff;
+_main:
+      56 EF8F      LDI	R24,0xFF
+      57 BB81      OUT	0x11,R24
+      58 C00A      RJMP	0x0063
+(0013)  //在端口d产生500Hz的信号
+(0014)  while(1)
+(0015)    {
+(0016)    PORTD=0xff;
+      59 EF8F      LDI	R24,0xFF
+      5A BB82      OUT	0x12,R24
+(0017)    s_ms(1000);
+      5B EE08      LDI	R16,0xE8
+      5C E013      LDI	R17,3
+      5D DFEF      RCALL	_s_ms
+(0018)    PORTD=0x00;
+      5E 2422      CLR	R2
+      5F BA22      OUT	0x12,R2
+(0019)    s_ms(1000);
+FILE: <library>
+      60 EE08      LDI	R16,0xE8
+      61 E013      LDI	R17,3
+      62 DFEA      RCALL	_s_ms
+      63 CFF5      RJMP	0x0059
+      64 9508      RET

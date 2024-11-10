@@ -1,0 +1,52 @@
+C51 COMPILER V9.00   WHILE                                                                 08/10/2012 12:22:52 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE WHILE
+OBJECT MODULE PLACED IN while.OBJ
+COMPILER INVOKED BY: D:\安装软件\keil 51\C51\BIN\C51.EXE while.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /****************************************************************************
+   2                                                  “雁凌电子”    倾情奉献
+   3                                                          
+   4          *****************************************************************************
+   5          程序功能：      该函数通过while语句控制发光led闪烁次数来说明while语句的功能。
+   6          ****************************************************************************/
+   7          #include <reg52.h>
+   8          
+   9          sbit led=P1^0;
+  10          
+  11          void delay(unsigned int i)              //一个延时程序。
+  12          {
+  13   1              unsigned int j;
+  14   1              char k;
+  15   1              for(j=i;j>0;j--)
+  16   1                      for(k=200;k>0;k--);
+  17   1      }
+  18          void main()
+  19          {
+  20   1              char cishu;
+  21   1              while(cishu<10) //执行循环体的条件是cishu<10，若变量不满足该表达式，则跳过。
+  22   1              {
+  23   2                                //每循环一次，led所代表的管脚电平都会取反。
+  24   2                      led=~led;         //由于次数最大值为9，初值为0，故共取了十次反，故led会闪五次
+  25   2                      cishu++;
+  26   2                      delay(9000);
+  27   2              }
+  28   1              while(1);
+  29   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     54    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

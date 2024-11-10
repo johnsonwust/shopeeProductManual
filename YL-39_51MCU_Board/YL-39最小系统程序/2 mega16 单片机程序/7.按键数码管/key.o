@@ -1,0 +1,207 @@
+XL
+H 4 areas 10 global symbols
+M key.c
+S push_gset1 Ref0000
+S push_gset2 Ref0000
+S mod16u Ref0000
+S div16u Ref0000
+S pop_gset1 Ref0000
+S pop_gset2 Ref0000
+A text size 17E flags 0
+dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+dbfunc e delay 0 fV
+dbsym r i 10 i
+dbline FFFFFFFF 0
+dbline 1E 0
+dbline 1F 0
+dbline 1F 6
+dbline 1F 6
+dbline 1F A
+dbline FFFFFFFE 12
+dbline 0 12
+dbfunc e Display 14 fV
+dbsym r i 14 c
+dbline FFFFFFFF 18
+dbline 28 18
+dbline 29 18
+dbline 2A 1C
+dbline 2B 1C
+dbline 2C 38
+dbline 2D 48
+dbline 2E 4A
+dbline 2F 4E
+dbline 29 4E
+dbline 29 50
+dbline FFFFFFFE 54
+dbline 0 58
+dbfunc e Process 5A fV
+dbsym r disbuf 14 pc
+dbsym r i 16 i
+dbline FFFFFFFF 62
+dbline 35 62
+dbline 35 62
+dbline 36 70
+dbline 37 7C
+dbline 38 88
+dbline 39 94
+dbline 3A A0
+dbline 3B AC
+dbline FFFFFFFE B0
+dbline 0 B4
+dbfunc e Get_Key B6 fV
+dbline FFFFFFFF B6
+dbline 41 B6
+dbline 42 B6
+dbline 43 BA
+dbline 44 BA
+dbline 45 BC
+dbline 46 BE
+dbline 47 C0
+dbline 49 C4
+dbline 4A C4
+dbline 4B C6
+dbline 48 C6
+dbline 4C CA
+dbline 4D DC
+dbline 4D EE
+dbline 4E FA
+dbline 4F 108
+dbline 51 108
+dbline 52 10C
+dbline 53 10C
+dbline 54 10E
+dbline 55 110
+dbline 56 112
+dbline 57 114
+dbline 5A 118
+dbline 5B 118
+dbline 5C 11A
+dbline 5D 11C
+dbline 59 11C
+dbline 5E 120
+dbline 5F 132
+dbline 5F 13A
+dbline 60 146
+dbline 61 154
+dbline FFFFFFFE 154
+dbline 0 154
+dbfunc e main 156 fV
+dbline FFFFFFFF 156
+dbline 64 156
+dbline 66 156
+dbline 67 15C
+dbline 69 160
+dbline 6A 164
+dbline 6C 166
+dbline 6E 176
+dbline 6F 176
+dbline 70 178
+dbline 71 17A
+dbline 6D 17A
+dbline FFFFFFFE 17C
+dbline 0 17C
+S _main Def0156
+S _Get_Key Def00B6
+S _Display Def0014
+S _Process Def005A
+S _delay Def0000
+A data size 14 flags 20
+dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+dbsym e disbuf 0 A[4:4]c
+dbsym e discode 4 A[10:10]c
+dbsym e disbit E A[4:4]c
+dbsym s k 12 i
+S _discode Def0004
+S _disbuf Def0000
+S _disbit Def000E
+A idata size 14 flags 0
+A bss size 2 flags 20
+dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+dbsym e Key_Down 0 c
+dbsym e Key_Up 1 c
+S _Key_Down Def0000
+S _Key_Up Def0001
+T 00 00 00 00
+R 00 00 02 00
+T 02 00 00 00
+R 00 00 02 00
+T 04 00 C0 F9
+R 00 00 02 00
+T 06 00 A4 B0
+R 00 00 02 00
+T 08 00 99 92
+R 00 00 02 00
+T 0A 00 82 F8
+R 00 00 02 00
+T 0C 00 80 90
+R 00 00 02 00
+T 0E 00 FE FD
+R 00 00 02 00
+T 10 00 FB F7
+R 00 00 02 00
+T 12 00 B8 22
+R 00 00 02 00
+T 00 00 00 27 11 27 02 C0 0F 5F 1F 4F 04 3F E1 E0
+R 00 00 00 00
+T 0E 00 1E 07 D0 F3 08 95
+R 00 00 00 00
+T 14 00 0E 94 00 00 44 27 1A C0 80 E0
+R 00 00 00 00 12 04 00 00 20 0A 01 00 00 00
+T 1E 00 90 E0 E4 2F FF 27 E8 0F F9 1F E0 81 FF 27
+R 00 00 00 00 40 02 01 00 00 00
+T 2C 00 80 E0 90 E0 E8 0F F9 1F 20 80 28 BA
+R 00 00 00 00 20 02 01 00 04 00 40 04 01 00 04 00
+T 38 00 80 E0 90 E0 E4 2F FF 27 E8 0F F9 1F 20 80
+R 00 00 00 00 20 02 01 00 0E 00 40 04 01 00 0E 00
+T 46 00 2B BA DB DF 8F EF 8B BB 43 95 44 30 20 F3
+R 00 00 00 00
+T 54 00 0E 94 00 00 08 95
+R 00 00 00 00 12 04 04 00
+T 5A 00 0E 94 00 00 A9 01 B8 01 28 EE 33 E0 8B 01
+R 00 00 00 00 12 04 01 00
+T 68 00 0E 94 00 00 FA 01 00 83 28 EE 33 E0 8B 01
+R 00 00 00 00 12 04 03 00
+T 76 00 0E 94 00 00 B8 01 24 E6 30 E0 0E 94 00 00
+R 00 00 00 00 12 04 02 00 12 0E 03 00
+T 84 00 FA 01 01 83 24 E6 30 E0 8B 01 0E 94 00 00
+R 00 00 00 00 12 0E 02 00
+T 92 00 B8 01 2A E0 30 E0 0E 94 00 00 FA 01 02 83
+R 00 00 00 00 12 0A 03 00
+T A0 00 2A E0 30 E0 8B 01 0E 94 00 00 B8 01 FA 01
+R 00 00 00 00 12 0A 02 00
+T AE 00 63 83 0E 94 00 00 08 95
+R 00 00 00 00 12 06 05 00
+T B6 00 CC 99 27 C0 AC DF AB DF AA DF A9 DF 01 C0
+R 00 00 00 00
+T C4 00 A7 DF CC 9B FD CF 80 91 12 00 90 91 13 00
+R 00 00 00 00 00 0A 01 00 00 0E 01 00
+T D2 00 01 96 90 93 13 00 80 93 12 00 8F E0 97 E2
+R 00 00 00 00 00 06 01 00 00 0A 01 00
+T E0 00 20 90 12 00 30 90 13 00 82 15 93 05 30 F4
+R 00 00 00 00 00 04 01 00 00 08 01 00
+T EE 00 22 24 33 24 30 92 13 00 20 92 12 00
+R 00 00 00 00 00 08 01 00 00 0C 01 00
+T FA 00 20 E0 30 E0 00 91
+R 00 00 00 00 20 02 01 00 00 00 40 04 01 00 00 00
+T 00 01 12 00 10 91 13 00 A9 DF CD 99 24 C0 83 DF
+R 00 00 00 00 00 02 01 00 00 06 01 00
+T 0E 01 82 DF 81 DF 80 DF 7F DF 02 C0 7D DF 7C DF
+R 00 00 00 00
+T 1C 01 CD 9B FC CF 80 91 12 00 90 91 13 00 01 97
+R 00 00 00 00 00 08 01 00 00 0C 01 00
+T 2A 01 90 93 13 00 80 93 12 00 8F 3F EF EF 9E 07
+R 00 00 00 00 00 04 01 00 00 08 01 00
+T 38 01 31 F4 8F E0 97 E2 90 93 13 00 80 93 12 00
+R 00 00 00 00 00 0A 01 00 00 0E 01 00
+T 46 01 20 E0 30 E0 00 91
+R 00 00 00 00 20 02 01 00 00 00 40 04 01 00 00 00
+T 4C 01 12 00 10 91 13 00 83 DF 08 95
+R 00 00 00 00 00 02 01 00 00 06 01 00
+T 56 01 8A B3 8F 60 8A BB 22 24 2B BA 8F EF 87 BB
+R 00 00 00 00
+T 64 01 88 BB 20 E0 30 E0 00 91
+R 00 00 00 00 20 04 01 00 00 00 40 06 01 00 00 00
+T 6C 01 12 00 10 91 13 00 73 DF 02 C0 9F DF 4D DF
+R 00 00 00 00 00 02 01 00 00 06 01 00
+T 7A 01 FD CF 08 95
+R 00 00 00 00

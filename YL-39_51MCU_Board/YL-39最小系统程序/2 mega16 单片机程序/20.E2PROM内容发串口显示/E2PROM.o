@@ -1,0 +1,84 @@
+XL
+H 1 areas 6 global symbols
+M E2PROM.C
+S _EEPROMwrite Ref0000
+S _EEPROMread Ref0000
+A text size 68 flags 0
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\20.E2PROM内容发串口显示\E2PROM.C
+dbfunc e putchar 0 fV
+dbsym r c 10 c
+dbline FFFFFFFF 0
+dbline 19 0
+dbline 1A 0
+dbline 1A 0
+dbline 1B 4
+dbline FFFFFFFE 6
+dbline 0 6
+dbfunc e getchar 8 fc
+dbline FFFFFFFF 8
+dbline 1F 8
+dbline 20 8
+dbline 20 8
+dbline 21 C
+dbline FFFFFFFE E
+dbline 0 E
+dbfunc e uart_init 10 fV
+dbline FFFFFFFF 10
+dbline 26 10
+dbline 27 10
+dbline 28 14
+dbline 29 18
+dbline 2A 1C
+dbline FFFFFFFE 20
+dbline 0 20
+dbfunc e main 22 fV
+dbsym r i A c
+dbsym r j 14 i
+dbline FFFFFFFF 22
+dbline 30 22
+dbline 34 22
+dbline 36 24
+dbline 37 2A
+dbline 38 2A
+dbline 39 34
+dbline 36 34
+dbline 36 38
+dbline 3B 42
+dbline 3C 42
+dbline 3D 46
+dbline 3E 4A
+dbline 40 4A
+dbline 41 50
+dbline 42 50
+dbline 43 58
+dbline 40 58
+dbline 40 5C
+dbline 44 64
+dbline 45 64
+dbline 3A 64
+dbline FFFFFFFE 66
+dbline 0 66
+S _main Def0022
+S _uart_init Def0010
+S _getchar Def0008
+S _putchar Def0000
+T 00 00 5D 9B FE CF 0C B9 08 95
+R 00 00 00 00
+T 08 00 5F 9B FE CF 0C B1 08 95
+R 00 00 00 00
+T 10 00 88 E1 8A B9 8A E1 89 B9 22 24 20 BC 86 E8
+R 00 00 00 00
+T 1E 00 80 BD 08 95
+R 00 00 00 00
+T 22 00 F6 DF 44 27 55 27 07 C0 0A 2D 11 27
+R 00 00 00 00
+T 2E 00 0E 94 00 00 E6 DF 4F 5F 5F 4F 40 30 E2 E0
+R 00 00 00 00 12 04 01 00
+T 3C 00 5E 07 A8 F3 11 C0 E2 DF A0 2E 00 23 69 F0
+R 00 00 00 00
+T 4A 00 44 27 55 27 06 C0 2A 2D 8A 01 0E 94 00 00
+R 00 00 00 00 12 0E 00 00
+T 58 00 4F 5F 5F 4F 40 30 E2 E0 5E 07 B0 F3 EE CF
+R 00 00 00 00
+T 66 00 08 95
+R 00 00 00 00

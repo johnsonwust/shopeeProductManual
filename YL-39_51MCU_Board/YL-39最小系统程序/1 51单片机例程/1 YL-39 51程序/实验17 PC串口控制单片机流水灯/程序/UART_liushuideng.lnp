@@ -1,0 +1,4 @@
+"STARTUP.obj",
+"UART_liushuideng.obj" 
+TO "UART_liushuideng" 
+RAMSIZE(256) 

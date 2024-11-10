@@ -1,0 +1,93 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        09/04/2011  09:22:39  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+E:\°²×°Èí¼þ\KEIL-51\C51\BIN\BL51.EXE ÖÐ¶Ï.obj TO ÖÐ¶Ï RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  ÖÐ¶Ï.obj (_Ð¶Ï)
+  E:\°²×°Èí¼þ\KEIL-51\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  ÖÐ¶Ï (_Ð¶Ï)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0003H     ABSOLUTE     
+                    0006H     07FAH                  *** GAP ***
+            CODE    0800H     000CH     UNIT         ?C_C51STARTUP
+            CODE    080CH     000BH     UNIT         ?PR?MAIN?_Ð¶Ï
+            CODE    0817H     0004H     UNIT         ?PR?KEY_INT?_Ð¶Ï
+
+
+
+OVERLAY MAP OF MODULE:   ÖÐ¶Ï (_Ð¶Ï)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?_Ð¶Ï
+
+
+
+SYMBOL TABLE OF MODULE:  ÖÐ¶Ï (_Ð¶Ï)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        _Ð¶Ï
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  B:00A8H.7       PUBLIC        EA
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:080CH         PUBLIC        main
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+BL51 BANKED LINKER/LOCATER V6.22                                                      09/04/2011  09:22:39  PAGE 2
+
+
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  D:00C8H         PUBLIC        T2CON
+  C:0817H         PUBLIC        Key_INT
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          MAIN
+  C:080CH         LINE#         23
+  C:080CH         LINE#         24
+  C:080CH         LINE#         25
+  C:080FH         LINE#         26
+  C:0811H         LINE#         27
+  C:0813H         LINE#         28
+  C:0815H         LINE#         29
+  C:0815H         LINE#         30
+  C:0815H         LINE#         32
+  -------         ENDPROC       MAIN
+  -------         PROC          KEY_INT
+  C:0817H         LINE#         37
+  C:0817H         LINE#         39
+  C:081AH         LINE#         40
+  -------         ENDPROC       KEY_INT
+  -------         ENDMOD        _Ð¶Ï
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 0012H BYTE ( 0%) *
+******************************************************************************
+
+Program Size: data=9.0 xdata=0 code=33
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

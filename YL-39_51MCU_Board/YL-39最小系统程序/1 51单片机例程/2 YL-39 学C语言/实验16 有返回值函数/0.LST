@@ -1,0 +1,51 @@
+C51 COMPILER V9.00   0                                                                     08/10/2012 18:01:32 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE 0
+OBJECT MODULE PLACED IN 0.OBJ
+COMPILER INVOKED BY: D:\安装软件\keil 51\C51\BIN\C51.EXE 0.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /****************************************************************************
+   2          * 【编写时间】： 2011.07.07
+   3          * 【作    者】： 雁翎电子
+   4          * 【版    本】： V1.0
+   5          * 【网    站】： http://ylelectronic.taobao.com/ 
+   6          * 【Q      Q】： 348439350
+   7          *****************************************************************************
+   8          程序功能：      演示有返回值函数的使用方法。
+   9          ****************************************************************************/
+  10          #include <reg52.h>
+  11          
+  12          //该函数为带有两个参数m，n且带有返回值的求和函数，返回值的类型为unsigned char
+  13          unsigned char jia(unsigned char m,unsigned char n)
+  14          {
+  15   1              unsigned char he;
+  16   1              he=m+n;
+  17   1              return he; //此即为返回的数据，执行此函数后，便会把此值返回给调用该子函数的位置处。
+  18   1      }
+  19          
+  20          void main()
+  21          {
+  22   1              unsigned i;
+  23   1              i=jia(2,3);//此处调用的求和子函数，其中定义了参数值分别为2和3，
+  24   1                                 //调用完求和函数后，i的值即为返回来的5。
+  25   1              P1=i;      //将5送给P1口，二进制码为00000101，通过led亮灭显示出来
+  26   1              while(1);
+  27   1      }
+  28          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     15    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

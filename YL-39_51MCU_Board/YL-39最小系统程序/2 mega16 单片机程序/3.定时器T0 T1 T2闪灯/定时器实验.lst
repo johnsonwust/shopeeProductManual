@@ -1,0 +1,308 @@
+__start:
+__text_start:
+      2A E5CF      LDI	R28,0x5F
+      2B E0D4      LDI	R29,4
+      2C BFCD      OUT	0x3D,R28
+      2D BFDE      OUT	0x3E,R29
+      2E 51CE      SUBI	R28,0x1E
+      2F 40D0      SBCI	R29,0
+      30 EA0A      LDI	R16,0xAA
+      31 8308      STD	Y+0,R16
+      32 2400      CLR	R0
+      33 E6E0      LDI	R30,0x60
+      34 E0F0      LDI	R31,0
+      35 E010      LDI	R17,0
+      36 36E3      CPI	R30,0x63
+      37 07F1      CPC	R31,R17
+      38 F011      BEQ	0x003B
+      39 9201      ST	R0,Z+
+      3A CFFB      RJMP	0x0036
+      3B 8300      STD	Z+0,R16
+      3C E5E4      LDI	R30,0x54
+      3D E0F0      LDI	R31,0
+      3E E6A0      LDI	R26,0x60
+      3F E0B0      LDI	R27,0
+      40 E010      LDI	R17,0
+      41 E000      LDI	R16,0
+      42 BF0B      OUT	0x3B,R16
+      43 35E4      CPI	R30,0x54
+      44 07F1      CPC	R31,R17
+      45 F021      BEQ	0x004A
+      46 95C8      LPM
+      47 9631      ADIW	R30,1
+      48 920D      ST	R0,X+
+      49 CFF9      RJMP	0x0043
+      4A 940E 004D CALL	_main
+_exit:
+      4C CFFF      RJMP	_exit
+FILE: D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\3A304~1.定\MAIN.C
+(0001) /******************************************************************************/
+(0002) /*【编写时间】： 2011.07.07
+(0003) * 【作    者】： 雁翎电子
+(0004) * 【版    本】： V1.0
+(0005) * 【网    站】： http://ylelectronic.taobao.com/ 
+(0006) * 【Q      Q】： 348439350
+(0007) * 【编译环境】： ICCAVR  
+(0008) * 【函数功能】： 定时闪烁LED灯 	
+(0009) * 【晶    振】:  8M		
+(0010) * 【芯    片】:  ATMEGA16A	 
+(0011) * 【硬件连接】： J1短路帽接上  
+(0012) /******************************************************************************/  
+(0013) 
+(0014) #define  uchar  unsigned char
+(0015) #define  uint   unsigned int
+(0016) #include <iom16v.h>
+(0017) #include <macros.h>
+(0018) 
+(0019) unsigned char t0_ovfnum;//t0软件定时计数器
+(0020) unsigned char t1_ovfnum;//t1软件定时计数器
+(0021) unsigned char t2_ovfnum;//t1软件定时计数器
+(0022) 
+(0023) void timer0_init(void);//10ms
+(0024) void timer1_init(void);//10ms
+(0025) void timer2_init(void);//10ms
+(0026) 
+(0027) 
+(0028) void main(void)
+(0029) {
+(0030) 	unsigned char n;
+(0031) 	DDRD= 0xFF;
+_main:
+  n                    --> Y,+1
+      4D EF8F      LDI	R24,0xFF
+      4E BB81      OUT	0x11,R24
+(0032) 	PORTD=0xFF;
+      4F BB82      OUT	0x12,R24
+(0033) 	timer0_init();//初始化定时器0
+      50 D005      RCALL	_timer0_init
+(0034) 	timer1_init();//初始化定时器1
+      51 D02B      RCALL	_timer1_init
+(0035) 	timer2_init();//初始化定时器2
+      52 D060      RCALL	_timer2_init
+(0036) 	SEI();	      //开总中断
+      53 9478      BSET	7
+(0037) 	while(1)
+      54 CFFF      RJMP	0x0054
+      55 9508      RET
+(0038) 	{	
+(0039) 	}
+(0040) }
+(0041) 
+(0042) //TIMER0 initialize - prescale:1024
+(0043) // WGM: Normal
+(0044) // desired value: 10mSec
+(0045) // actual value:  9.984mSec (0.2%)
+(0046) void timer0_init(void)//10ms
+(0047) {
+(0048) 	TCCR0 = 0x00; //stop
+_timer0_init:
+      56 2422      CLR	R2
+      57 BE23      OUT	0x33,R2
+(0049) 	TCNT0 = 0xB2; //set count
+      58 EB82      LDI	R24,0xB2
+      59 BF82      OUT	0x32,R24
+(0050) 	OCR0  = 0x4E;  //set compare
+      5A E48E      LDI	R24,0x4E
+      5B BF8C      OUT	0x3C,R24
+(0051) 	TCCR0 = 0x05; //start timer
+      5C E085      LDI	R24,5
+      5D BF83      OUT	0x33,R24
+(0052)   	TIMSK |= 0x01; //timer interrupt sources
+      5E B789      IN	R24,0x39
+      5F 6081      ORI	R24,1
+      60 BF89      OUT	0x39,R24
+      61 9508      RET
+_timer0_ovf_isr:
+      62 922A      ST	R2,-Y
+      63 938A      ST	R24,-Y
+      64 939A      ST	R25,-Y
+      65 B62F      IN	R2,0x3F
+      66 922A      ST	R2,-Y
+(0053) }
+(0054) 
+(0055) #pragma interrupt_handler timer0_ovf_isr:iv_TIM0_OVF
+(0056) void timer0_ovf_isr(void)
+(0057) {
+(0058) 	TCNT0 = 0xB2; //reload counter value
+      67 EB82      LDI	R24,0xB2
+      68 BF82      OUT	0x32,R24
+(0059) 	t0_ovfnum ++;
+      69 9180 0062 LDS	R24,t0_ovfnum
+      6B 5F8F      SUBI	R24,0xFF
+      6C 9380 0062 STS	t0_ovfnum,R24
+(0060) 	if(t0_ovfnum == 50)//500ms
+      6E 3382      CPI	R24,0x32
+      6F F439      BNE	0x0077
+(0061) 	{
+(0062) 		t0_ovfnum = 0;
+      70 2422      CLR	R2
+      71 9220 0062 STS	t0_ovfnum,R2
+(0063) 		PORTD^=BIT(0);//LED电平取反
+      73 E081      LDI	R24,1
+      74 B222      IN	R2,0x12
+      75 2628      EOR	R2,R24
+      76 BA22      OUT	0x12,R2
+(0064) 		//LED_PORT ^= BIT(LED1);
+(0065) 	}
+      77 9029      LD	R2,Y+
+      78 BE2F      OUT	0x3F,R2
+      79 9199      LD	R25,Y+
+      7A 9189      LD	R24,Y+
+      7B 9029      LD	R2,Y+
+      7C 9518      RETI
+(0066) }
+(0067) 
+(0068) 
+(0069) //TIMER1 initialize - prescale:64
+(0070) // WGM: 0) Normal, TOP=0xFFFF
+(0071) // desired value: 10mSec
+(0072) // actual value: 10.000mSec (0.0%)
+(0073) void timer1_init(void)
+(0074) {
+(0075) 	TCCR1B = 0x00; //stop
+_timer1_init:
+      7D 2422      CLR	R2
+      7E BC2E      OUT	0x2E,R2
+(0076) 	TCNT1H = 0xFB; //setup
+      7F EF8B      LDI	R24,0xFB
+      80 BD8D      OUT	0x2D,R24
+(0077) 	TCNT1L = 0x1E;
+      81 E18E      LDI	R24,0x1E
+      82 BD8C      OUT	0x2C,R24
+(0078) 	OCR1AH = 0x04;
+      83 E084      LDI	R24,4
+      84 BD8B      OUT	0x2B,R24
+(0079) 	OCR1AL = 0xE2;
+      85 EE82      LDI	R24,0xE2
+      86 BD8A      OUT	0x2A,R24
+(0080) 	OCR1BH = 0x04;
+      87 E084      LDI	R24,4
+      88 BD89      OUT	0x29,R24
+(0081) 	OCR1BL = 0xE2;
+      89 EE82      LDI	R24,0xE2
+      8A BD88      OUT	0x28,R24
+(0082) 	ICR1H  = 0x04;
+      8B E084      LDI	R24,4
+      8C BD87      OUT	0x27,R24
+(0083) 	ICR1L  = 0xE2;
+      8D EE82      LDI	R24,0xE2
+      8E BD86      OUT	0x26,R24
+(0084) 	TCCR1A = 0x00;
+      8F BC2F      OUT	0x2F,R2
+(0085) 	TCCR1B = 0x03; //start Timer
+      90 E083      LDI	R24,3
+      91 BD8E      OUT	0x2E,R24
+(0086) 	TIMSK |= 0x04; //timer interrupt sources
+      92 B789      IN	R24,0x39
+      93 6084      ORI	R24,4
+      94 BF89      OUT	0x39,R24
+      95 9508      RET
+_timer1_ovf_isr:
+      96 922A      ST	R2,-Y
+      97 938A      ST	R24,-Y
+      98 939A      ST	R25,-Y
+      99 B62F      IN	R2,0x3F
+      9A 922A      ST	R2,-Y
+(0087) }
+(0088) 
+(0089) #pragma interrupt_handler timer1_ovf_isr:iv_TIM1_OVF
+(0090) void timer1_ovf_isr(void)
+(0091) {
+(0092) 	//TIMER1 has overflowed
+(0093) 	TCNT1H = 0xFB; //reload counter high value
+      9B EF8B      LDI	R24,0xFB
+      9C BD8D      OUT	0x2D,R24
+(0094) 	TCNT1L = 0x1E; //reload counter low value
+      9D E18E      LDI	R24,0x1E
+      9E BD8C      OUT	0x2C,R24
+(0095) 	t1_ovfnum ++;
+      9F 9180 0061 LDS	R24,t1_ovfnum
+      A1 5F8F      SUBI	R24,0xFF
+      A2 9380 0061 STS	t1_ovfnum,R24
+(0096) 	if(t1_ovfnum == 100)//500ms
+      A4 3684      CPI	R24,0x64
+      A5 F439      BNE	0x00AD
+(0097) 	{
+(0098) 		t1_ovfnum = 0;
+      A6 2422      CLR	R2
+      A7 9220 0061 STS	t1_ovfnum,R2
+(0099) 	    PORTD^=BIT(1);//LED电平取反
+      A9 E082      LDI	R24,2
+      AA B222      IN	R2,0x12
+      AB 2628      EOR	R2,R24
+      AC BA22      OUT	0x12,R2
+(0100) 		//LED_PORT ^= BIT(LED3);
+(0101) 	}
+      AD 9029      LD	R2,Y+
+      AE BE2F      OUT	0x3F,R2
+      AF 9199      LD	R25,Y+
+      B0 9189      LD	R24,Y+
+      B1 9029      LD	R2,Y+
+      B2 9518      RETI
+(0102) }
+(0103) 
+(0104) //TIMER2 initialize - prescale:1024
+(0105) // WGM: Normal
+(0106) // desired value: 10mSec
+(0107) // actual value:  9.984mSec (0.2%)
+(0108) void timer2_init(void)
+(0109) {
+(0110) 	TCCR2 = 0x00; //stop
+_timer2_init:
+      B3 2422      CLR	R2
+      B4 BC25      OUT	0x25,R2
+(0111) 	ASSR  = 0x00; //set async mode
+      B5 BC22      OUT	0x22,R2
+(0112) 	TCNT2 = 0xB2; //setup
+      B6 EB82      LDI	R24,0xB2
+      B7 BD84      OUT	0x24,R24
+(0113) 	OCR2  = 0x4E;
+      B8 E48E      LDI	R24,0x4E
+      B9 BD83      OUT	0x23,R24
+(0114) 	TCCR2 = 0x07; //start
+      BA E087      LDI	R24,7
+      BB BD85      OUT	0x25,R24
+(0115) 	TIMSK |= 0x40; //timer interrupt sources
+      BC B789      IN	R24,0x39
+      BD 6480      ORI	R24,0x40
+      BE BF89      OUT	0x39,R24
+      BF 9508      RET
+_timer2_ovf_isr:
+      C0 922A      ST	R2,-Y
+      C1 938A      ST	R24,-Y
+      C2 939A      ST	R25,-Y
+      C3 B62F      IN	R2,0x3F
+      C4 922A      ST	R2,-Y
+(0116) }
+(0117) 
+(0118) #pragma interrupt_handler timer2_ovf_isr:iv_TIM2_OVF
+(0119) void timer2_ovf_isr(void)
+(0120) {
+(0121) 	TCNT2 = 0xB2; //reload counter value
+      C5 EB82      LDI	R24,0xB2
+      C6 BD84      OUT	0x24,R24
+(0122) 	t2_ovfnum ++;
+      C7 9180 0060 LDS	R24,t2_ovfnum
+      C9 5F8F      SUBI	R24,0xFF
+      CA 9380 0060 STS	t2_ovfnum,R24
+(0123) 	if(t2_ovfnum == 200)//500ms
+      CC 3C88      CPI	R24,0xC8
+      CD F439      BNE	0x00D5
+(0124) 	{
+(0125) 		t2_ovfnum = 0;
+      CE 2422      CLR	R2
+      CF 9220 0060 STS	t2_ovfnum,R2
+(0126) 		PORTD^=BIT(2);//LED电平取反
+      D1 E084      LDI	R24,4
+      D2 B222      IN	R2,0x12
+      D3 2628      EOR	R2,R24
+      D4 BA22      OUT	0x12,R2
+(0127) 		
+(0128) 	}
+FILE: <library>
+      D5 9029      LD	R2,Y+
+      D6 BE2F      OUT	0x3F,R2
+      D7 9199      LD	R25,Y+
+      D8 9189      LD	R24,Y+
+      D9 9029      LD	R2,Y+
+      DA 9518      RETI

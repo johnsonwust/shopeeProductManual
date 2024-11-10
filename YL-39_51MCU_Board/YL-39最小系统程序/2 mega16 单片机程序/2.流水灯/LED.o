@@ -1,0 +1,54 @@
+XL
+H 1 areas 2 global symbols
+M LED.c
+A text size 48 flags 0
+dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\2.流水灯\LED.c
+dbfunc e delayms 0 fV
+dbsym r i 10 i
+dbsym r j 12 i
+dbline FFFFFFFF 0
+dbline 13 0
+dbline 15 0
+dbline 16 6
+dbline 16 C
+dbline 16 C
+dbline 16 10
+dbline 15 18
+dbline 15 1C
+dbline FFFFFFFE 24
+dbline 0 24
+dbfunc e main 26 fV
+dbsym r j 14 c
+dbsym r i 16 c
+dbline FFFFFFFF 26
+dbline 19 26
+dbline 1B 26
+dbline 1C 2A
+dbline 1E 2E
+dbline 1F 2E
+dbline 20 30
+dbline 21 34
+dbline 22 34
+dbline 23 3A
+dbline 24 3C
+dbline 25 3E
+dbline 20 3E
+dbline 20 40
+dbline 27 44
+dbline 1D 44
+dbline FFFFFFFE 46
+dbline 0 46
+S _main Def0026
+S _delayms Def0000
+T 00 00 00 27 11 27 0B C0 22 27 33 27 02 C0 2F 5F
+R 00 00 00 00
+T 0E 00 3F 4F 28 3B EB E0 3E 07 D0 F3 0F 5F 1F 4F
+R 00 00 00 00
+T 1C 00 04 36 E0 E0 1E 07 88 F3 08 95
+R 00 00 00 00
+T 26 00 8F EF 82 BB 81 BB 0B C0 61 E0 44 27 06 C0
+R 00 00 00 00
+T 34 00 26 2E 20 94 22 BA E2 DF 66 0F 43 95 48 30
+R 00 00 00 00
+T 42 00 C0 F3 F4 CF 08 95
+R 00 00 00 00

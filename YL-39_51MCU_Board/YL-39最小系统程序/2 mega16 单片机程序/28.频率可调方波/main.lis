@@ -1,0 +1,507 @@
+                        .module main.c
+                        .area data(ram, con, rel)
+ 0000           _disbuf::
+ 0000                   .blkb 2
+                        .area idata
+ 0000 0100              .byte 1,0
+                        .area data(ram, con, rel)
+ 0002                   .blkb 2
+                        .area idata
+ 0002 0000              .byte 0,0
+                        .area data(ram, con, rel)
+ 0004                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\28.频率可调方波\main.c
+ 0004                   .dbsym e disbuf _disbuf A[4:4]c
+                        .area lit(rom, con, rel)
+ 0000           _discode::
+ 0000 C0F9              .byte 192,249
+ 0002 A4B0              .byte 164,176
+ 0004 9992              .byte 153,146
+ 0006 82F8              .byte 130,248
+ 0008 8090              .byte 128,144
+ 000A                   .dbsym e discode _discode A[10:10]kc
+ 000A           _disbit::
+ 000A EFDF              .byte 239,223
+ 000C BF7F              .byte 191,127
+ 000E                   .dbsym e disbit _disbit A[4:4]kc
+                        .area text(rom, con, rel)
+ 0000                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\28.频率可调方波\main.c
+ 0000                   .dbfunc e delay _delay fV
+ 0000           ;              i -> R16
+                        .even
+ 0000           _delay::
+ 0000                   .dbline -1
+ 0000                   .dbline 14
+ 0000           ;      
+ 0000           ;        
+ 0000           ;         #define uchar unsigned char
+ 0000           ;       #define uint  unsigned int
+ 0000           ;       #include <iom16v.h>
+ 0000           ;         #include <macros.h>
+ 0000           ;         uchar disbuf[4]={1,0,0,0};
+ 0000           ;         
+ 0000           ;       const  uchar  discode[10]={ 0xC0, 0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90 };
+ 0000           ;         const  uchar  disbit[4]  ={ 0xEF, 0xDF,0xBF,0x7F};
+ 0000           ;         
+ 0000           ;         uchar Key1_Flag,Key2_Flag,Key3_Flag;                                                                                          
+ 0000           ;       void delay(void)
+ 0000           ;            {
+ 0000                   .dbline 16
+ 0000 0027              clr R16
+ 0002 01C0              xjmp L5
+ 0004           L2:
+ 0004                   .dbline 16
+ 0004           L3:
+ 0004                   .dbline 16
+ 0004 0395              inc R16
+ 0006           L5:
+ 0006                   .dbline 16
+ 0006           ;                    uchar i;
+ 0006           ;              for(i=0;i<255;i++);
+ 0006 0F3F              cpi R16,255
+ 0008 E8F3              brlo L2
+ 000A                   .dbline -2
+ 000A           L1:
+ 000A                   .dbline 0 ; func end
+ 000A 0895              ret
+ 000C                   .dbsym r i 16 c
+ 000C                   .dbend
+ 000C                   .dbfunc e timer1_init _timer1_init fV
+                        .even
+ 000C           _timer1_init::
+ 000C                   .dbline -1
+ 000C                   .dbline 19
+ 000C           ;            }
+ 000C           ;         void timer1_init(void)
+ 000C           ;          {
+ 000C                   .dbline 21
+ 000C           ;             //TCCR1B = 0x00;     //stop timer
+ 000C           ;             TCNT1H = 0x00;       //设置 TC1 的 计数寄存器 高8位值
+ 000C 2224              clr R2
+ 000E 2DBC              out 0x2d,R2
+ 0010                   .dbline 22
+ 0010           ;             TCNT1L = 0x00;       //设置 TC1 的 计数寄存器 低8位值
+ 0010 2CBC              out 0x2c,R2
+ 0012                   .dbline 30
+ 0012           ;             //OCR1AH = 0x1C;     //设置 TC1 的 输出比较寄存器A 高8位值
+ 0012           ;             //OCR1AL = 0x20;     //设置 TC1 的 输出比较寄存器A 低8位值
+ 0012           ;             //OCR1BH = 0x1C;     //设置 TC1 的 输出比较寄存器B 高8位值
+ 0012           ;             //OCR1BL = 0x20;     //设置 TC1 的 输出比较寄存器B 低8位值
+ 0012           ;             //ICR1H  = 0x1C;     //设置 TC1 的 输入捕获寄存器 高8位值
+ 0012           ;             //ICR1L  = 0x20;     //设置 TC1 的 输入捕获寄存器 低8位值
+ 0012           ;             //TCCR1A = 0x00;
+ 0012           ;             TCCR1B = 0x0A;       //设置TC1 为 CLK/1024分频，启动TC1
+ 0012 8AE0              ldi R24,10
+ 0014 8EBD              out 0x2e,R24
+ 0016                   .dbline 31
+ 0016           ;             MCUCR = 0x00;                //设置 MCU 的 控制寄存器
+ 0016 25BE              out 0x35,R2
+ 0018                   .dbline 32
+ 0018           ;             GICR  = 0x00;                //设置 中断控制寄存器
+ 0018 2BBE              out 0x3b,R2
+ 001A                   .dbline 33
+ 001A           ;             TIMSK = TIMSK|0X10;  //设置 定时计数器 的 屏蔽寄存器
+ 001A 89B7              in R24,0x39
+ 001C 8061              ori R24,16
+ 001E 89BF              out 0x39,R24
+ 0020                   .dbline -2
+ 0020           L6:
+ 0020                   .dbline 0 ; func end
+ 0020 0895              ret
+ 0022                   .dbend
+ 0022                   .dbfunc e Set_Process _Set_Process fV
+ 0022           ;              i -> R20,R21
+ 0022           ;              j -> R20,R21
+                        .even
+ 0022           _Set_Process::
+ 0022 0E940000          xcall push_gset1
+ 0026                   .dbline -1
+ 0026                   .dbline 38
+ 0026           ;             //SEI();                     //enable interrupts
+ 0026           ;          }   
+ 0026           ;         
+ 0026           ;          void Set_Process(void) 
+ 0026           ;          { 
+ 0026                   .dbline 40
+ 0026           ;                  uint i,j;
+ 0026           ;                  i=disbuf[3]*1000+disbuf[2]*100+disbuf[1]*10+disbuf[0];
+ 0026 20900200          lds R2,_disbuf+2
+ 002A 84E6              ldi R24,100
+ 002C 829D              mul R24,R2
+ 002E 1001              movw R2,R0
+ 0030 20910300          lds R18,_disbuf+3
+ 0034 3327              clr R19
+ 0036 08EE              ldi R16,1000
+ 0038 13E0              ldi R17,3
+ 003A 0E940000          xcall empy16s
+ 003E A801              movw R20,R16
+ 0040 420D              add R20,R2
+ 0042 531D              adc R21,R3
+ 0044 20900100          lds R2,_disbuf+1
+ 0048 8AE0              ldi R24,10
+ 004A 829D              mul R24,R2
+ 004C 400D              add R20,R0
+ 004E 511D              adc R21,R1
+ 0050 20900000          lds R2,_disbuf
+ 0054 3324              clr R3
+ 0056 420D              add R20,R2
+ 0058 531D              adc R21,R3
+ 005A                   .dbline 41
+ 005A           ;                  j=500/i;
+ 005A 04EF              ldi R16,500
+ 005C 11E0              ldi R17,1
+ 005E 9A01              movw R18,R20
+ 0060 0E940000          xcall div16u
+ 0064 A801              movw R20,R16
+ 0066                   .dbline 42
+ 0066           ;                  OCR1AH=j&0xff00;
+ 0066 CA01              movw R24,R20
+ 0068 8070              andi R24,0
+ 006A 8BBD              out 0x2b,R24
+ 006C                   .dbline 43
+ 006C           ;                  OCR1AL=j&0x00ff;
+ 006C CA01              movw R24,R20
+ 006E 9070              andi R25,0
+ 0070 8ABD              out 0x2a,R24
+ 0072                   .dbline -2
+ 0072           L7:
+ 0072 0E940000          xcall pop_gset1
+ 0076                   .dbline 0 ; func end
+ 0076 0895              ret
+ 0078                   .dbsym r i 20 i
+ 0078                   .dbsym r j 20 i
+ 0078                   .dbend
+ 0078                   .dbfunc e Display _Display fV
+ 0078           ;              i -> R20
+                        .even
+ 0078           _Display::
+ 0078 0E940000          xcall push_gset1
+ 007C                   .dbline -1
+ 007C                   .dbline 46
+ 007C           ;          }
+ 007C           ;                 void Display(void)
+ 007C           ;          {  uchar i;
+ 007C                   .dbline 47
+ 007C           ;             for(i=0;i<4;i++)
+ 007C 4427              clr R20
+ 007E 1AC0              xjmp L15
+ 0080           L12:
+ 0080                   .dbline 48
+ 0080                   .dbline 49
+ 0080 80E0              ldi R24,<_disbuf
+ 0082 90E0              ldi R25,>_disbuf
+ 0084 E42F              mov R30,R20
+ 0086 FF27              clr R31
+ 0088 E80F              add R30,R24
+ 008A F91F              adc R31,R25
+ 008C E081              ldd R30,z+0
+ 008E FF27              clr R31
+ 0090 80E0              ldi R24,<_discode
+ 0092 90E0              ldi R25,>_discode
+ 0094 E80F              add R30,R24
+ 0096 F91F              adc R31,R25
+ 0098 E491              lpm R30,Z
+ 009A E8BB              out 0x18,R30
+ 009C                   .dbline 50
+ 009C 80E0              ldi R24,<_disbit
+ 009E 90E0              ldi R25,>_disbit
+ 00A0 E42F              mov R30,R20
+ 00A2 FF27              clr R31
+ 00A4 E80F              add R30,R24
+ 00A6 F91F              adc R31,R25
+ 00A8 E491              lpm R30,Z
+ 00AA EBBB              out 0x1b,R30
+ 00AC                   .dbline 51
+ 00AC A9DF              xcall _delay
+ 00AE                   .dbline 52
+ 00AE 8FEF              ldi R24,255
+ 00B0 8BBB              out 0x1b,R24
+ 00B2                   .dbline 53
+ 00B2           L13:
+ 00B2                   .dbline 47
+ 00B2 4395              inc R20
+ 00B4           L15:
+ 00B4                   .dbline 47
+ 00B4 4430              cpi R20,4
+ 00B6 20F3              brlo L12
+ 00B8                   .dbline -2
+ 00B8           L11:
+ 00B8 0E940000          xcall pop_gset1
+ 00BC                   .dbline 0 ; func end
+ 00BC 0895              ret
+ 00BE                   .dbsym r i 20 c
+ 00BE                   .dbend
+ 00BE                   .dbfunc e Key_Process _Key_Process fV
+                        .even
+ 00BE           _Key_Process::
+ 00BE                   .dbline -1
+ 00BE                   .dbline 57
+ 00BE           ;               {
+ 00BE           ;                      PORTB=discode[disbuf[i]];
+ 00BE           ;                PORTA=disbit[i];
+ 00BE           ;                delay();
+ 00BE           ;                PORTA=0xff;
+ 00BE           ;                         }      
+ 00BE           ;                 }     
+ 00BE           ;                   
+ 00BE           ;       void Key_Process(void)
+ 00BE           ;            {
+ 00BE 04C0              xjmp L18
+ 00C0           L17:
+ 00C0                   .dbline 58
+ 00C0                   .dbline 58
+ 00C0 DBDF              xcall _Display
+ 00C2                   .dbline 58
+ 00C2 81E0              ldi R24,1
+ 00C4 80930200          sts _Key1_Flag,R24
+ 00C8                   .dbline 58
+ 00C8           L18:
+ 00C8                   .dbline 58
+ 00C8           ;                 while((PINA&0x80)==0){Display();Key1_Flag=1;}
+ 00C8 CF9B              sbis 0x19,7
+ 00CA FACF              rjmp L17
+ 00CC 04C0              xjmp L21
+ 00CE           L20:
+ 00CE                   .dbline 59
+ 00CE                   .dbline 59
+ 00CE D4DF              xcall _Display
+ 00D0                   .dbline 59
+ 00D0 81E0              ldi R24,1
+ 00D2 80930100          sts _Key2_Flag,R24
+ 00D6                   .dbline 59
+ 00D6           L21:
+ 00D6                   .dbline 59
+ 00D6           ;                 while((PINA&0x40)==0){Display();Key2_Flag=1;}
+ 00D6 CE9B              sbis 0x19,6
+ 00D8 FACF              rjmp L20
+ 00DA 04C0              xjmp L24
+ 00DC           L23:
+ 00DC                   .dbline 60
+ 00DC                   .dbline 60
+ 00DC CDDF              xcall _Display
+ 00DE                   .dbline 60
+ 00DE 81E0              ldi R24,1
+ 00E0 80930000          sts _Key3_Flag,R24
+ 00E4                   .dbline 60
+ 00E4           L24:
+ 00E4                   .dbline 60
+ 00E4           ;                 while((PINA&0x20)==0){Display();Key3_Flag=1;}
+ 00E4 CD9B              sbis 0x19,5
+ 00E6 FACF              rjmp L23
+ 00E8                   .dbline 61
+ 00E8           ;                 if(Key1_Flag==1)
+ 00E8 80910200          lds R24,_Key1_Flag
+ 00EC 8130              cpi R24,1
+ 00EE 81F4              brne L26
+ 00F0                   .dbline 62
+ 00F0           ;                   {disbuf[2]++;
+ 00F0                   .dbline 62
+ 00F0 80910200          lds R24,_disbuf+2
+ 00F4 8F5F              subi R24,255    ; addi 1
+ 00F6 80930200          sts _disbuf+2,R24
+ 00FA                   .dbline 63
+ 00FA           ;                       Set_Process();
+ 00FA 93DF              xcall _Set_Process
+ 00FC                   .dbline 64
+ 00FC 80910200          lds R24,_disbuf+2
+ 0100 8A30              cpi R24,10
+ 0102 19F4              brne L29
+ 0104                   .dbline 64
+ 0104 2224              clr R2
+ 0106 20920200          sts _disbuf+2,R2
+ 010A           L29:
+ 010A                   .dbline 64
+ 010A           ;                        if(disbuf[2]==10) disbuf[2]=0;Key1_Flag=0;
+ 010A 2224              clr R2
+ 010C 20920200          sts _Key1_Flag,R2
+ 0110                   .dbline 65
+ 0110           ;                       }
+ 0110           L26:
+ 0110                   .dbline 66
+ 0110           ;                 if(Key2_Flag==1)
+ 0110 80910100          lds R24,_Key2_Flag
+ 0114 8130              cpi R24,1
+ 0116 81F4              brne L33
+ 0118                   .dbline 67
+ 0118           ;                   {disbuf[1]++;
+ 0118                   .dbline 67
+ 0118 80910100          lds R24,_disbuf+1
+ 011C 8F5F              subi R24,255    ; addi 1
+ 011E 80930100          sts _disbuf+1,R24
+ 0122                   .dbline 68
+ 0122           ;                       Set_Process();
+ 0122 7FDF              xcall _Set_Process
+ 0124                   .dbline 69
+ 0124 80910100          lds R24,_disbuf+1
+ 0128 8A30              cpi R24,10
+ 012A 19F4              brne L36
+ 012C                   .dbline 69
+ 012C 2224              clr R2
+ 012E 20920100          sts _disbuf+1,R2
+ 0132           L36:
+ 0132                   .dbline 69
+ 0132           ;                        if(disbuf[1]==10) disbuf[1]=0;Key2_Flag=0;
+ 0132 2224              clr R2
+ 0134 20920100          sts _Key2_Flag,R2
+ 0138                   .dbline 70
+ 0138           ;                       }
+ 0138           L33:
+ 0138                   .dbline 71
+ 0138           ;                 if(Key3_Flag==1)
+ 0138 80910000          lds R24,_Key3_Flag
+ 013C 8130              cpi R24,1
+ 013E 81F4              brne L40
+ 0140                   .dbline 72
+ 0140           ;                   {disbuf[0]++;
+ 0140                   .dbline 72
+ 0140 80910000          lds R24,_disbuf
+ 0144 8F5F              subi R24,255    ; addi 1
+ 0146 80930000          sts _disbuf,R24
+ 014A                   .dbline 73
+ 014A           ;                       Set_Process();
+ 014A 6BDF              xcall _Set_Process
+ 014C                   .dbline 74
+ 014C 80910000          lds R24,_disbuf
+ 0150 8A30              cpi R24,10
+ 0152 19F4              brne L42
+ 0154                   .dbline 74
+ 0154 2224              clr R2
+ 0156 20920000          sts _disbuf,R2
+ 015A           L42:
+ 015A                   .dbline 74
+ 015A 2224              clr R2
+ 015C 20920000          sts _Key3_Flag,R2
+ 0160                   .dbline 75
+ 0160           L40:
+ 0160                   .dbline -2
+ 0160           L16:
+ 0160                   .dbline 0 ; func end
+ 0160 0895              ret
+ 0162                   .dbend
+ 0162                   .dbfunc e PORT_INT _PORT_INT fV
+                        .even
+ 0162           _PORT_INT::
+ 0162                   .dbline -1
+ 0162                   .dbline 81
+ 0162           ;                        if(disbuf[0]==10) disbuf[0]=0;Key3_Flag=0;
+ 0162           ;                       }
+ 0162           ;                 }
+ 0162           ;        
+ 0162           ;     
+ 0162           ;      
+ 0162           ;      void PORT_INT(void)
+ 0162           ;            {
+ 0162                   .dbline 83
+ 0162           ;                
+ 0162           ;                 DDRA=0x00;            
+ 0162 2224              clr R2
+ 0164 2ABA              out 0x1a,R2
+ 0166                   .dbline 84
+ 0166           ;           DDRB=0xFF;
+ 0166 8FEF              ldi R24,255
+ 0168 87BB              out 0x17,R24
+ 016A                   .dbline 85
+ 016A           ;           DDRD=0XFF; 
+ 016A 81BB              out 0x11,R24
+ 016C                   .dbline 86
+ 016C           ;                 DDRC=0xFF;
+ 016C 84BB              out 0x14,R24
+ 016E                   .dbline 87
+ 016E           ;                 PORTA=0x00;
+ 016E 2BBA              out 0x1b,R2
+ 0170                   .dbline 88
+ 0170           ;           PORTB=0xFF;
+ 0170 88BB              out 0x18,R24
+ 0172                   .dbline 89
+ 0172           ;                 PORTC=0xFF;
+ 0172 85BB              out 0x15,R24
+ 0174                   .dbline 90
+ 0174           ;           PORTD=0xFF;
+ 0174 82BB              out 0x12,R24
+ 0176                   .dbline -2
+ 0176           L44:
+ 0176                   .dbline 0 ; func end
+ 0176 0895              ret
+ 0178                   .dbend
+ 0178                   .dbfunc e main _main fV
+                        .even
+ 0178           _main::
+ 0178                   .dbline -1
+ 0178                   .dbline 94
+ 0178           ;                }        
+ 0178           ;       
+ 0178           ;          void main (void)
+ 0178           ;              { 
+ 0178                   .dbline 95
+ 0178           ;                          PORT_INT();
+ 0178 F4DF              xcall _PORT_INT
+ 017A                   .dbline 96
+ 017A           ;                          timer1_init();               
+ 017A 48DF              xcall _timer1_init
+ 017C                   .dbline 97
+ 017C           ;                          SEI();
+ 017C 7894              sei
+ 017E 02C0              xjmp L47
+ 0180           L46:
+ 0180                   .dbline 99
+ 0180                   .dbline 100
+ 0180 9EDF              xcall _Key_Process
+ 0182                   .dbline 102
+ 0182 7ADF              xcall _Display
+ 0184                   .dbline 103
+ 0184           L47:
+ 0184                   .dbline 98
+ 0184 FDCF              xjmp L46
+ 0186           X0:
+ 0186                   .dbline -2
+ 0186           L45:
+ 0186                   .dbline 0 ; func end
+ 0186 0895              ret
+ 0188                   .dbend
+                        .area vector(rom, abs)
+                        .org 24
+ 0018 0C94C400          jmp _Compare
+                        .area text(rom, con, rel)
+ 0188                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\28.频率可调方波\main.c
+ 0188                   .dbfunc e Compare _Compare fV
+                        .even
+ 0188           _Compare::
+ 0188 2A92              st -y,R2
+ 018A 2FB6              in R2,0x3f
+ 018C 2A92              st -y,R2
+ 018E                   .dbline -1
+ 018E                   .dbline 109
+ 018E           ;                   while(1)
+ 018E           ;                  {   
+ 018E           ;                                   Key_Process();  
+ 018E           ;                                   //Set_Process(); 
+ 018E           ;                                       Display();  
+ 018E           ;                            }
+ 018E           ;                        }
+ 018E           ;                 
+ 018E           ; 
+ 018E           ; #pragma interrupt_handler Compare:7                   
+ 018E           ;             void Compare(void)
+ 018E           ;                         {PORTC=~PORTC;}
+ 018E                   .dbline 109
+ 018E 25B2              in R2,0x15
+ 0190 2094              com R2
+ 0192 25BA              out 0x15,R2
+ 0194                   .dbline -2
+ 0194           L49:
+ 0194 2990              ld R2,y+
+ 0196 2FBE              out 0x3f,R2
+ 0198 2990              ld R2,y+
+ 019A                   .dbline 0 ; func end
+ 019A 1895              reti
+ 019C                   .dbend
+                        .area bss(ram, con, rel)
+ 0000                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\28.频率可调方波\main.c
+ 0000           _Key3_Flag::
+ 0000                   .blkb 1
+ 0001                   .dbsym e Key3_Flag _Key3_Flag c
+ 0001           _Key2_Flag::
+ 0001                   .blkb 1
+ 0002                   .dbsym e Key2_Flag _Key2_Flag c
+ 0002           _Key1_Flag::
+ 0002                   .blkb 1
+ 0003                   .dbsym e Key1_Flag _Key1_Flag c

@@ -1,0 +1,115 @@
+__start:
+__text_start:
+    002A E5CF      LDI	R28,0x5F
+    002B E0D4      LDI	R29,4
+    002C BFCD      OUT	0x3D,R28
+    002D BFDE      OUT	0x3E,R29
+    002E 51CE      SUBI	R28,0x1E
+    002F 40D0      SBCI	R29,0
+    0030 EA0A      LDI	R16,0xAA
+    0031 8308      STD	Y+0,R16
+    0032 2400      CLR	R0
+    0033 E6E0      LDI	R30,0x60
+    0034 E0F0      LDI	R31,0
+    0035 E010      LDI	R17,0
+    0036 36E0      CPI	R30,0x60
+    0037 07F1      CPC	R31,R17
+    0038 F011      BEQ	0x003B
+    0039 9201      ST	R0,Z+
+    003A CFFB      RJMP	0x0036
+    003B 8300      STD	Z+0,R16
+    003C E5E4      LDI	R30,0x54
+    003D E0F0      LDI	R31,0
+    003E E6A0      LDI	R26,0x60
+    003F E0B0      LDI	R27,0
+    0040 E010      LDI	R17,0
+    0041 35E4      CPI	R30,0x54
+    0042 07F1      CPC	R31,R17
+    0043 F021      BEQ	0x0048
+    0044 95C8      LPM
+    0045 9631      ADIW	R30,1
+    0046 920D      ST	R0,X+
+    0047 CFF9      RJMP	0x0041
+    0048 940E005E  CALL	_main
+_exit:
+    004A CFFF      RJMP	_exit
+FILE: E:\制版成功\YL-60\YL-60A~2\4.相关例程\2.流水灯\LED.c
+(0001) /******************************************************************************/
+(0002) /*【编写时间】： 2011.07.07
+(0003) * 【作    者】： 雁翎电子
+(0004) * 【版    本】： V1.0
+(0005) * 【网    站】： http://ylelectronic.taobao.com/ 
+(0006) * 【Q      Q】： 348439350
+(0007) * 【编译环境】： ICCAVR  
+(0008) * 【函数功能】： 流水灯实验
+(0009) * 【晶    振】:  8M		
+(0010) * 【芯    片】:  ATMEGA16A	 
+(0011) * 【硬件连接】： J1短路帽接上  
+(0012) /******************************************************************************/  
+(0013)        #define  uchar  unsigned char
+(0014) 	   #define  uint   unsigned int
+(0015)        #include <iom16v.h>
+(0016)        #include <macros.h>
+(0017) 	   
+(0018)        void delayms(void)	 // 延时子程序       
+(0019)         {						
+(0020) 	         unsigned int i,j;
+(0021) 			 for(i=0;i<100;i++)
+_delayms:
+  i                    --> R16
+  j                    --> R18
+    004B 2700      CLR	R16
+    004C 2711      CLR	R17
+    004D C00B      RJMP	0x0059
+(0022) 			    for(j=0;j<3000;j++);
+    004E 2722      CLR	R18
+    004F 2733      CLR	R19
+    0050 C002      RJMP	0x0053
+    0051 5F2F      SUBI	R18,0xFF
+    0052 4F3F      SBCI	R19,0xFF
+    0053 3B28      CPI	R18,0xB8
+    0054 E0EB      LDI	R30,0xB
+    0055 073E      CPC	R19,R30
+    0056 F3D0      BCS	0x0051
+    0057 5F0F      SUBI	R16,0xFF
+    0058 4F1F      SBCI	R17,0xFF
+    0059 3604      CPI	R16,0x64
+    005A E0E0      LDI	R30,0
+    005B 071E      CPC	R17,R30
+    005C F388      BCS	0x004E
+    005D 9508      RET
+(0023)         } 
+(0024)         void  main(void)
+(0025)         {
+(0026) 		 uchar  i,j;            //定义变量
+(0027)          PORTD=0xFF;			//设为输出口
+_main:
+  j                    --> R20
+  i                    --> R22
+    005E EF8F      LDI	R24,0xFF
+    005F BB82      OUT	0x12,R24
+(0028)          DDRD=0xFF;				//PD口设为输出高电平，灯灭
+    0060 BB81      OUT	0x11,R24
+    0061 C00B      RJMP	0x006D
+(0029)          while(1)
+(0030)             {
+(0031) 	        i=1;
+    0062 E061      LDI	R22,1
+(0032) 	        for (j=0;j<8;j++)  //循环8次，即PD0~~PF7轮流闪亮  
+    0063 2744      CLR	R20
+    0064 C006      RJMP	0x006B
+(0033) 		               { 
+(0034) 					     PORTD=~i;		//反相输出,低电平有效
+    0065 2E26      MOV	R2,R22
+    0066 9420      COM	R2
+    0067 BA22      OUT	0x12,R2
+(0035) 		                 delayms();
+    0068 DFE2      RCALL	_delayms
+(0036) 		                 i=i<<1;			//左移一位
+FILE: <library>
+    0069 0F66      LSL	R22
+    006A 9543      INC	R20
+    006B 3048      CPI	R20,0x8
+    006C F3C0      BCS	0x0065
+    006D CFF4      RJMP	0x0062
+    006E 9508      RET

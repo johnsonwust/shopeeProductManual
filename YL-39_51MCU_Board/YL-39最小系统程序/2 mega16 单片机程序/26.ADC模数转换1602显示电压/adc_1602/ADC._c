@@ -1,0 +1,80 @@
+#include<iom16v.h>
+#include <macros.h>
+#include"1602.h"
+#define uchar unsigned char 
+#define uint unsigned int 
+
+uchar adc_0[]={"ADC_0: .  V"};
+uchar adc_1[]={"ADC_1: .  V"};
+
+//ADC测试,使用1602显示ADC0和ADC1的值
+//主函数
+main()
+{
+uchar ten_1,ten_2,ten_3,ten_4,i;
+uint adc_data0,adc_l0,adc_h0,adc_data1,adc_l1,adc_h1;
+
+//初始化端口
+DDRA=0xf0;
+PORTA=0x00;
+DDRB=0x00;
+DDRD=0xff;
+PORTD=0x00;
+//1602初始化
+LcdInit();   
+WriteChar(1,2,11,adc_0);
+WriteChar(2,2,11,adc_1);
+
+while(1)
+     {
+	  //取ADC_0
+      ADCSR=0x00;
+      ADMUX=0x40;
+      ADCSR=(1<<ADEN)|(1<<ADSC)|(1<<ADFR)|0x07;   //128分频，连续转换
+      s_ms(500);                                   //延时很重要，给出转换的时间
+      adc_l0=ADCL;
+      adc_h0=ADCH;
+      adc_data0=adc_h0<<8|adc_l0;                  
+      adc_data0=adc_data0>>1;               //放弃一位的精度
+      adc_data0-=35;                        //修正
+	  
+	  //取ADC_1
+      ADCSR=0x00;
+      ADMUX=0x41;
+      ADCSR=(1<<ADEN)|(1<<ADSC)|(1<<ADFR)|0x07;   
+      s_ms(500);                           
+      adc_l1=ADCL;
+      adc_h1=ADCH;
+      adc_data1=adc_h1<<8|adc_l1;  
+      adc_data1=adc_data1>>1;
+      adc_data1-=35;                       
+	  
+	  //显示ADC0
+	  ten_3=(adc_data0)/100;
+	  ten_2=(adc_data0-(ten_3*100))/10;
+	  ten_1=adc_data0-(ten_3*100)-ten_2*10;
+	  //ten_1+=0x30;
+	 // ten_2+=0x30;
+	  //ten_3+=0x30;
+	  WriteNum(1,8,(ten_3));
+	  WriteNum(1,10,(ten_2));
+	  WriteNum(1,11,(ten_1));
+	  //显示ADC1
+	  ten_3=(adc_data1)/100;
+	  ten_2=(adc_data1-(ten_3*100))/10;
+	  ten_1=adc_data1-(ten_3*100)-ten_2*10;
+	  //ten_1+=0x30;
+	  //ten_2+=0x30;
+	  //ten_3+=0x30;
+	  WriteNum(2,8,(ten_3));
+	  WriteNum(2,10,(ten_2));
+	  WriteNum(2,11,(ten_1));
+	  
+	  for(i=0;i<18;i++)
+	     {
+	      s_ms(60000);
+	     }	
+	 }
+}
+
+

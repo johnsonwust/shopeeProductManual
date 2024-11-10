@@ -1,0 +1,55 @@
+C51 COMPILER V9.00   FOR                                                                   08/10/2012 12:10:47 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE FOR
+OBJECT MODULE PLACED IN for.OBJ
+COMPILER INVOKED BY: D:\安装软件\keil 51\C51\BIN\C51.EXE for.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /****************************************************************************
+   2                                                  “天祥电子”    倾情奉献
+   3                                                                  www.txmcu.cn
+   4                                                                  www.txmcu.com
+   5          *****************************************************************************
+   6          程序功能：      该函数通过for语句控制蜂鸣器的鸣响次数来说明for语句的功能。
+   7          ****************************************************************************/
+   8          #include <reg52.h>
+   9          
+  10          
+  11          sbit led=P1^0;
+  12          
+  13          void delay(unsigned int i)              //一个延时程序。
+  14          {
+  15   1              unsigned int j;
+  16   1              char k;
+  17   1              for(j=i;j>0;j--)
+  18   1                      for(k=800;k>0;k--);
+  19   1      }
+  20          void main()
+  21          {
+  22   1              char cishu;
+  23   1              for(cishu=0;cishu<10;cishu++)//第一个表达式为给变量赋初值，第二个为判断标准
+  24   1                                                                       //若为真，则执行下面的指令，否则将跳过大括弧中的指令
+  25   1                                                                       //第三句为更改变量值的指令。
+  26   1              {
+  27   2                                //每执行一次，led所代表的管脚电平都会取反。
+  28   2                      led=~led;         //由于共取了十次反，故led会闪五次
+  29   2                      delay(8000);
+  30   2              }
+  31   1              while(1);
+  32   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     38    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

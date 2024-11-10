@@ -1,0 +1,154 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\ÖÆ°æ³É¹¦\YL-39 51+AVR¼òÒ×¿ª·¢°å\YL-39 51+AVR¼òÒ×¿ª·¢°å×ÊÁÏ\YL-39×îĞ¡ÏµÍ³³ÌĞò\1 51µ¥Æ¬»úÀı³Ì\ĞÂ½¨ÎÄ¼ş¼Ğ\10-Òº¾§ÆÁLCD1602\1602LCD×Ö·û¾²Ì¬ÏÔÊ¾²âÊÔ³ÌĞò\1602×Ö·ûÏÔÊ¾.uvproj
+Project File Date:  11/09/2011
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(33): warning C275: expression with possibly no effect
+1602×Ö·ûÏÔÊ¾.C(34): warning C173: missing return-expression
+1602×Ö·ûÏÔÊ¾.C(34): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(55): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(60): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(81): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(93): warning C290: missing return value
+linking...
+Program Size: data=9.1 xdata=0 code=238
+creating hex file from "1602×Ö·ûÏÔÊ¾"...
+"1602×Ö·ûÏÔÊ¾" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(33): warning C275: expression with possibly no effect
+1602×Ö·ûÏÔÊ¾.C(34): warning C173: missing return-expression
+1602×Ö·ûÏÔÊ¾.C(34): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(55): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(60): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(81): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(93): warning C290: missing return value
+linking...
+Program Size: data=9.1 xdata=0 code=238
+creating hex file from "1602×Ö·ûÏÔÊ¾"...
+"1602×Ö·ûÏÔÊ¾" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(33): warning C275: expression with possibly no effect
+1602×Ö·ûÏÔÊ¾.C(34): warning C173: missing return-expression
+1602×Ö·ûÏÔÊ¾.C(34): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(55): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(60): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(81): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(93): warning C290: missing return value
+linking...
+Program Size: data=9.1 xdata=0 code=238
+creating hex file from "1602×Ö·ûÏÔÊ¾"...
+"1602×Ö·ûÏÔÊ¾" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(33): warning C275: expression with possibly no effect
+1602×Ö·ûÏÔÊ¾.C(34): warning C173: missing return-expression
+1602×Ö·ûÏÔÊ¾.C(34): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(55): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(60): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(81): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(93): warning C290: missing return value
+linking...
+Program Size: data=9.1 xdata=0 code=238
+creating hex file from "1602×Ö·ûÏÔÊ¾"...
+"1602×Ö·ûÏÔÊ¾" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(33): warning C275: expression with possibly no effect
+1602×Ö·ûÏÔÊ¾.C(34): warning C173: missing return-expression
+1602×Ö·ûÏÔÊ¾.C(34): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(55): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(81): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(93): warning C290: missing return value
+linking...
+Program Size: data=9.1 xdata=0 code=238
+creating hex file from "1602×Ö·ûÏÔÊ¾"...
+"1602×Ö·ûÏÔÊ¾" - 0 Error(s), 6 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(33): warning C275: expression with possibly no effect
+1602×Ö·ûÏÔÊ¾.C(34): warning C173: missing return-expression
+1602×Ö·ûÏÔÊ¾.C(34): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(55): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(81): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(93): warning C290: missing return value
+linking...
+Program Size: data=9.1 xdata=0 code=238
+creating hex file from "1602×Ö·ûÏÔÊ¾"...
+"1602×Ö·ûÏÔÊ¾" - 0 Error(s), 6 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(33): warning C275: expression with possibly no effect
+1602×Ö·ûÏÔÊ¾.C(34): warning C173: missing return-expression
+1602×Ö·ûÏÔÊ¾.C(34): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(55): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(60): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(81): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(93): warning C290: missing return value
+linking...
+Program Size: data=9.1 xdata=0 code=238
+creating hex file from "1602×Ö·ûÏÔÊ¾"...
+"1602×Ö·ûÏÔÊ¾" - 0 Error(s), 7 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(33): warning C275: expression with possibly no effect
+1602×Ö·ûÏÔÊ¾.C(34): warning C173: missing return-expression
+1602×Ö·ûÏÔÊ¾.C(34): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(55): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(93): warning C290: missing return value
+linking...
+Program Size: data=9.1 xdata=0 code=238
+creating hex file from "1602×Ö·ûÏÔÊ¾"...
+"1602×Ö·ûÏÔÊ¾" - 0 Error(s), 5 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(33): warning C275: expression with possibly no effect
+1602×Ö·ûÏÔÊ¾.C(34): warning C173: missing return-expression
+1602×Ö·ûÏÔÊ¾.C(34): warning C290: missing return value
+1602×Ö·ûÏÔÊ¾.C(55): warning C290: missing return value
+linking...
+Program Size: data=9.1 xdata=0 code=238
+creating hex file from "1602×Ö·ûÏÔÊ¾"...
+"1602×Ö·ûÏÔÊ¾" - 0 Error(s), 4 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(21): error C136: 'BOOL': 'void' on variable
+1602×Ö·ûÏÔÊ¾.C(21): error C129: missing ';' before 'lcd_bz'
+Target not created
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(33): warning C275: expression with possibly no effect
+1602×Ö·ûÏÔÊ¾.C(34): warning C173: missing return-expression
+1602×Ö·ûÏÔÊ¾.C(34): warning C290: missing return value
+linking...
+Program Size: data=9.1 xdata=0 code=238
+creating hex file from "1602×Ö·ûÏÔÊ¾"...
+"1602×Ö·ûÏÔÊ¾" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling 1602×Ö·ûÏÔÊ¾.c...
+1602×Ö·ûÏÔÊ¾.C(33): warning C275: expression with possibly no effect
+1602×Ö·ûÏÔÊ¾.C(34): warning C173: missing return-expression
+1602×Ö·ûÏÔÊ¾.C(34): warning C290: missing return value
+linking...
+Program Size: data=9.1 xdata=0 code=238
+creating hex file from "1602×Ö·ûÏÔÊ¾"...
+"1602×Ö·ûÏÔÊ¾" - 0 Error(s), 3 Warning(s).

@@ -1,0 +1,415 @@
+__start:
+__text_start:
+      36 E5CF      LDI	R28,0x5F
+      37 E0D4      LDI	R29,4
+      38 BFCD      OUT	0x3D,R28
+      39 BFDE      OUT	0x3E,R29
+      3A 51CE      SUBI	R28,0x1E
+      3B 40D0      SBCI	R29,0
+      3C EA0A      LDI	R16,0xAA
+      3D 8308      STD	Y+0,R16
+      3E 2400      CLR	R0
+      3F E7E8      LDI	R30,0x78
+      40 E0F0      LDI	R31,0
+      41 E010      LDI	R17,0
+      42 38E1      CPI	R30,0x81
+      43 07F1      CPC	R31,R17
+      44 F011      BEQ	0x0047
+      45 9201      ST	R0,Z+
+      46 CFFB      RJMP	0x0042
+      47 8300      STD	Z+0,R16
+      48 E5E4      LDI	R30,0x54
+      49 E0F0      LDI	R31,0
+      4A E6A0      LDI	R26,0x60
+      4B E0B0      LDI	R27,0
+      4C E010      LDI	R17,0
+      4D E000      LDI	R16,0
+      4E BF0B      OUT	0x3B,R16
+      4F 36EC      CPI	R30,0x6C
+      50 07F1      CPC	R31,R17
+      51 F021      BEQ	0x0056
+      52 95C8      LPM
+      53 9631      ADIW	R30,1
+      54 920D      ST	R0,X+
+      55 CFF9      RJMP	0x004F
+      56 940E 0087 CALL	_main
+_exit:
+      58 CFFF      RJMP	_exit
+FILE: E:\单片机\开发板专用文件夹\MEGA16开发板资料\4.相关例程\14.AVR解码数码管显示地址码数据码\AVR解码.C
+(0001) /******************************************************************************/
+(0002) /*  Name:  数码管显示地址码与键码J2要插上                                     */
+(0003) /*  编译坏境：ICCAVR 7.16                                                     */
+(0004) /*  Designed by :廖文丹                         Date:2007/6/21                */
+(0005) /*  开发环境:ICCAVR                                                           */
+(0006) /*  QQ:80184985 真红炎神                                                      */
+(0007) /******************************************************************************/  
+(0008)   #include <iom16v.h>
+(0009)   #include <macros.h>  
+(0010)   #define uint  unsigned int
+(0011)   #define uchar unsigned char
+(0012)   #define Set_Bit(val, bitn)    (val |=(1<<(bitn))) 
+(0013)   #define Clr_Bit(val, bitn)    (val&=~(1<<(bitn))) 
+(0014)   #define Get_Bit(val, bitn)    (val &(1<<(bitn)) ) 
+(0015)   #define Cpl_Bit(val, bitn)    (val^=(1<<(bitn)) )
+(0016)   #define fosc 8000000 //晶振8MHZ
+(0017)   #define baud 19200	 //波特率
+(0018) //*****************************************************************************/
+(0019)    uchar  disbuf[4]={1,2,3,4};
+(0020)    uchar  discode[]={ 0xc0,0xf9,0xa4,0xb0,0x99,0x92,0x82,0xf8,0x80,0x90,0x88,0x80,0xc6,0xc0,0x86,0x8e };  //段码表
+(0021)    uchar  disbit[4]  ={ 0xFE, 0xFD,0xFB,0xF7}; //选通值   
+(0022)    uchar bitcnt;
+(0023)    uint newFall;
+(0024)    uint oldFall;
+(0025)    uint data0;
+(0026)    uint data1;  
+(0027)   //函数声明
+(0028)    void ICEInit(void);
+(0029)  
+(0030) /******************************************************************************/
+(0031) //延时函数
+(0032) /******************************************************************************/  	                                             							
+(0033)       void delay(void)   
+(0034)            {
+(0035) 		     uchar i;
+(0036)              for(i=0;i<255;i++);
+_delay:
+  i                    --> R16
+      59 2700      CLR	R16
+      5A C001      RJMP	0x005C
+      5B 9503      INC	R16
+      5C 3F0F      CPI	R16,0xFF
+      5D F3E8      BCS	0x005B
+      5E 9508      RET
+_Display:
+  i                    --> R20
+      5F 934A      ST	R20,-Y
+(0037)            }
+(0038) /******************************************************************************/
+(0039) //显示函数
+(0040) /******************************************************************************/  
+(0041) 	  void Display(void)
+(0042)          {  
+(0043) 		    uchar i;
+(0044)             for(i=0;i<4;i++)
+      60 2744      CLR	R20
+      61 C01A      RJMP	0x007C
+(0045)                 {
+(0046) 		         PORTB=discode[disbuf[i]];
+      62 E680      LDI	R24,0x60
+      63 E090      LDI	R25,0
+      64 2FE4      MOV	R30,R20
+      65 27FF      CLR	R31
+      66 0FE8      ADD	R30,R24
+      67 1FF9      ADC	R31,R25
+      68 81E0      LDD	R30,Z+0
+      69 27FF      CLR	R31
+      6A E684      LDI	R24,0x64
+      6B E090      LDI	R25,0
+      6C 0FE8      ADD	R30,R24
+      6D 1FF9      ADC	R31,R25
+      6E 8020      LDD	R2,Z+0
+      6F BA28      OUT	0x18,R2
+(0047)                  PORTA=disbit[i];
+      70 E784      LDI	R24,0x74
+      71 E090      LDI	R25,0
+      72 2FE4      MOV	R30,R20
+      73 27FF      CLR	R31
+      74 0FE8      ADD	R30,R24
+      75 1FF9      ADC	R31,R25
+      76 8020      LDD	R2,Z+0
+      77 BA2B      OUT	0x1B,R2
+(0048)                  delay();
+      78 DFE0      RCALL	_delay
+(0049)                  PORTA=0xff;
+      79 EF8F      LDI	R24,0xFF
+      7A BB8B      OUT	0x1B,R24
+      7B 9543      INC	R20
+      7C 3044      CPI	R20,4
+      7D F320      BCS	0x0062
+      7E 9149      LD	R20,Y+
+      7F 9508      RET
+(0050) 			    } 
+(0051) 		 }
+(0052) /******************************************************************************/
+(0053) //T/C1 捕获初始代
+(0054) /******************************************************************************/               
+(0055)  void ICEInit(void) //T/C1初始化
+(0056)  {
+(0057)     TIMSK=0X20;   //使能捕获中断
+_ICEInit:
+      80 E280      LDI	R24,0x20
+      81 BF89      OUT	0x39,R24
+(0058)     TCCR1A=0X00;  //T/C1时钟与系统相同，本文使用系统AVR内部自带8MHz振荡源.T/C1时钟周期为1μs
+      82 2422      CLR	R2
+      83 BC2F      OUT	0x2F,R2
+(0059)     TCCR1B=0X82;  //使能噪音抑制，下降沿触发中断
+      84 E882      LDI	R24,0x82
+      85 BD8E      OUT	0x2E,R24
+      86 9508      RET
+(0060)  }
+(0061) /******************************************************************************/
+(0062) //主函数 显示用
+(0063) /******************************************************************************/  
+(0064)  void main(void)
+(0065)  {  
+(0066)      DDRA=0xFF;       //设为输出口     
+_main:
+      87 EF8F      LDI	R24,0xFF
+      88 BB8A      OUT	0x1A,R24
+(0067)      DDRB=0xFF;       //设为输出口 
+      89 BB87      OUT	0x17,R24
+(0068)      PORTA=0xFF;      
+      8A BB8B      OUT	0x1B,R24
+(0069)      PORTB=0xFF; 
+      8B BB88      OUT	0x18,R24
+(0070)      ICEInit();
+      8C DFF3      RCALL	_ICEInit
+(0071)      SEI();
+      8D 9478      BSET	7
+      8E C001      RJMP	0x0090
+(0072) 	 
+(0073)    while(1)
+(0074)    {
+(0075)       Display();
+      8F DFCF      RCALL	_Display
+      90 CFFE      RJMP	0x008F
+      91 9508      RET
+_CAPT_ISR:
+  a                    --> Y,+1
+  temp                 --> R16
+      92 921A      ST	R1,-Y
+      93 922A      ST	R2,-Y
+      94 923A      ST	R3,-Y
+      95 924A      ST	R4,-Y
+      96 925A      ST	R5,-Y
+      97 930A      ST	R16,-Y
+      98 931A      ST	R17,-Y
+      99 938A      ST	R24,-Y
+      9A 939A      ST	R25,-Y
+      9B 93AA      ST	R26,-Y
+      9C 93EA      ST	R30,-Y
+      9D B61F      IN	R1,0x3F
+      9E 921A      ST	R1,-Y
+(0076)    }
+(0077)   } 
+(0078)   
+(0079) /******************************************************************************/
+(0080) //捕获中断用作解码
+(0081) /******************************************************************************/  
+(0082) #pragma interrupt_handler CAPT_ISR:iv_TIMER1_CAPT 
+(0083) 
+(0084) void CAPT_ISR(void)
+(0085) {
+(0086)   uchar a;
+(0087)   uint temp;
+(0088)   newFall=ICR1;
+      9F B426      IN	R2,0x26
+      A0 B437      IN	R3,0x27
+      A1 9230 007F STS	newFall+1,R3
+      A3 9220 007E STS	newFall,R2
+(0089)   temp=newFall-oldFall; //计算脉冲加间隔的时间
+      A5 9020 007C LDS	R2,oldFall
+      A7 9030 007D LDS	R3,oldFall+1
+      A9 9100 007E LDS	R16,newFall
+      AB 9110 007F LDS	R17,newFall+1
+      AD 1902      SUB	R16,R2
+      AE 0913      SBC	R17,R3
+(0090)   oldFall=newFall;
+      AF 9020 007E LDS	R2,newFall
+      B1 9030 007F LDS	R3,newFall+1
+      B3 9230 007D STS	oldFall+1,R3
+      B5 9220 007C STS	oldFall,R2
+(0091)    
+(0092)  if(temp>1024 && temp<1225) // "0"信号
+      B7 E080      LDI	R24,0
+      B8 E094      LDI	R25,4
+      B9 1780      CP	R24,R16
+      BA 0791      CPC	R25,R17
+      BB F438      BCC	0x00C3
+      BC 3C09      CPI	R16,0xC9
+      BD E0E4      LDI	R30,4
+      BE 071E      CPC	R17,R30
+      BF F418      BCC	0x00C3
+(0093)    {
+(0094)     temp=0;
+      C0 2700      CLR	R16
+      C1 2711      CLR	R17
+(0095)    }
+      C2 C024      RJMP	0x00E7
+(0096) 
+(0097) else if(temp>2145 && temp<2345) //“1”信号
+      C3 E681      LDI	R24,0x61
+      C4 E098      LDI	R25,0x8
+      C5 1780      CP	R24,R16
+      C6 0791      CPC	R25,R17
+      C7 F438      BCC	0x00CF
+      C8 3209      CPI	R16,0x29
+      C9 E0E9      LDI	R30,0x9
+      CA 071E      CPC	R17,R30
+      CB F418      BCC	0x00CF
+(0098)    {
+(0099)     temp=1;
+      CC E001      LDI	R16,1
+      CD E010      LDI	R17,0
+(0100)    }
+      CE C018      RJMP	0x00E7
+(0101) 
+(0102) else if(temp>13400 && temp<13600) //header信号
+      CF E588      LDI	R24,0x58
+      D0 E394      LDI	R25,0x34
+      D1 1780      CP	R24,R16
+      D2 0791      CPC	R25,R17
+      D3 F008      BCS	0x00D5
+      D4 C090      RJMP	0x0165
+      D5 3200      CPI	R16,0x20
+      D6 E3E5      LDI	R30,0x35
+      D7 071E      CPC	R17,R30
+      D8 F008      BCS	0x00DA
+      D9 C08B      RJMP	0x0165
+(0103) 
+(0104)   {
+(0105)    bitcnt=0;
+      DA 2422      CLR	R2
+      DB 9220 0080 STS	bitcnt,R2
+(0106)    data0=0;
+      DD 2433      CLR	R3
+      DE 9230 007B STS	data0+1,R3
+      E0 9220 007A STS	data0,R2
+(0107)    data1=0;
+      E2 9230 0079 STS	data1+1,R3
+      E4 9220 0078 STS	data1,R2
+(0108)    return; //返回，等待下次开始接收
+      E6 C07E      RJMP	0x0165
+(0109)   }
+(0110) 
+(0111) else ///干扰信号
+(0112)   {
+(0113)     return;
+(0114)   }
+(0115)   bitcnt++;
+      E7 9180 0080 LDS	R24,bitcnt
+      E9 5F8F      SUBI	R24,0xFF
+      EA 9380 0080 STS	bitcnt,R24
+(0116)     if(bitcnt<16) //开始接收前16位
+      EC 3180      CPI	R24,0x10
+      ED F488      BCC	0x00FF
+(0117)   {
+(0118)     data0=data0|(uint)temp;
+      EE 9020 007A LDS	R2,data0
+      F0 9030 007B LDS	R3,data0+1
+      F2 2A20      OR	R2,R16
+      F3 2A31      OR	R3,R17
+      F4 9230 007B STS	data0+1,R3
+      F6 9220 007A STS	data0,R2
+(0119)     data0=data0<<1;
+      F8 0C22      LSL	R2
+      F9 1C33      ROL	R3
+      FA 9230 007B STS	data0+1,R3
+      FC 9220 007A STS	data0,R2
+(0120)    }
+      FE C066      RJMP	0x0165
+(0121) else if(bitcnt==16)
+      FF 9180 0080 LDS	R24,bitcnt
+     101 3180      CPI	R24,0x10
+     102 F459      BNE	0x010E
+(0122)   {
+(0123)    data0=data0|(uint)temp;
+     103 9020 007A LDS	R2,data0
+     105 9030 007B LDS	R3,data0+1
+     107 2A20      OR	R2,R16
+     108 2A31      OR	R3,R17
+     109 9230 007B STS	data0+1,R3
+     10B 9220 007A STS	data0,R2
+(0124)   }
+     10D C057      RJMP	0x0165
+(0125)  else if(bitcnt<32) //开始接收后16位
+     10E 9180 0080 LDS	R24,bitcnt
+     110 3280      CPI	R24,0x20
+     111 F488      BCC	0x0123
+(0126)  { 
+(0127)    data1=data1|(uint)temp;
+     112 9020 0078 LDS	R2,data1
+     114 9030 0079 LDS	R3,data1+1
+     116 2A20      OR	R2,R16
+     117 2A31      OR	R3,R17
+     118 9230 0079 STS	data1+1,R3
+     11A 9220 0078 STS	data1,R2
+(0128)    data1=data1<<1;
+     11C 0C22      LSL	R2
+     11D 1C33      ROL	R3
+     11E 9230 0079 STS	data1+1,R3
+     120 9220 0078 STS	data1,R2
+(0129)  }
+     122 C042      RJMP	0x0165
+(0130)  else if(bitcnt==32) //接收完最后一位
+     123 9180 0080 LDS	R24,bitcnt
+     125 3280      CPI	R24,0x20
+     126 F5F1      BNE	0x0165
+(0131)  {
+(0132)     data1=data1|(uint)temp;
+     127 9020 0078 LDS	R2,data1
+     129 9030 0079 LDS	R3,data1+1
+     12B 2A20      OR	R2,R16
+     12C 2A31      OR	R3,R17
+     12D 9230 0079 STS	data1+1,R3
+     12F 9220 0078 STS	data1,R2
+(0133) 	disbuf[0]=(data0>>8)/16;//更新显示
+     131 9020 007A LDS	R2,data0
+     133 9030 007B LDS	R3,data0+1
+     135 2C23      MOV	R2,R3
+     136 2433      CLR	R3
+     137 9436      LSR	R3
+     138 9427      ROR	R2
+     139 9436      LSR	R3
+     13A 9427      ROR	R2
+     13B 9436      LSR	R3
+     13C 9427      ROR	R2
+     13D 9436      LSR	R3
+     13E 9427      ROR	R2
+     13F 9220 0060 STS	disbuf,R2
+(0134) 	disbuf[1]=(data0>>8)%16;
+     141 9180 007A LDS	R24,data0
+     143 9190 007B LDS	R25,data0+1
+     145 2F89      MOV	R24,R25
+     146 2799      CLR	R25
+     147 708F      ANDI	R24,0xF
+     148 7090      ANDI	R25,0
+     149 9380 0061 STS	disbuf+1,R24
+(0135) 	disbuf[2]=(data1>>8)/16;
+     14B 9020 0078 LDS	R2,data1
+     14D 9030 0079 LDS	R3,data1+1
+     14F 2C23      MOV	R2,R3
+     150 2433      CLR	R3
+     151 9436      LSR	R3
+     152 9427      ROR	R2
+     153 9436      LSR	R3
+     154 9427      ROR	R2
+     155 9436      LSR	R3
+     156 9427      ROR	R2
+     157 9436      LSR	R3
+     158 9427      ROR	R2
+     159 9220 0062 STS	disbuf+2,R2
+(0136) 	disbuf[3]=(data1>>8)%16;
+     15B 9180 0078 LDS	R24,data1
+     15D 9190 0079 LDS	R25,data1+1
+     15F 2F89      MOV	R24,R25
+     160 2799      CLR	R25
+     161 708F      ANDI	R24,0xF
+     162 7090      ANDI	R25,0
+     163 9380 0063 STS	disbuf+3,R24
+(0137)  }
+FILE: <library>
+     165 9019      LD	R1,Y+
+     166 BE1F      OUT	0x3F,R1
+     167 91E9      LD	R30,Y+
+     168 91A9      LD	R26,Y+
+     169 9199      LD	R25,Y+
+     16A 9189      LD	R24,Y+
+     16B 9119      LD	R17,Y+
+     16C 9109      LD	R16,Y+
+     16D 9059      LD	R5,Y+
+     16E 9049      LD	R4,Y+
+     16F 9039      LD	R3,Y+
+     170 9029      LD	R2,Y+
+     171 9019      LD	R1,Y+
+     172 9518      RETI

@@ -1,0 +1,345 @@
+                        .module key.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\5.按键key\key.c
+ 0000                   .dbfunc e delayms _delayms fV
+ 0000           ;              i -> R16,R17
+ 0000           ;              j -> R18,R19
+                        .even
+ 0000           _delayms::
+ 0000                   .dbline -1
+ 0000                   .dbline 21
+ 0000           ; 
+ 0000           ; /******************************************************************************/
+ 0000           ; /*【编写时间】： 2011.07.07
+ 0000           ; * 【作    者】： 雁翎电子
+ 0000           ; * 【版    本】： V1.0
+ 0000           ; * 【网    站】： http://ylelectronic.taobao.com/ 
+ 0000           ; * 【Q      Q】： 348439350
+ 0000           ; * 【编译环境】： ICCAVR  
+ 0000           ; * 【函数功能】： K5 k6 控制LED灯闪烁  
+ 0000           ; * 【晶    振】:  8M           
+ 0000           ; * 【芯    片】:  ATMEGA16A     
+ 0000           ; * 【硬件连接】： J1短路帽接上  
+ 0000           ; /******************************************************************************/  
+ 0000           ;    #define uchar unsigned char 
+ 0000           ;    #define uint unsigned int 
+ 0000           ;    #include<iom16v.h>
+ 0000           ;     #define Set_Bit(val, bitn)    (val |=(1<<(bitn))) 
+ 0000           ;       #define Clr_Bit(val, bitn)    (val&=~(1<<(bitn))) 
+ 0000           ;       #define Get_Bit(val, bitn)    (val &(1<<(bitn)) ) 
+ 0000           ;   void delayms(void)   // 延时子程序       
+ 0000           ;           {                                           
+ 0000                   .dbline 23
+ 0000           ;                unsigned int i,j;
+ 0000           ;                        for(i=0;i<255;i++)
+ 0000 0027              clr R16
+ 0002 1127              clr R17
+ 0004 0BC0              xjmp L5
+ 0006           L2:
+ 0006                   .dbline 24
+ 0006           ;                           for(j=0;j<1000;j++);
+ 0006 2227              clr R18
+ 0008 3327              clr R19
+ 000A 02C0              xjmp L9
+ 000C           L6:
+ 000C                   .dbline 24
+ 000C           L7:
+ 000C                   .dbline 24
+ 000C 2F5F              subi R18,255  ; offset = 1
+ 000E 3F4F              sbci R19,255
+ 0010           L9:
+ 0010                   .dbline 24
+ 0010 283E              cpi R18,232
+ 0012 E3E0              ldi R30,3
+ 0014 3E07              cpc R19,R30
+ 0016 D0F3              brlo L6
+ 0018           X0:
+ 0018           L3:
+ 0018                   .dbline 23
+ 0018 0F5F              subi R16,255  ; offset = 1
+ 001A 1F4F              sbci R17,255
+ 001C           L5:
+ 001C                   .dbline 23
+ 001C 0F3F              cpi R16,255
+ 001E E0E0              ldi R30,0
+ 0020 1E07              cpc R17,R30
+ 0022 88F3              brlo L2
+ 0024           X1:
+ 0024                   .dbline -2
+ 0024           L1:
+ 0024                   .dbline 0 ; func end
+ 0024 0895              ret
+ 0026                   .dbsym r i 16 i
+ 0026                   .dbsym r j 18 i
+ 0026                   .dbend
+ 0026                   .dbfunc e main _main fV
+                        .even
+ 0026           _main::
+ 0026                   .dbline -1
+ 0026                   .dbline 28
+ 0026           ;           }
+ 0026           ; 
+ 0026           ;   void main(void)
+ 0026           ;   {
+ 0026                   .dbline 31
+ 0026           ;      
+ 0026           ;     //端口初始化
+ 0026           ;      DDRD=0xf0;      //D口高四位输出 低四位输入
+ 0026 80EF              ldi R24,240
+ 0028 81BB              out 0x11,R24
+ 002A                   .dbline 32
+ 002A           ;      PORTD=0xff;
+ 002A 8FEF              ldi R24,255
+ 002C 82BB              out 0x12,R24
+ 002E                   .dbline 35
+ 002E           ;        
+ 002E           ;        
+ 002E           ;      DDRA=0x00;      //A口为输入
+ 002E 2224              clr R2
+ 0030 2ABA              out 0x1a,R2
+ 0032                   .dbline 36
+ 0032           ;      PORTA=0xff;
+ 0032 8BBB              out 0x1b,R24
+ 0034 4CC0              xjmp L12
+ 0036           L11:
+ 0036                   .dbline 39
+ 0036           ;    
+ 0036           ;      while(1)
+ 0036           ;      {
+ 0036                   .dbline 40
+ 0036           ;         if(Get_Bit(PINA,5)==0)    //PA4 按键处理函数        
+ 0036 CD99              sbic 0x19,5
+ 0038 08C0              rjmp L14
+ 003A           X2:
+ 003A                   .dbline 41
+ 003A           ;           {  
+ 003A 05C0              xjmp L17
+ 003C           L16:
+ 003C                   .dbline 43
+ 003C           ;                 while(!(Get_Bit(PINA,5)))//等待按键松开
+ 003C           ;            { 
+ 003C                   .dbline 44
+ 003C           ;                               PORTD=0x0F;
+ 003C 8FE0              ldi R24,15
+ 003E 82BB              out 0x12,R24
+ 0040                   .dbline 45
+ 0040           ;                               delayms();
+ 0040 DFDF              xcall _delayms
+ 0042                   .dbline 46
+ 0042           ;                               PORTD=0xff;
+ 0042 8FEF              ldi R24,255
+ 0044 82BB              out 0x12,R24
+ 0046                   .dbline 49
+ 0046           ;                               
+ 0046           ;                               
+ 0046           ;            }             
+ 0046           L17:
+ 0046                   .dbline 42
+ 0046 CD9B              sbis 0x19,5
+ 0048 F9CF              rjmp L16
+ 004A           X3:
+ 004A                   .dbline 51
+ 004A           ;                          
+ 004A           ;          }
+ 004A           L14:
+ 004A                   .dbline 53
+ 004A           ;          
+ 004A           ;          if(Get_Bit(PINA,4)==0)    //PA4 按键处理函数        
+ 004A CC99              sbic 0x19,4
+ 004C 0EC0              rjmp L19
+ 004E           X4:
+ 004E                   .dbline 54
+ 004E           ;           {  
+ 004E 0BC0              xjmp L22
+ 0050           L21:
+ 0050                   .dbline 56
+ 0050           ;                 while(!(Get_Bit(PINA,4)))//等待按键松开
+ 0050           ;            { 
+ 0050                   .dbline 57
+ 0050           ;                               PORTD=0x0F;
+ 0050 8FE0              ldi R24,15
+ 0052 82BB              out 0x12,R24
+ 0054                   .dbline 58
+ 0054           ;                               delayms();
+ 0054 D5DF              xcall _delayms
+ 0056                   .dbline 59
+ 0056           ;                               PORTD=0xff;
+ 0056 8FEF              ldi R24,255
+ 0058 82BB              out 0x12,R24
+ 005A                   .dbline 60
+ 005A           ;                               delayms();
+ 005A D2DF              xcall _delayms
+ 005C                   .dbline 61
+ 005C           ;                               PORTD=0x0F;
+ 005C 8FE0              ldi R24,15
+ 005E 82BB              out 0x12,R24
+ 0060                   .dbline 62
+ 0060           ;                               delayms();
+ 0060 CFDF              xcall _delayms
+ 0062                   .dbline 63
+ 0062           ;                               PORTD=0xff;     
+ 0062 8FEF              ldi R24,255
+ 0064 82BB              out 0x12,R24
+ 0066                   .dbline 65
+ 0066           ;                               
+ 0066           ;            }
+ 0066           L22:
+ 0066                   .dbline 55
+ 0066 CC9B              sbis 0x19,4
+ 0068 F3CF              rjmp L21
+ 006A           X5:
+ 006A                   .dbline 66
+ 006A           ;                }      
+ 006A           L19:
+ 006A                   .dbline 68
+ 006A           ;               
+ 006A           ;               if(Get_Bit(PIND,3)==0)    //PA4 按键处理函数        
+ 006A 8399              sbic 0x10,3
+ 006C 14C0              rjmp L24
+ 006E           X6:
+ 006E                   .dbline 69
+ 006E           ;           {  
+ 006E 11C0              xjmp L27
+ 0070           L26:
+ 0070                   .dbline 71
+ 0070           ;                 while(!(Get_Bit(PIND,3)))//等待按键松开
+ 0070           ;            { 
+ 0070                   .dbline 72
+ 0070           ;                               PORTD=0x0F;
+ 0070 8FE0              ldi R24,15
+ 0072 82BB              out 0x12,R24
+ 0074                   .dbline 73
+ 0074           ;                               delayms();
+ 0074 C5DF              xcall _delayms
+ 0076                   .dbline 74
+ 0076           ;                               PORTD=0xff;
+ 0076 8FEF              ldi R24,255
+ 0078 82BB              out 0x12,R24
+ 007A                   .dbline 75
+ 007A           ;                               delayms();
+ 007A C2DF              xcall _delayms
+ 007C                   .dbline 76
+ 007C           ;                               PORTD=0x0F;
+ 007C 8FE0              ldi R24,15
+ 007E 82BB              out 0x12,R24
+ 0080                   .dbline 77
+ 0080           ;                               delayms();
+ 0080 BFDF              xcall _delayms
+ 0082                   .dbline 78
+ 0082           ;                               PORTD=0xff;     
+ 0082 8FEF              ldi R24,255
+ 0084 82BB              out 0x12,R24
+ 0086                   .dbline 79
+ 0086           ;                               delayms();
+ 0086 BCDF              xcall _delayms
+ 0088                   .dbline 80
+ 0088           ;                               PORTD=0x0F;     
+ 0088 8FE0              ldi R24,15
+ 008A 82BB              out 0x12,R24
+ 008C                   .dbline 81
+ 008C           ;                               delayms();
+ 008C B9DF              xcall _delayms
+ 008E                   .dbline 82
+ 008E           ;                               PORTD=0xff;     
+ 008E 8FEF              ldi R24,255
+ 0090 82BB              out 0x12,R24
+ 0092                   .dbline 83
+ 0092           ;            }
+ 0092           L27:
+ 0092                   .dbline 70
+ 0092 839B              sbis 0x10,3
+ 0094 EDCF              rjmp L26
+ 0096           X7:
+ 0096                   .dbline 84
+ 0096           ;                }       
+ 0096           L24:
+ 0096                   .dbline 86
+ 0096           ;               
+ 0096           ;               if(Get_Bit(PIND,2)==0)    //PA4 按键处理函数        
+ 0096 8299              sbic 0x10,2
+ 0098 1AC0              rjmp L29
+ 009A           X8:
+ 009A                   .dbline 87
+ 009A           ;           {  
+ 009A 17C0              xjmp L32
+ 009C           L31:
+ 009C                   .dbline 89
+ 009C           ;                 while(!(Get_Bit(PIND,2)))//等待按键松开
+ 009C           ;            { 
+ 009C                   .dbline 90
+ 009C           ;                               PORTD=0x0F;
+ 009C 8FE0              ldi R24,15
+ 009E 82BB              out 0x12,R24
+ 00A0                   .dbline 91
+ 00A0           ;                               delayms();
+ 00A0 AFDF              xcall _delayms
+ 00A2                   .dbline 92
+ 00A2           ;                               PORTD=0xff;
+ 00A2 8FEF              ldi R24,255
+ 00A4 82BB              out 0x12,R24
+ 00A6                   .dbline 93
+ 00A6           ;                               delayms();
+ 00A6 ACDF              xcall _delayms
+ 00A8                   .dbline 94
+ 00A8           ;                               PORTD=0x0F;
+ 00A8 8FE0              ldi R24,15
+ 00AA 82BB              out 0x12,R24
+ 00AC                   .dbline 95
+ 00AC           ;                               delayms();
+ 00AC A9DF              xcall _delayms
+ 00AE                   .dbline 96
+ 00AE           ;                               PORTD=0xff;     
+ 00AE 8FEF              ldi R24,255
+ 00B0 82BB              out 0x12,R24
+ 00B2                   .dbline 97
+ 00B2           ;                               delayms();
+ 00B2 A6DF              xcall _delayms
+ 00B4                   .dbline 98
+ 00B4           ;                               PORTD=0x0F;     
+ 00B4 8FE0              ldi R24,15
+ 00B6 82BB              out 0x12,R24
+ 00B8                   .dbline 99
+ 00B8           ;                               delayms();
+ 00B8 A3DF              xcall _delayms
+ 00BA                   .dbline 100
+ 00BA           ;                               PORTD=0xff;     
+ 00BA 8FEF              ldi R24,255
+ 00BC 82BB              out 0x12,R24
+ 00BE                   .dbline 101
+ 00BE           ;                               delayms();
+ 00BE A0DF              xcall _delayms
+ 00C0                   .dbline 102
+ 00C0           ;                               PORTD=0x0F;     
+ 00C0 8FE0              ldi R24,15
+ 00C2 82BB              out 0x12,R24
+ 00C4                   .dbline 103
+ 00C4           ;                               delayms();
+ 00C4 9DDF              xcall _delayms
+ 00C6                   .dbline 104
+ 00C6           ;                               PORTD=0xff;     
+ 00C6 8FEF              ldi R24,255
+ 00C8 82BB              out 0x12,R24
+ 00CA                   .dbline 105
+ 00CA           ;            }
+ 00CA           L32:
+ 00CA                   .dbline 88
+ 00CA 829B              sbis 0x10,2
+ 00CC E7CF              rjmp L31
+ 00CE           X9:
+ 00CE                   .dbline 106
+ 00CE           ;                }        
+ 00CE           L29:
+ 00CE                   .dbline 109
+ 00CE           ;                
+ 00CE           ;                
+ 00CE           ;      }
+ 00CE           L12:
+ 00CE                   .dbline 38
+ 00CE B3CF              xjmp L11
+ 00D0           X10:
+ 00D0                   .dbline -2
+ 00D0           L10:
+ 00D0                   .dbline 0 ; func end
+ 00D0 0895              ret
+ 00D2                   .dbend
+ 00D2           ;   }

@@ -1,0 +1,42 @@
+C51 COMPILER V9.00   11                                                                    08/10/2012 18:01:17 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE 11
+OBJECT MODULE PLACED IN 11.OBJ
+COMPILER INVOKED BY: D:\安装软件\keil 51\C51\BIN\C51.EXE 11.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /****************************************************************************
+   2          * 【编写时间】： 2011.07.07
+   3          * 【作    者】： 雁翎电子
+   4          * 【版    本】： V1.0
+   5          * 【网    站】： http://ylelectronic.taobao.com/ 
+   6          * 【Q      Q】： 348439350                              
+   7          *****************************************************************************
+   8          程序功能：              将运算结果的十进制数送给单片机P1口，观察现象。
+   9          ****************************************************************************/
+  10          #include <reg51.h>
+  11          
+  12          void main()
+  13          {
+  14   1              unsigned char p=10,q=100,plus;
+  15   1              plus=p+q;
+  16   1              P1=plus;//将运算结果110赋给P1寄存器，那么在P1各个管脚上，就会
+  17   1                              //以二进制的形式显示十进制数110，即0110 1110
+  18   1                              //也即第一、第四和第八个LED被点亮（由电路图可知，低电平会使led点亮）。
+  19   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      7    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

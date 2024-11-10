@@ -1,0 +1,87 @@
+C51 COMPILER V9.54   ______                                                                06/30/2016 10:47:38 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE ______
+OBJECT MODULE PLACED IN 报警器.OBJ
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE 报警器.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND TABS(2)
+
+line level    source
+
+   1          /*********************************************************************************
+   2          * 【编写时间】： 2011.07.07
+   3          * 【作    者】： 雁翎电子
+   4          * 【版    本】： V1.0
+   5          * 【网    站】： http://ylelectronic.taobao.com/ 
+   6          * 【Q      Q】： 348439350
+   7          * 【声    明】： 此程序仅用于学习与参考，引用请注明版权和作者信息！
+   8          * 【函数功能】： 蜂鸣器测试程序-报警                                    
+   9          * 【使用说明】： J3短路帽接上
+  10          **********************************************************************************/
+  11          
+  12          #include <reg51.h>
+  13          #include <intrins.h>
+  14          
+  15          #define uchar unsigned char
+  16          #define uint  unsigned int
+  17          
+  18          sbit  BEEP=P3^6;
+  19          
+  20          /*********************************************************
+  21           500us延时函数
+  22           晶振：11.0592MHz
+  23          *********************************************************/
+  24          void delay500(void)
+  25          {
+  26   1        uchar  i;
+  27   1        for(i=230;i>0;i--);
+  28   1      }
+  29          
+  30          /*********************************************************
+  31           主函数
+  32          *********************************************************/
+  33          main()
+  34          {
+  35   1        uchar j;
+  36   1        P0=0x0;
+  37   1        P1=0xff;
+  38   1        P2=0xff;
+  39   1        while(1)
+  40   1        {
+  41   2          for(j=200;j>0;j--)
+  42   2        {
+  43   3          BEEP=~BEEP;       //输出频率1KHz
+  44   3          delay500();       //延时500us
+  45   3        }
+  46   2      
+  47   2        for(j=200;j>0;j--)
+  48   2        {
+  49   3          BEEP=~BEEP;       //输出频率500Hz
+  50   3          delay500();       //延时1ms
+  51   3          delay500();
+  52   3        }
+  53   2        }
+  54   1      }
+  55          
+C51 COMPILER V9.54   ______                                                                06/30/2016 10:47:38 PAGE 2   
+
+  56          /*********************************************************
+  57          
+  58          信号产生的方法
+  59          500Hz信号周期为2ms，信号电平为每1ms变反1次。
+  60          1KHz 信号周期为1ms，信号电平每500us变反1次。
+  61          
+  62          **********************************************************/
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     42    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

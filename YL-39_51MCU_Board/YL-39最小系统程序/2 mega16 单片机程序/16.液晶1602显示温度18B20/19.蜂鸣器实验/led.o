@@ -1,0 +1,45 @@
+XL
+H 1 areas 2 global symbols
+M led.c
+A text size 3E flags 0
+dbfile C:\DOCUME~1\Administrator\◊¿√Ê\1.LED…¡À∏\led.c
+dbfunc e delayms 0 fV
+dbsym r i 10 i
+dbsym r j 12 i
+dbline FFFFFFFF 0
+dbline F 0
+dbline 11 0
+dbline 12 6
+dbline 12 C
+dbline 12 C
+dbline 12 10
+dbline 11 18
+dbline 11 1C
+dbline FFFFFFFE 24
+dbline 0 24
+dbfunc e main 26 fV
+dbline FFFFFFFF 26
+dbline 15 26
+dbline 16 26
+dbline 17 2A
+dbline 1B 2E
+dbline 1D 2E
+dbline 1E 32
+dbline 1F 34
+dbline 20 38
+dbline 21 3A
+dbline 1A 3A
+dbline FFFFFFFE 3C
+dbline 0 3C
+S _main Def0026
+S _delayms Def0000
+T 00 00 00 27 11 27 0B C0 22 27 33 27 02 C0 2F 5F
+R 00 00 00 00
+T 0E 00 3F 4F 28 3B EB E0 3E 07 D0 F3 0F 5F 1F 4F
+R 00 00 00 00
+T 1C 00 0F 3F E0 E0 1E 07 88 F3 08 95
+R 00 00 00 00
+T 26 00 8F EF 84 BB 85 BB 06 C0 22 24 25 BA E6 DF
+R 00 00 00 00
+T 34 00 8F EF 85 BB E3 DF F9 CF 08 95
+R 00 00 00 00

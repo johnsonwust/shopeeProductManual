@@ -1,0 +1,235 @@
+XL
+H 6 areas 12 global symbols
+M main.c
+S push_gset1 Ref0000
+S div16u Ref0000
+S pop_gset1 Ref0000
+S empy16s Ref0000
+A text size 19C flags 0
+dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\28.频率可调方波\main.c
+dbfunc e delay 0 fV
+dbsym r i 10 c
+dbline FFFFFFFF 0
+dbline E 0
+dbline 10 0
+dbline 10 4
+dbline 10 4
+dbline 10 6
+dbline FFFFFFFE A
+dbline 0 A
+dbfunc e timer1_init C fV
+dbline FFFFFFFF C
+dbline 13 C
+dbline 15 C
+dbline 16 10
+dbline 1E 12
+dbline 1F 16
+dbline 20 18
+dbline 21 1A
+dbline FFFFFFFE 20
+dbline 0 20
+dbfunc e Set_Process 22 fV
+dbsym r i 14 i
+dbsym r j 14 i
+dbline FFFFFFFF 26
+dbline 26 26
+dbline 28 26
+dbline 29 5A
+dbline 2A 66
+dbline 2B 6C
+dbline FFFFFFFE 72
+dbline 0 76
+dbfunc e Display 78 fV
+dbsym r i 14 c
+dbline FFFFFFFF 7C
+dbline 2E 7C
+dbline 2F 7C
+dbline 30 80
+dbline 31 80
+dbline 32 9C
+dbline 33 AC
+dbline 34 AE
+dbline 35 B2
+dbline 2F B2
+dbline 2F B4
+dbline FFFFFFFE B8
+dbline 0 BC
+dbfunc e Key_Process BE fV
+dbline FFFFFFFF BE
+dbline 39 BE
+dbline 3A C0
+dbline 3A C0
+dbline 3A C2
+dbline 3A C8
+dbline 3A C8
+dbline 3B CE
+dbline 3B CE
+dbline 3B D0
+dbline 3B D6
+dbline 3B D6
+dbline 3C DC
+dbline 3C DC
+dbline 3C DE
+dbline 3C E4
+dbline 3C E4
+dbline 3D E8
+dbline 3E F0
+dbline 3E F0
+dbline 3F FA
+dbline 40 FC
+dbline 40 104
+dbline 40 10A
+dbline 41 110
+dbline 42 110
+dbline 43 118
+dbline 43 118
+dbline 44 122
+dbline 45 124
+dbline 45 12C
+dbline 45 132
+dbline 46 138
+dbline 47 138
+dbline 48 140
+dbline 48 140
+dbline 49 14A
+dbline 4A 14C
+dbline 4A 154
+dbline 4A 15A
+dbline 4B 160
+dbline FFFFFFFE 160
+dbline 0 160
+dbfunc e PORT_INT 162 fV
+dbline FFFFFFFF 162
+dbline 51 162
+dbline 53 162
+dbline 54 166
+dbline 55 16A
+dbline 56 16C
+dbline 57 16E
+dbline 58 170
+dbline 59 172
+dbline 5A 174
+dbline FFFFFFFE 176
+dbline 0 176
+dbfunc e main 178 fV
+dbline FFFFFFFF 178
+dbline 5E 178
+dbline 5F 178
+dbline 60 17A
+dbline 61 17C
+dbline 63 180
+dbline 64 180
+dbline 66 182
+dbline 67 184
+dbline 62 184
+dbline FFFFFFFE 186
+dbline 0 186
+dbfunc e Compare 188 fV
+dbline FFFFFFFF 18E
+dbline 6D 18E
+dbline 6D 18E
+dbline FFFFFFFE 194
+dbline 0 19A
+S _main Def0178
+S _Compare Def0188
+S _Display Def0078
+S _delay Def0000
+S _timer1_init Def000C
+S _Key_Process Def00BE
+S _Set_Process Def0022
+S _PORT_INT Def0162
+A data size 4 flags 20
+dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\28.频率可调方波\main.c
+dbsym e disbuf 0 A[4:4]c
+S _disbuf Def0000
+A idata size 4 flags 0
+A lit size E flags 0
+dbsym e discode 0 A[10:10]kc
+dbsym e disbit A A[4:4]kc
+S _discode Def0000
+S _disbit Def000A
+A vector size 1C flags C
+A bss size 3 flags 20
+dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\28.频率可调方波\main.c
+dbsym e Key3_Flag 0 c
+dbsym e Key2_Flag 1 c
+dbsym e Key1_Flag 2 c
+S _Key1_Flag Def0002
+S _Key2_Flag Def0001
+S _Key3_Flag Def0000
+T 00 00 01 00
+R 00 00 02 00
+T 02 00 00 00
+R 00 00 02 00
+T 00 00 C0 F9 A4 B0 99 92 82 F8 80 90 EF DF BF 7F
+R 00 00 03 00
+T 00 00 00 27 01 C0 03 95 0F 3F E8 F3 08 95
+R 00 00 00 00
+T 0C 00 22 24 2D BC 2C BC 8A E0 8E BD 25 BE 2B BE
+R 00 00 00 00
+T 1A 00 89 B7 80 61 89 BF 08 95
+R 00 00 00 00
+T 22 00 0E 94 00 00 20 90 02 00 84 E6 82 9D 10 01
+R 00 00 00 00 12 04 00 00 00 08 01 00
+T 30 00 20 91 03 00 33 27 08 EE 13 E0 0E 94 00 00
+R 00 00 00 00 00 04 01 00 12 0E 03 00
+T 3E 00 A8 01 42 0D 53 1D 20 90 01 00 8A E0 82 9D
+R 00 00 00 00 00 0A 01 00
+T 4C 00 40 0D 51 1D 20 90 00 00 33 24 42 0D 53 1D
+R 00 00 00 00 00 08 01 00
+T 5A 00 04 EF 11 E0 9A 01 0E 94 00 00 A8 01 CA 01
+R 00 00 00 00 12 0A 01 00
+T 68 00 80 70 8B BD CA 01 90 70 8A BD 0E 94 00 00
+R 00 00 00 00 12 0E 02 00
+T 76 00 08 95
+R 00 00 00 00
+T 78 00 0E 94 00 00 44 27 1A C0 80 E0
+R 00 00 00 00 12 04 00 00 20 0A 01 00 00 00
+T 82 00 90 E0 E4 2F FF 27 E8 0F F9 1F E0 81 FF 27
+R 00 00 00 00 40 02 01 00 00 00
+T 90 00 80 E0 90 E0 E8 0F F9 1F E4 91 E8 BB
+R 00 00 00 00 20 02 03 00 00 00 40 04 03 00 00 00
+T 9C 00 80 E0 90 E0 E4 2F FF 27 E8 0F F9 1F E4 91
+R 00 00 00 00 20 02 03 00 0A 00 40 04 03 00 0A 00
+T AA 00 EB BB A9 DF 8F EF 8B BB 43 95 44 30 20 F3
+R 00 00 00 00
+T B8 00 0E 94 00 00 08 95
+R 00 00 00 00 12 04 02 00
+T BE 00 04 C0 DB DF 81 E0 80 93 02 00 CF 9B FA CF
+R 00 00 00 00 00 0A 05 00
+T CC 00 04 C0 D4 DF 81 E0 80 93 01 00 CE 9B FA CF
+R 00 00 00 00 00 0A 05 00
+T DA 00 04 C0 CD DF 81 E0 80 93 00 00 CD 9B FA CF
+R 00 00 00 00 00 0A 05 00
+T E8 00 80 91 02 00 81 30 81 F4 80 91 02 00 8F 5F
+R 00 00 00 00 00 04 05 00 00 0C 01 00
+T F6 00 80 93 02 00 93 DF 80 91 02 00 8A 30 19 F4
+R 00 00 00 00 00 04 01 00 00 0A 01 00
+T 04 01 22 24 20 92 02 00 22 24 20 92 02 00 80 91
+R 00 00 00 00 00 06 01 00 00 0C 05 00
+T 12 01 01 00 81 30 81 F4 80 91 01 00 8F 5F 80 93
+R 00 00 00 00 00 02 05 00 00 0A 01 00
+T 20 01 01 00 7F DF 80 91 01 00 8A 30 19 F4 22 24
+R 00 00 00 00 00 02 01 00 00 08 01 00
+T 2E 01 20 92 01 00 22 24 20 92 01 00 80 91 00 00
+R 00 00 00 00 00 04 01 00 00 0A 05 00 00 0E 05 00
+T 3C 01 81 30 81 F4 80 91 00 00 8F 5F 80 93 00 00
+R 00 00 00 00 00 08 01 00 00 0E 01 00
+T 4A 01 6B DF 80 91 00 00 8A 30 19 F4 22 24 20 92
+R 00 00 00 00 00 06 01 00
+T 58 01 00 00 22 24 20 92 00 00 08 95
+R 00 00 00 00 00 02 01 00 00 08 05 00
+T 62 01 22 24 2A BA 8F EF 87 BB 81 BB 84 BB 2B BA
+R 00 00 00 00
+T 70 01 88 BB 85 BB 82 BB 08 95
+R 00 00 00 00
+T 78 01 F4 DF 48 DF 78 94 02 C0 9E DF 7A DF FD CF
+R 00 00 00 00
+T 86 01 08 95
+R 00 00 00 00
+T 18 00 0C 94 C4 00
+R 00 00 04 00 10 04 00 00
+T 88 01 2A 92 2F B6 2A 92 25 B2 20 94 25 BA 29 90
+R 00 00 00 00
+T 96 01 2F BE 29 90 18 95
+R 00 00 00 00

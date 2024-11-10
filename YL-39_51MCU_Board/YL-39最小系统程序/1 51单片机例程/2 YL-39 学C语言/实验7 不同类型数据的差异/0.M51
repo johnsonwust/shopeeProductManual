@@ -1,0 +1,107 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        08/10/2012  17:58:10  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+D:\安装软件\KEIL 51\C51\BIN\BL51.EXE 0.obj TO 0
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  0.obj (0)
+  D:\安装软件\KEIL 51\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  0 (0)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0012H     UNIT         ?PR?DELAYINT?0
+            CODE    0015H     000EH     UNIT         ?PR?MAIN?0
+            CODE    0023H     000CH     UNIT         ?C_C51STARTUP
+            CODE    002FH     0009H     UNIT         ?PR?DELAYCHAR?0
+
+
+
+OVERLAY MAP OF MODULE:   0 (0)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?0
+
+?PR?MAIN?0
+  +--> ?PR?DELAYCHAR?0
+  +--> ?PR?DELAYINT?0
+
+
+
+SYMBOL TABLE OF MODULE:  0 (0)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        0
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0090H         PUBLIC        P1
+  D:00B0H         PUBLIC        P3
+  D:00A8H         PUBLIC        IE
+  D:00B8H         PUBLIC        IP
+  C:0015H         PUBLIC        main
+BL51 BANKED LINKER/LOCATER V6.22                                                      08/10/2012  17:58:10  PAGE 2
+
+
+  C:002FH         PUBLIC        delaychar
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  C:0003H         PUBLIC        delayint
+  D:00C8H         PUBLIC        T2CON
+  D:00D0H         PUBLIC        PSW
+  -------         PROC          DELAYCHAR
+  -------         DO            
+  D:0007H         SYMBOL        m
+  D:0006H         SYMBOL        n
+  -------         ENDDO         
+  C:002FH         LINE#         17
+  C:002FH         LINE#         18
+  C:002FH         LINE#         20
+  C:0031H         LINE#         21
+  C:0037H         LINE#         22
+  -------         ENDPROC       DELAYCHAR
+  -------         PROC          DELAYINT
+  -------         DO            
+  D:0005H         SYMBOL        n
+  D:0006H         SYMBOL        m
+  -------         ENDDO         
+  C:0003H         LINE#         24
+  C:0003H         LINE#         25
+  C:0003H         LINE#         28
+  C:0007H         LINE#         29
+  C:0014H         LINE#         30
+  -------         ENDPROC       DELAYINT
+  -------         PROC          MAIN
+  C:0015H         LINE#         32
+  C:0015H         LINE#         33
+  C:0015H         LINE#         34
+  C:0015H         LINE#         35
+  C:0015H         LINE#         36
+  C:0018H         LINE#         37
+  C:001BH         LINE#         38
+  C:001EH         LINE#         39
+  C:0021H         LINE#         40
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        0
+
+Program Size: data=9.0 xdata=0 code=56
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

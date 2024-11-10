@@ -1,0 +1,798 @@
+__text_start:
+__start:
+      3B E5CF      LDI	R28,0x5F
+      3C E0D4      LDI	R29,4
+      3D BFCD      OUT	0x3D,R28
+      3E BFDE      OUT	0x3E,R29
+      3F 51CE      SUBI	R28,0x1E
+      40 40D0      SBCI	R29,0
+      41 EA0A      LDI	R16,0xAA
+      42 8308      STD	Y+0,R16
+      43 2400      CLR	R0
+      44 E8E1      LDI	R30,0x81
+      45 E0F0      LDI	R31,0
+      46 E010      LDI	R17,0
+      47 38E1      CPI	R30,0x81
+      48 07F1      CPC	R31,R17
+      49 F011      BEQ	0x004C
+      4A 9201      ST	R0,Z+
+      4B CFFB      RJMP	0x0047
+      4C 8300      STD	Z+0,R16
+      4D E5E4      LDI	R30,0x54
+      4E E0F0      LDI	R31,0
+      4F E6A0      LDI	R26,0x60
+      50 E0B0      LDI	R27,0
+      51 E010      LDI	R17,0
+      52 E000      LDI	R16,0
+      53 BF0B      OUT	0x3B,R16
+      54 37E5      CPI	R30,0x75
+      55 07F1      CPC	R31,R17
+      56 F021      BEQ	0x005B
+      57 95C8      LPM
+      58 9631      ADIW	R30,1
+      59 920D      ST	R0,X+
+      5A CFF9      RJMP	0x0054
+      5B 940E 01E8 CALL	_main
+_exit:
+      5D CFFF      RJMP	_exit
+FILE: D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\6.1602液晶显示字符\1602.h
+(0001) #define uchar unsigned char 
+(0002) #define uint unsigned int 
+(0003) 
+(0004) #define RS 0
+(0005) #define RW 1
+(0006) #define EN 2
+(0007) 
+(0008) void s_ms(uint ms)
+(0009) {
+(0010) 	for(;ms>1;ms--);
+_s_ms:
+  ms                   --> R16
+      5E C002      RJMP	0x0061
+      5F 5001      SUBI	R16,1
+      60 4010      SBCI	R17,0
+      61 E081      LDI	R24,1
+      62 E090      LDI	R25,0
+      63 1780      CP	R24,R16
+      64 0791      CPC	R25,R17
+      65 F3C8      BCS	0x005F
+      66 9508      RET
+_busy:
+  temp                 --> R20
+      67 934A      ST	R20,-Y
+(0011) }	
+(0012) 
+(0013) //查忙
+(0014) void busy(void)
+(0015) {
+(0016)     uchar temp;
+(0017) 	s_ms(500);
+      68 EF04      LDI	R16,0xF4
+      69 E011      LDI	R17,1
+      6A DFF3      RCALL	_s_ms
+(0018) 	PORTA&=~(1<<RS);    //RS=0
+      6B 98D8      CBI	0x1B,0
+(0019) 	s_ms(500);
+      6C EF04      LDI	R16,0xF4
+      6D E011      LDI	R17,1
+      6E DFEF      RCALL	_s_ms
+(0020) 	PORTA|=(1<<RW);     //RW=1
+      6F 9AD9      SBI	0x1B,1
+(0021) 	s_ms(500);
+      70 EF04      LDI	R16,0xF4
+      71 E011      LDI	R17,1
+      72 DFEB      RCALL	_s_ms
+      73 C01A      RJMP	0x008E
+(0022) 	while(temp)
+(0023) 	{
+(0024) 		PORTA|=(1<<EN); //EN=1
+      74 9ADA      SBI	0x1B,2
+(0025) 		s_ms(500);
+      75 EF04      LDI	R16,0xF4
+      76 E011      LDI	R17,1
+      77 DFE6      RCALL	_s_ms
+(0026) 		DDRB=0x00;      //A口变输入
+      78 2422      CLR	R2
+      79 BA27      OUT	0x17,R2
+(0027) 		PORTB=0xff;     //上拉使能
+      7A EF8F      LDI	R24,0xFF
+      7B BB88      OUT	0x18,R24
+(0028) 		s_ms(500);
+      7C EF04      LDI	R16,0xF4
+      7D E011      LDI	R17,1
+      7E DFDF      RCALL	_s_ms
+(0029) 		temp = PINB&0x80;    //读取A口
+      7F B346      IN	R20,0x16
+      80 7840      ANDI	R20,0x80
+(0030) 		s_ms(500);      
+      81 EF04      LDI	R16,0xF4
+      82 E011      LDI	R17,1
+      83 DFDA      RCALL	_s_ms
+(0031) 		DDRB=0xff;      
+      84 EF8F      LDI	R24,0xFF
+      85 BB87      OUT	0x17,R24
+(0032) 		PORTB=0xff;        //A口变输出
+      86 BB88      OUT	0x18,R24
+(0033) 		s_ms(500);
+      87 EF04      LDI	R16,0xF4
+      88 E011      LDI	R17,1
+      89 DFD4      RCALL	_s_ms
+(0034) 		PORTA&=~(1<<EN);   //EN=0
+      8A 98DA      CBI	0x1B,2
+(0035) 		s_ms(500);
+      8B EF04      LDI	R16,0xF4
+      8C E011      LDI	R17,1
+      8D DFD0      RCALL	_s_ms
+      8E 2344      TST	R20
+      8F F721      BNE	0x0074
+      90 9149      LD	R20,Y+
+      91 9508      RET
+_writecom:
+  com                  --> R10
+      92 92AA      ST	R10,-Y
+      93 2EA0      MOV	R10,R16
+(0036) 	}
+(0037) }
+(0038) 
+(0039) //写指令
+(0040) void writecom(uchar	com)
+(0041) {
+(0042) 	busy();
+      94 DFD2      RCALL	_busy
+(0043) 	s_ms(500);
+      95 EF04      LDI	R16,0xF4
+      96 E011      LDI	R17,1
+      97 DFC6      RCALL	_s_ms
+(0044) 	PORTA&=~(1<<RS);   //RS=0
+      98 98D8      CBI	0x1B,0
+(0045) 	s_ms(500);
+      99 EF04      LDI	R16,0xF4
+      9A E011      LDI	R17,1
+      9B DFC2      RCALL	_s_ms
+(0046) 	PORTA&=~(1<<RW);   //RW=0
+      9C 98D9      CBI	0x1B,1
+(0047) 	s_ms(500);
+      9D EF04      LDI	R16,0xF4
+      9E E011      LDI	R17,1
+      9F DFBE      RCALL	_s_ms
+(0048) 	PORTA|=(1<<EN);    //EN=1
+      A0 9ADA      SBI	0x1B,2
+(0049) 	s_ms(500);
+      A1 EF04      LDI	R16,0xF4
+      A2 E011      LDI	R17,1
+      A3 DFBA      RCALL	_s_ms
+(0050) 	PORTB = com;       //输出指令
+      A4 BAA8      OUT	0x18,R10
+(0051) 	s_ms(500);
+      A5 EF04      LDI	R16,0xF4
+      A6 E011      LDI	R17,1
+      A7 DFB6      RCALL	_s_ms
+(0052) 	PORTA&=~(1<<EN);   //EN=0
+      A8 98DA      CBI	0x1B,2
+(0053) 	s_ms(500);
+      A9 EF04      LDI	R16,0xF4
+      AA E011      LDI	R17,1
+      AB DFB2      RCALL	_s_ms
+      AC 90A9      LD	R10,Y+
+      AD 9508      RET
+(0054) }
+(0055) 
+(0056) //1602初始化
+(0057) void	LcdInit(void)
+(0058) {
+(0059)     DDRB = 0xff; 
+_LcdInit:
+      AE EF8F      LDI	R24,0xFF
+      AF BB87      OUT	0x17,R24
+(0060)     PORTB = 0x00; 
+      B0 2422      CLR	R2
+      B1 BA28      OUT	0x18,R2
+(0061) 	writecom(0x38);
+      B2 E308      LDI	R16,0x38
+      B3 DFDE      RCALL	_writecom
+(0062) 	s_ms(1000);
+      B4 EE08      LDI	R16,0xE8
+      B5 E013      LDI	R17,3
+      B6 DFA7      RCALL	_s_ms
+(0063) 	writecom(0x01);
+      B7 E001      LDI	R16,1
+      B8 DFD9      RCALL	_writecom
+(0064) 	s_ms(1000);
+      B9 EE08      LDI	R16,0xE8
+      BA E013      LDI	R17,3
+      BB DFA2      RCALL	_s_ms
+(0065) 	s_ms(1000);
+      BC EE08      LDI	R16,0xE8
+      BD E013      LDI	R17,3
+      BE DF9F      RCALL	_s_ms
+(0066) 	s_ms(1000);
+      BF EE08      LDI	R16,0xE8
+      C0 E013      LDI	R17,3
+      C1 DF9C      RCALL	_s_ms
+(0067) 	s_ms(1000);
+      C2 EE08      LDI	R16,0xE8
+      C3 E013      LDI	R17,3
+      C4 DF99      RCALL	_s_ms
+(0068) 	s_ms(1000);
+      C5 EE08      LDI	R16,0xE8
+      C6 E013      LDI	R17,3
+      C7 DF96      RCALL	_s_ms
+(0069) 	s_ms(1000);
+      C8 EE08      LDI	R16,0xE8
+      C9 E013      LDI	R17,3
+      CA DF93      RCALL	_s_ms
+(0070) 	s_ms(1000);
+      CB EE08      LDI	R16,0xE8
+      CC E013      LDI	R17,3
+      CD DF90      RCALL	_s_ms
+(0071) 	writecom(0x02);
+      CE E002      LDI	R16,2
+      CF DFC2      RCALL	_writecom
+(0072) 	s_ms(1000);
+      D0 EE08      LDI	R16,0xE8
+      D1 E013      LDI	R17,3
+      D2 DF8B      RCALL	_s_ms
+(0073) 	writecom(0x06);
+      D3 E006      LDI	R16,6
+      D4 DFBD      RCALL	_writecom
+(0074) 	s_ms(1000);
+      D5 EE08      LDI	R16,0xE8
+      D6 E013      LDI	R17,3
+      D7 DF86      RCALL	_s_ms
+(0075) 	writecom(0x0c);
+      D8 E00C      LDI	R16,0xC
+      D9 DFB8      RCALL	_writecom
+(0076) 	s_ms(1000);
+      DA EE08      LDI	R16,0xE8
+      DB E013      LDI	R17,3
+      DC DF81      RCALL	_s_ms
+(0077) 	writecom(0x38);	
+      DD E308      LDI	R16,0x38
+      DE DFB3      RCALL	_writecom
+(0078) 	s_ms(1000);
+      DF EE08      LDI	R16,0xE8
+      E0 E013      LDI	R17,3
+      E1 CF7C      RJMP	_s_ms
+_writedata:
+  data                 --> R10
+      E2 92AA      ST	R10,-Y
+      E3 2EA0      MOV	R10,R16
+(0079) }	
+(0080) 
+(0081) //写数据
+(0082) void	writedata(uchar data)
+(0083) {
+(0084) 	busy();
+      E4 DF82      RCALL	_busy
+(0085) 	s_ms(500);
+      E5 EF04      LDI	R16,0xF4
+      E6 E011      LDI	R17,1
+      E7 DF76      RCALL	_s_ms
+(0086) 	PORTA|=(1<<RS);   //RS=1
+      E8 9AD8      SBI	0x1B,0
+(0087) 	s_ms(500);
+      E9 EF04      LDI	R16,0xF4
+      EA E011      LDI	R17,1
+      EB DF72      RCALL	_s_ms
+(0088) 	PORTA&=~(1<<RW);   //RW=0
+      EC 98D9      CBI	0x1B,1
+(0089) 	s_ms(500);
+      ED EF04      LDI	R16,0xF4
+      EE E011      LDI	R17,1
+      EF DF6E      RCALL	_s_ms
+(0090) 	PORTA|=(1<<EN);    //EN=1
+      F0 9ADA      SBI	0x1B,2
+(0091) 	s_ms(500);
+      F1 EF04      LDI	R16,0xF4
+      F2 E011      LDI	R17,1
+      F3 DF6A      RCALL	_s_ms
+(0092) 	PORTB = data;      //输出数据
+      F4 BAA8      OUT	0x18,R10
+(0093) 	s_ms(500);
+      F5 EF04      LDI	R16,0xF4
+      F6 E011      LDI	R17,1
+      F7 DF66      RCALL	_s_ms
+(0094) 	PORTA&=~(1<<EN);   //EN=0
+      F8 98DA      CBI	0x1B,2
+(0095) 	s_ms(500);
+      F9 EF04      LDI	R16,0xF4
+      FA E011      LDI	R17,1
+      FB DF62      RCALL	_s_ms
+      FC 90A9      LD	R10,Y+
+      FD 9508      RET
+_readdata:
+  temp                 --> R10
+      FE 92AA      ST	R10,-Y
+(0096) }
+(0097) 
+(0098) 
+(0099) //读数据
+(0100) uchar	readdata(void)
+(0101) {
+(0102) 	uchar temp;
+(0103) 	busy();
+      FF DF67      RCALL	_busy
+(0104) 	s_ms(500);
+     100 EF04      LDI	R16,0xF4
+     101 E011      LDI	R17,1
+     102 DF5B      RCALL	_s_ms
+(0105) 	PORTA|=(1<<RS);  //RS=1
+     103 9AD8      SBI	0x1B,0
+(0106) 	s_ms(500);
+     104 EF04      LDI	R16,0xF4
+     105 E011      LDI	R17,1
+     106 DF57      RCALL	_s_ms
+(0107) 	PORTA|=(1<<RW);  //RW=1
+     107 9AD9      SBI	0x1B,1
+(0108) 	s_ms(500);
+     108 EF04      LDI	R16,0xF4
+     109 E011      LDI	R17,1
+     10A DF53      RCALL	_s_ms
+(0109) 	PORTA|=(1<<EN);  //EN=1
+     10B 9ADA      SBI	0x1B,2
+(0110) 	s_ms(500);
+     10C EF04      LDI	R16,0xF4
+     10D E011      LDI	R17,1
+     10E DF4F      RCALL	_s_ms
+(0111) 	DDRB=0x00;       //A端口变输入
+     10F 2422      CLR	R2
+     110 BA27      OUT	0x17,R2
+(0112) 	s_ms(500);
+     111 EF04      LDI	R16,0xF4
+     112 E011      LDI	R17,1
+     113 DF4A      RCALL	_s_ms
+(0113) 	temp = PINB;     //读A端口
+     114 B2A6      IN	R10,0x16
+(0114) 	s_ms(500);
+     115 EF04      LDI	R16,0xF4
+     116 E011      LDI	R17,1
+     117 DF46      RCALL	_s_ms
+(0115) 	DDRB=0xff;       //A端口变输出
+     118 EF8F      LDI	R24,0xFF
+     119 BB87      OUT	0x17,R24
+(0116) 	s_ms(500);
+     11A EF04      LDI	R16,0xF4
+     11B E011      LDI	R17,1
+     11C DF41      RCALL	_s_ms
+(0117) 	PORTA&=~(1<<EN); //EN=0
+     11D 98DA      CBI	0x1B,2
+(0118) 	s_ms(500);
+     11E EF04      LDI	R16,0xF4
+     11F E011      LDI	R17,1
+     120 DF3D      RCALL	_s_ms
+(0119) 	return temp;	
+     121 2D0A      MOV	R16,R10
+     122 90A9      LD	R10,Y+
+     123 9508      RET
+_WriteCGRAM:
+  t                    --> R10
+  i                    --> R20
+  pBuffer              --> R22
+  num                  --> R10
+     124 940E 020A CALL	push_xgsetF00C
+     126 01B9      MOVW	R22,R18
+     127 0158      MOVW	R10,R16
+(0120) }
+(0121) 
+(0122) //=================================================
+(0123) // 描述： 写LCD内部CGRAM函数
+(0124) // 入口： ‘num’要写的数据个数
+(0125) //        ‘pbuffer’要写的数据的首地址
+(0126) // 出口： 无
+(0127) //================================================
+(0128) void	WriteCGRAM(uint	num, const uint	*pBuffer)
+(0129) {
+(0130) 	uint	i,t;
+(0131) 	writecom(0x40);
+     128 E400      LDI	R16,0x40
+     129 DF68      RCALL	_writecom
+(0132) 	PORTA|=(1<<RS);
+     12A 9AD8      SBI	0x1B,0
+(0133) 	PORTA&=~(1<<RW);
+     12B 98D9      CBI	0x1B,1
+(0134) 	for(i=num;i!=0;i--)
+     12C 01A5      MOVW	R20,R10
+     12D C00A      RJMP	0x0138
+(0135) 	{
+(0136) 		t = *pBuffer;
+     12E 01FB      MOVW	R30,R22
+     12F 80A0      LDD	R10,Z+0
+     130 80B1      LDD	R11,Z+1
+(0137) 		PORTA|=(1<<EN);
+     131 9ADA      SBI	0x1B,2
+(0138) 		PORTB = t;
+     132 BAA8      OUT	0x18,R10
+(0139) 		PORTA&=~(1<<EN);				
+     133 98DA      CBI	0x1B,2
+(0140) 		pBuffer++;
+     134 5F6E      SUBI	R22,0xFE
+     135 4F7F      SBCI	R23,0xFF
+     136 5041      SUBI	R20,1
+     137 4050      SBCI	R21,0
+     138 3040      CPI	R20,0
+     139 0745      CPC	R20,R21
+     13A F799      BNE	0x012E
+     13B 940C 0211 JMP	pop_xgsetF00C
+_WriteMenu:
+  t                    --> R10
+  i                    --> R22
+  pBuffer              --> R20
+     13D 940E 020A CALL	push_xgsetF00C
+     13F 01A8      MOVW	R20,R16
+(0141) 	}
+(0142) 	
+(0143) }
+(0144) 
+(0145) //=================================================
+(0146) //描述：写菜单函数，本程序使用的LCD规格为 16 * 2
+(0147) //入口：菜单数组首地址
+(0148) //出口：无
+(0149) //=================================================
+(0150) void	WriteMenu(const uchar *pBuffer)
+(0151) {
+(0152) 	uchar	i,t;
+(0153) 	writecom(0x80);   //数据地址
+     140 E800      LDI	R16,0x80
+     141 DF50      RCALL	_writecom
+(0154) 	
+(0155) 	PORTA|=(1<<RS);
+     142 9AD8      SBI	0x1B,0
+(0156) 	PORTA&=~(1<<RW);
+     143 98D9      CBI	0x1B,1
+(0157) 	s_ms(50);
+     144 E302      LDI	R16,0x32
+     145 E010      LDI	R17,0
+     146 DF17      RCALL	_s_ms
+(0158) 	for(i=0;i<16;i++)
+     147 2766      CLR	R22
+     148 C00B      RJMP	0x0154
+(0159) 	{
+(0160) 		t = *pBuffer;
+     149 01FA      MOVW	R30,R20
+     14A 80A0      LDD	R10,Z+0
+(0161) 		PORTB = t;
+     14B BAA8      OUT	0x18,R10
+(0162) 		PORTA|=(1<<EN);
+     14C 9ADA      SBI	0x1B,2
+(0163) 		s_ms(50);
+     14D E302      LDI	R16,0x32
+     14E E010      LDI	R17,0
+     14F DF0E      RCALL	_s_ms
+(0164) 		PORTA&=~(1<<EN);				
+     150 98DA      CBI	0x1B,2
+(0165) 		pBuffer++;
+     151 5F4F      SUBI	R20,0xFF
+     152 4F5F      SBCI	R21,0xFF
+     153 9563      INC	R22
+     154 3160      CPI	R22,0x10
+     155 F398      BCS	0x0149
+(0166) 	}
+(0167) 	writecom(0xC0);
+     156 EC00      LDI	R16,0xC0
+     157 DF3A      RCALL	_writecom
+(0168) 
+(0169) 	PORTA|=(1<<RS);
+     158 9AD8      SBI	0x1B,0
+(0170) 	PORTA&=~(1<<RW);
+     159 98D9      CBI	0x1B,1
+(0171) 	s_ms(50);	
+     15A E302      LDI	R16,0x32
+     15B E010      LDI	R17,0
+     15C DF01      RCALL	_s_ms
+(0172) 	for(i=0;i<16;i++)
+     15D 2766      CLR	R22
+     15E C00B      RJMP	0x016A
+(0173) 	{
+(0174) 		t = *pBuffer;
+     15F 01FA      MOVW	R30,R20
+     160 80A0      LDD	R10,Z+0
+(0175) 		PORTB = t;
+     161 BAA8      OUT	0x18,R10
+(0176) 		PORTA|=(1<<EN);
+     162 9ADA      SBI	0x1B,2
+(0177) 		s_ms(50);
+     163 E302      LDI	R16,0x32
+     164 E010      LDI	R17,0
+     165 DEF8      RCALL	_s_ms
+(0178) 		PORTA&=~(1<<EN);				
+     166 98DA      CBI	0x1B,2
+(0179) 		pBuffer++;
+     167 5F4F      SUBI	R20,0xFF
+     168 4F5F      SBCI	R21,0xFF
+     169 9563      INC	R22
+     16A 3160      CPI	R22,0x10
+     16B F398      BCS	0x015F
+     16C 940C 0211 JMP	pop_xgsetF00C
+_WriteNum:
+  num                  --> R20
+  col                  --> R10
+  row                  --> R22
+     16E 940E 020A CALL	push_xgsetF00C
+     170 0159      MOVW	R10,R18
+     171 01B8      MOVW	R22,R16
+     172 814E      LDD	R20,Y+6
+     173 815F      LDD	R21,Y+7
+(0180) 	}
+(0181) }
+(0182) //====================================================
+(0183) // 描述：在任意位置写数字函数
+(0184) // 入口：’row‘表示要写数字所在的行地址，只能为1或2
+(0185) //       ’col‘表示要写数字所在的列地址，只能为0--15
+(0186) //		 ‘num’表示要写的数字，只能为0--9
+(0187) // 出口：无
+(0188) //===================================================
+(0189) void	WriteNum(uint	row,uint	col,uint	 num)
+(0190) {
+(0191) 	if (row == 1)	row = 0x80 + col;
+     174 3061      CPI	R22,1
+     175 E0E0      LDI	R30,0
+     176 077E      CPC	R23,R30
+     177 F421      BNE	0x017C
+     178 01B5      MOVW	R22,R10
+     179 5860      SUBI	R22,0x80
+     17A 4F7F      SBCI	R23,0xFF
+     17B C003      RJMP	0x017F
+(0192) 	else	row = 0xC0 + col;
+     17C 01B5      MOVW	R22,R10
+     17D 5460      SUBI	R22,0x40
+     17E 4F7F      SBCI	R23,0xFF
+(0193) 	writecom(row);
+     17F 2F06      MOV	R16,R22
+     180 DF11      RCALL	_writecom
+(0194) 	if (num<=0 | num>9)	num =0x30;
+     181 3040      CPI	R20,0
+     182 0745      CPC	R20,R21
+     183 F421      BNE	0x0188
+     184 E081      LDI	R24,1
+     185 E090      LDI	R25,0
+     186 015C      MOVW	R10,R24
+     187 C002      RJMP	0x018A
+     188 24AA      CLR	R10
+     189 24BB      CLR	R11
+     18A E089      LDI	R24,0x9
+     18B E090      LDI	R25,0
+     18C 1784      CP	R24,R20
+     18D 0795      CPC	R25,R21
+     18E F418      BCC	0x0192
+     18F E061      LDI	R22,1
+     190 E070      LDI	R23,0
+     191 C002      RJMP	0x0194
+     192 2766      CLR	R22
+     193 2777      CLR	R23
+     194 0115      MOVW	R2,R10
+     195 2A26      OR	R2,R22
+     196 2A37      OR	R3,R23
+     197 2022      TST	R2
+     198 F411      BNE	0x019B
+     199 2033      TST	R3
+     19A F019      BEQ	0x019E
+     19B E340      LDI	R20,0x30
+     19C E050      LDI	R21,0
+     19D C002      RJMP	0x01A0
+(0195) 	else	num = 0x30 + num;
+     19E 5D40      SUBI	R20,0xD0
+     19F 4F5F      SBCI	R21,0xFF
+(0196) 
+(0197) 	PORTA|=(1<<RS);
+     1A0 9AD8      SBI	0x1B,0
+(0198) 	s_ms(500);
+     1A1 EF04      LDI	R16,0xF4
+     1A2 E011      LDI	R17,1
+     1A3 DEBA      RCALL	_s_ms
+(0199) 	PORTA&=~(1<<RW);
+     1A4 98D9      CBI	0x1B,1
+(0200) 	s_ms(500);
+     1A5 EF04      LDI	R16,0xF4
+     1A6 E011      LDI	R17,1
+     1A7 DEB6      RCALL	_s_ms
+(0201) 	PORTB = num;
+     1A8 BB48      OUT	0x18,R20
+(0202) 	s_ms(500);
+     1A9 EF04      LDI	R16,0xF4
+     1AA E011      LDI	R17,1
+     1AB DEB2      RCALL	_s_ms
+(0203) 	PORTA|=(1<<EN);
+     1AC 9ADA      SBI	0x1B,2
+(0204) 	s_ms(500);
+     1AD EF04      LDI	R16,0xF4
+     1AE E011      LDI	R17,1
+     1AF DEAE      RCALL	_s_ms
+(0205) 	PORTA&=~(1<<EN);	
+     1B0 98DA      CBI	0x1B,2
+(0206) 	s_ms(500);			
+     1B1 EF04      LDI	R16,0xF4
+     1B2 E011      LDI	R17,1
+     1B3 DEAA      RCALL	_s_ms
+     1B4 940C 0211 JMP	pop_xgsetF00C
+_WriteChar:
+  t                    --> R12
+  i                    --> R10
+  pBuffer              --> R20
+  num                  --> Y,+8
+  col                  --> R10
+  row                  --> R22
+     1B6 940E 0218 CALL	push_xgsetF03C
+     1B8 2EA2      MOV	R10,R18
+     1B9 2F60      MOV	R22,R16
+     1BA 854A      LDD	R20,Y+10
+     1BB 855B      LDD	R21,Y+11
+(0207) }
+(0208) //================================================================
+(0209) // 描述：在任意位置写任意多个字符
+(0210) // 入口：’row‘要写的字符所在的行，只能为1或2；
+(0211) //       ‘col’要写的字符所在的列，只能为0---15
+(0212) //       ‘num’要写字符的个数
+(0213) //       ‘pbuffer’要写字符的首地址
+(0214) //================================================================== 
+(0215) void	WriteChar(uchar row,uchar col,uint num,uchar *pBuffer)
+(0216) {
+(0217) 	uchar i,t;
+(0218) 	if (row == 1)	row = 0x80 + col;
+     1BC 3061      CPI	R22,1
+     1BD F419      BNE	0x01C1
+     1BE 2D6A      MOV	R22,R10
+     1BF 5860      SUBI	R22,0x80
+     1C0 C002      RJMP	0x01C3
+(0219) 	else	row = 0xC0 + col;
+     1C1 2D6A      MOV	R22,R10
+     1C2 5460      SUBI	R22,0x40
+(0220) 	writecom(row);
+     1C3 2F06      MOV	R16,R22
+     1C4 DECD      RCALL	_writecom
+(0221) 	//if (num<=0 | num>9)	num =0x30;
+(0222) 	//else	num = 0x30 + num;
+(0223) 
+(0224) 	PORTA|=(1<<RS);
+     1C5 9AD8      SBI	0x1B,0
+(0225) 	s_ms(500);
+     1C6 EF04      LDI	R16,0xF4
+     1C7 E011      LDI	R17,1
+     1C8 DE95      RCALL	_s_ms
+(0226) 	PORTA&=~(1<<RW);
+     1C9 98D9      CBI	0x1B,1
+(0227) 	s_ms(500);
+     1CA EF04      LDI	R16,0xF4
+     1CB E011      LDI	R17,1
+     1CC DE91      RCALL	_s_ms
+(0228) 	for(i=num;i!=0;i--)
+     1CD 84A8      LDD	R10,Y+8
+     1CE 84B9      LDD	R11,Y+9
+     1CF C014      RJMP	0x01E4
+(0229) 	{
+(0230) 		t = *pBuffer;
+     1D0 01FA      MOVW	R30,R20
+     1D1 80C0      LDD	R12,Z+0
+(0231) 		s_ms(500);
+     1D2 EF04      LDI	R16,0xF4
+     1D3 E011      LDI	R17,1
+     1D4 DE89      RCALL	_s_ms
+(0232) 		PORTB = t;
+     1D5 BAC8      OUT	0x18,R12
+(0233) 		s_ms(500);
+     1D6 EF04      LDI	R16,0xF4
+     1D7 E011      LDI	R17,1
+     1D8 DE85      RCALL	_s_ms
+(0234) 		PORTA|=(1<<EN);
+     1D9 9ADA      SBI	0x1B,2
+(0235) 		s_ms(500);
+     1DA EF04      LDI	R16,0xF4
+     1DB E011      LDI	R17,1
+     1DC DE81      RCALL	_s_ms
+(0236) 		PORTA&=~(1<<EN);		
+     1DD 98DA      CBI	0x1B,2
+(0237) 		s_ms(500);		
+     1DE EF04      LDI	R16,0xF4
+     1DF E011      LDI	R17,1
+     1E0 DE7D      RCALL	_s_ms
+(0238) 		pBuffer++;
+     1E1 5F4F      SUBI	R20,0xFF
+     1E2 4F5F      SBCI	R21,0xFF
+     1E3 94AA      DEC	R10
+     1E4 20AA      TST	R10
+     1E5 F751      BNE	0x01D0
+     1E6 940C 0221 JMP	pop_xgsetF03C
+_main:
+     1E8 9724      SBIW	R28,4
+FILE: D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\6.1602液晶显示字符\1602_main.c
+(0001) /******************************************************************************/
+(0002) /*【编写时间】： 2011.07.07
+(0003) * 【作    者】： 雁翎电子
+(0004) * 【版    本】： V1.0
+(0005) * 【网    站】： http://ylelectronic.taobao.com/ 
+(0006) * 【Q      Q】： 348439350
+(0007) * 【编译环境】： ICCAVR  
+(0008) * 【函数功能】： 闪烁LED灯	
+(0009) * 【晶    振】:  8M		
+(0010) * 【芯    片】:  ATMEGA16A	 
+(0011) * 【硬件连接】： J2短路帽去掉 
+(0012) /******************************************************************************/  
+(0013) //1602液晶显示程序
+(0014) #include<iom16v.h>
+(0015) #include"1602.h"
+(0016) #define uchar unsigned char 
+(0017) #define uint unsigned int 
+(0018) 
+(0019) uchar wz[]={"mcustudio.com.cn"};
+(0020) uchar gd[]={"Tel:15980845601"};
+(0021) 
+(0022) //主函数
+(0023) void main()
+(0024) {
+(0025)     DDRA=0xff;    
+     1E9 EF8F      LDI	R24,0xFF
+     1EA BB8A      OUT	0x1A,R24
+(0026)     PORTA=0xff;
+     1EB BB8B      OUT	0x1B,R24
+(0027)     DDRD=0xff;
+     1EC BB81      OUT	0x11,R24
+(0028)     PORTD=0xff;
+     1ED BB82      OUT	0x12,R24
+(0029)     s_ms(5000);      //延时
+     1EE E808      LDI	R16,0x88
+     1EF E113      LDI	R17,0x13
+     1F0 DE6D      RCALL	_s_ms
+(0030)     LcdInit();     //1602初始化
+     1F1 DEBC      RCALL	_LcdInit
+(0031)     WriteChar(1,1,13,wz);    //显示第一行
+     1F2 E680      LDI	R24,0x60
+     1F3 E090      LDI	R25,0
+     1F4 839B      STD	Y+3,R25
+     1F5 838A      STD	Y+2,R24
+     1F6 E08D      LDI	R24,0xD
+     1F7 E090      LDI	R25,0
+     1F8 8399      STD	Y+1,R25
+     1F9 8388      STD	Y+0,R24
+     1FA E021      LDI	R18,1
+     1FB E001      LDI	R16,1
+     1FC DFB9      RCALL	_WriteChar
+(0032)     WriteChar(2,1,16,gd);    //显示第二行
+FILE: <library>
+     1FD E781      LDI	R24,0x71
+     1FE E090      LDI	R25,0
+     1FF 839B      STD	Y+3,R25
+     200 838A      STD	Y+2,R24
+     201 E180      LDI	R24,0x10
+     202 E090      LDI	R25,0
+     203 8399      STD	Y+1,R25
+     204 8388      STD	Y+0,R24
+     205 E021      LDI	R18,1
+     206 E002      LDI	R16,2
+     207 DFAE      RCALL	_WriteChar
+     208 9624      ADIW	R28,4
+     209 9508      RET
+push_xgsetF00C:
+     20A 937A      ST	R23,-Y
+     20B 936A      ST	R22,-Y
+     20C 935A      ST	R21,-Y
+     20D 934A      ST	R20,-Y
+     20E 92BA      ST	R11,-Y
+     20F 92AA      ST	R10,-Y
+     210 9508      RET
+pop_xgsetF00C:
+     211 90A9      LD	R10,Y+
+     212 90B9      LD	R11,Y+
+     213 9149      LD	R20,Y+
+     214 9159      LD	R21,Y+
+     215 9169      LD	R22,Y+
+     216 9179      LD	R23,Y+
+     217 9508      RET
+push_xgsetF03C:
+     218 937A      ST	R23,-Y
+     219 936A      ST	R22,-Y
+     21A 935A      ST	R21,-Y
+     21B 934A      ST	R20,-Y
+     21C 92DA      ST	R13,-Y
+     21D 92CA      ST	R12,-Y
+     21E 92BA      ST	R11,-Y
+     21F 92AA      ST	R10,-Y
+     220 9508      RET
+pop_xgsetF03C:
+     221 90A9      LD	R10,Y+
+     222 90B9      LD	R11,Y+
+     223 90C9      LD	R12,Y+
+     224 90D9      LD	R13,Y+
+     225 9149      LD	R20,Y+
+     226 9159      LD	R21,Y+
+     227 9169      LD	R22,Y+
+     228 9179      LD	R23,Y+
+     229 9508      RET

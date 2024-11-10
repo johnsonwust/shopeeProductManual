@@ -1,0 +1,424 @@
+                        .module MAIN.C
+                        .area text(rom, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\3A304~1.定\MAIN.C
+ 0000                   .dbfunc e main _main fV
+ 0000           ;              n -> <dead>
+                        .even
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 29
+ 0000           ; /******************************************************************************/
+ 0000           ; /*【编写时间】： 2011.07.07
+ 0000           ; * 【作    者】： 雁翎电子
+ 0000           ; * 【版    本】： V1.0
+ 0000           ; * 【网    站】： http://ylelectronic.taobao.com/ 
+ 0000           ; * 【Q      Q】： 348439350
+ 0000           ; * 【编译环境】： ICCAVR  
+ 0000           ; * 【函数功能】： 定时闪烁LED灯        
+ 0000           ; * 【晶    振】:  8M           
+ 0000           ; * 【芯    片】:  ATMEGA16A     
+ 0000           ; * 【硬件连接】： J1短路帽接上  
+ 0000           ; /******************************************************************************/  
+ 0000           ; 
+ 0000           ; #define  uchar  unsigned char
+ 0000           ; #define  uint   unsigned int
+ 0000           ; #include <iom16v.h>
+ 0000           ; #include <macros.h>
+ 0000           ; 
+ 0000           ; unsigned char t0_ovfnum;//t0软件定时计数器
+ 0000           ; unsigned char t1_ovfnum;//t1软件定时计数器
+ 0000           ; unsigned char t2_ovfnum;//t1软件定时计数器
+ 0000           ; 
+ 0000           ; void timer0_init(void);//10ms
+ 0000           ; void timer1_init(void);//10ms
+ 0000           ; void timer2_init(void);//10ms
+ 0000           ; 
+ 0000           ; 
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 31
+ 0000           ;       unsigned char n;
+ 0000           ;       DDRD= 0xFF;
+ 0000 8FEF              ldi R24,255
+ 0002 81BB              out 0x11,R24
+ 0004                   .dbline 32
+ 0004           ;       PORTD=0xFF;
+ 0004 82BB              out 0x12,R24
+ 0006                   .dbline 33
+ 0006           ;       timer0_init();//初始化定时器0
+ 0006 05D0              xcall _timer0_init
+ 0008                   .dbline 34
+ 0008           ;       timer1_init();//初始化定时器1
+ 0008 2BD0              xcall _timer1_init
+ 000A                   .dbline 35
+ 000A           ;       timer2_init();//初始化定时器2
+ 000A 60D0              xcall _timer2_init
+ 000C                   .dbline 36
+ 000C           ;       SEI();        //开总中断
+ 000C 7894              sei
+ 000E           L2:
+ 000E                   .dbline 38
+ 000E           ;       while(1)
+ 000E           ;       {       
+ 000E                   .dbline 39
+ 000E           ;       }
+ 000E           L3:
+ 000E                   .dbline 37
+ 000E FFCF              xjmp L2
+ 0010           X0:
+ 0010                   .dbline -2
+ 0010           L1:
+ 0010                   .dbline 0 ; func end
+ 0010 0895              ret
+ 0012                   .dbsym l n 1 c
+ 0012                   .dbend
+ 0012                   .dbfunc e timer0_init _timer0_init fV
+                        .even
+ 0012           _timer0_init::
+ 0012                   .dbline -1
+ 0012                   .dbline 47
+ 0012           ; }
+ 0012           ; 
+ 0012           ; //TIMER0 initialize - prescale:1024
+ 0012           ; // WGM: Normal
+ 0012           ; // desired value: 10mSec
+ 0012           ; // actual value:  9.984mSec (0.2%)
+ 0012           ; void timer0_init(void)//10ms
+ 0012           ; {
+ 0012                   .dbline 48
+ 0012           ;       TCCR0 = 0x00; //stop
+ 0012 2224              clr R2
+ 0014 23BE              out 0x33,R2
+ 0016                   .dbline 49
+ 0016           ;       TCNT0 = 0xB2; //set count
+ 0016 82EB              ldi R24,178
+ 0018 82BF              out 0x32,R24
+ 001A                   .dbline 50
+ 001A           ;       OCR0  = 0x4E;  //set compare
+ 001A 8EE4              ldi R24,78
+ 001C 8CBF              out 0x3c,R24
+ 001E                   .dbline 51
+ 001E           ;       TCCR0 = 0x05; //start timer
+ 001E 85E0              ldi R24,5
+ 0020 83BF              out 0x33,R24
+ 0022                   .dbline 52
+ 0022           ;       TIMSK |= 0x01; //timer interrupt sources
+ 0022 89B7              in R24,0x39
+ 0024 8160              ori R24,1
+ 0026 89BF              out 0x39,R24
+ 0028                   .dbline -2
+ 0028           L5:
+ 0028                   .dbline 0 ; func end
+ 0028 0895              ret
+ 002A                   .dbend
+                        .area vector(rom, abs)
+                        .org 36
+ 0024 0C941500          jmp _timer0_ovf_isr
+                        .area text(rom, con, rel)
+ 002A                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\3A304~1.定\MAIN.C
+ 002A                   .dbfunc e timer0_ovf_isr _timer0_ovf_isr fV
+                        .even
+ 002A           _timer0_ovf_isr::
+ 002A 2A92              st -y,R2
+ 002C 8A93              st -y,R24
+ 002E 9A93              st -y,R25
+ 0030 2FB6              in R2,0x3f
+ 0032 2A92              st -y,R2
+ 0034                   .dbline -1
+ 0034                   .dbline 57
+ 0034           ; }
+ 0034           ; 
+ 0034           ; #pragma interrupt_handler timer0_ovf_isr:iv_TIM0_OVF
+ 0034           ; void timer0_ovf_isr(void)
+ 0034           ; {
+ 0034                   .dbline 58
+ 0034           ;       TCNT0 = 0xB2; //reload counter value
+ 0034 82EB              ldi R24,178
+ 0036 82BF              out 0x32,R24
+ 0038                   .dbline 59
+ 0038           ;       t0_ovfnum ++;
+ 0038 80910200          lds R24,_t0_ovfnum
+ 003C 8F5F              subi R24,255    ; addi 1
+ 003E 80930200          sts _t0_ovfnum,R24
+ 0042                   .dbline 60
+ 0042           ;       if(t0_ovfnum == 50)//500ms
+ 0042 8233              cpi R24,50
+ 0044 39F4              brne L7
+ 0046           X1:
+ 0046                   .dbline 61
+ 0046           ;       {
+ 0046                   .dbline 62
+ 0046           ;               t0_ovfnum = 0;
+ 0046 2224              clr R2
+ 0048 20920200          sts _t0_ovfnum,R2
+ 004C                   .dbline 63
+ 004C           ;               PORTD^=BIT(0);//LED电平取反
+ 004C 81E0              ldi R24,1
+ 004E 22B2              in R2,0x12
+ 0050 2826              eor R2,R24
+ 0052 22BA              out 0x12,R2
+ 0054                   .dbline 65
+ 0054           ;               //LED_PORT ^= BIT(LED1);
+ 0054           ;       }
+ 0054           L7:
+ 0054                   .dbline -2
+ 0054           L6:
+ 0054                   .dbline 0 ; func end
+ 0054 2990              ld R2,y+
+ 0056 2FBE              out 0x3f,R2
+ 0058 9991              ld R25,y+
+ 005A 8991              ld R24,y+
+ 005C 2990              ld R2,y+
+ 005E 1895              reti
+ 0060                   .dbend
+ 0060                   .dbfunc e timer1_init _timer1_init fV
+                        .even
+ 0060           _timer1_init::
+ 0060                   .dbline -1
+ 0060                   .dbline 74
+ 0060           ; }
+ 0060           ; 
+ 0060           ; 
+ 0060           ; //TIMER1 initialize - prescale:64
+ 0060           ; // WGM: 0) Normal, TOP=0xFFFF
+ 0060           ; // desired value: 10mSec
+ 0060           ; // actual value: 10.000mSec (0.0%)
+ 0060           ; void timer1_init(void)
+ 0060           ; {
+ 0060                   .dbline 75
+ 0060           ;       TCCR1B = 0x00; //stop
+ 0060 2224              clr R2
+ 0062 2EBC              out 0x2e,R2
+ 0064                   .dbline 76
+ 0064           ;       TCNT1H = 0xFB; //setup
+ 0064 8BEF              ldi R24,251
+ 0066 8DBD              out 0x2d,R24
+ 0068                   .dbline 77
+ 0068           ;       TCNT1L = 0x1E;
+ 0068 8EE1              ldi R24,30
+ 006A 8CBD              out 0x2c,R24
+ 006C                   .dbline 78
+ 006C           ;       OCR1AH = 0x04;
+ 006C 84E0              ldi R24,4
+ 006E 8BBD              out 0x2b,R24
+ 0070                   .dbline 79
+ 0070           ;       OCR1AL = 0xE2;
+ 0070 82EE              ldi R24,226
+ 0072 8ABD              out 0x2a,R24
+ 0074                   .dbline 80
+ 0074           ;       OCR1BH = 0x04;
+ 0074 84E0              ldi R24,4
+ 0076 89BD              out 0x29,R24
+ 0078                   .dbline 81
+ 0078           ;       OCR1BL = 0xE2;
+ 0078 82EE              ldi R24,226
+ 007A 88BD              out 0x28,R24
+ 007C                   .dbline 82
+ 007C           ;       ICR1H  = 0x04;
+ 007C 84E0              ldi R24,4
+ 007E 87BD              out 0x27,R24
+ 0080                   .dbline 83
+ 0080           ;       ICR1L  = 0xE2;
+ 0080 82EE              ldi R24,226
+ 0082 86BD              out 0x26,R24
+ 0084                   .dbline 84
+ 0084           ;       TCCR1A = 0x00;
+ 0084 2FBC              out 0x2f,R2
+ 0086                   .dbline 85
+ 0086           ;       TCCR1B = 0x03; //start Timer
+ 0086 83E0              ldi R24,3
+ 0088 8EBD              out 0x2e,R24
+ 008A                   .dbline 86
+ 008A           ;       TIMSK |= 0x04; //timer interrupt sources
+ 008A 89B7              in R24,0x39
+ 008C 8460              ori R24,4
+ 008E 89BF              out 0x39,R24
+ 0090                   .dbline -2
+ 0090           L9:
+ 0090                   .dbline 0 ; func end
+ 0090 0895              ret
+ 0092                   .dbend
+                        .area vector(rom, abs)
+                        .org 32
+ 0020 0C944900          jmp _timer1_ovf_isr
+                        .area text(rom, con, rel)
+ 0092                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\3A304~1.定\MAIN.C
+ 0092                   .dbfunc e timer1_ovf_isr _timer1_ovf_isr fV
+                        .even
+ 0092           _timer1_ovf_isr::
+ 0092 2A92              st -y,R2
+ 0094 8A93              st -y,R24
+ 0096 9A93              st -y,R25
+ 0098 2FB6              in R2,0x3f
+ 009A 2A92              st -y,R2
+ 009C                   .dbline -1
+ 009C                   .dbline 91
+ 009C           ; }
+ 009C           ; 
+ 009C           ; #pragma interrupt_handler timer1_ovf_isr:iv_TIM1_OVF
+ 009C           ; void timer1_ovf_isr(void)
+ 009C           ; {
+ 009C                   .dbline 93
+ 009C           ;       //TIMER1 has overflowed
+ 009C           ;       TCNT1H = 0xFB; //reload counter high value
+ 009C 8BEF              ldi R24,251
+ 009E 8DBD              out 0x2d,R24
+ 00A0                   .dbline 94
+ 00A0           ;       TCNT1L = 0x1E; //reload counter low value
+ 00A0 8EE1              ldi R24,30
+ 00A2 8CBD              out 0x2c,R24
+ 00A4                   .dbline 95
+ 00A4           ;       t1_ovfnum ++;
+ 00A4 80910100          lds R24,_t1_ovfnum
+ 00A8 8F5F              subi R24,255    ; addi 1
+ 00AA 80930100          sts _t1_ovfnum,R24
+ 00AE                   .dbline 96
+ 00AE           ;       if(t1_ovfnum == 100)//500ms
+ 00AE 8436              cpi R24,100
+ 00B0 39F4              brne L11
+ 00B2           X2:
+ 00B2                   .dbline 97
+ 00B2           ;       {
+ 00B2                   .dbline 98
+ 00B2           ;               t1_ovfnum = 0;
+ 00B2 2224              clr R2
+ 00B4 20920100          sts _t1_ovfnum,R2
+ 00B8                   .dbline 99
+ 00B8           ;           PORTD^=BIT(1);//LED电平取反
+ 00B8 82E0              ldi R24,2
+ 00BA 22B2              in R2,0x12
+ 00BC 2826              eor R2,R24
+ 00BE 22BA              out 0x12,R2
+ 00C0                   .dbline 101
+ 00C0           ;               //LED_PORT ^= BIT(LED3);
+ 00C0           ;       }
+ 00C0           L11:
+ 00C0                   .dbline -2
+ 00C0           L10:
+ 00C0                   .dbline 0 ; func end
+ 00C0 2990              ld R2,y+
+ 00C2 2FBE              out 0x3f,R2
+ 00C4 9991              ld R25,y+
+ 00C6 8991              ld R24,y+
+ 00C8 2990              ld R2,y+
+ 00CA 1895              reti
+ 00CC                   .dbend
+ 00CC                   .dbfunc e timer2_init _timer2_init fV
+                        .even
+ 00CC           _timer2_init::
+ 00CC                   .dbline -1
+ 00CC                   .dbline 109
+ 00CC           ; }
+ 00CC           ; 
+ 00CC           ; //TIMER2 initialize - prescale:1024
+ 00CC           ; // WGM: Normal
+ 00CC           ; // desired value: 10mSec
+ 00CC           ; // actual value:  9.984mSec (0.2%)
+ 00CC           ; void timer2_init(void)
+ 00CC           ; {
+ 00CC                   .dbline 110
+ 00CC           ;       TCCR2 = 0x00; //stop
+ 00CC 2224              clr R2
+ 00CE 25BC              out 0x25,R2
+ 00D0                   .dbline 111
+ 00D0           ;       ASSR  = 0x00; //set async mode
+ 00D0 22BC              out 0x22,R2
+ 00D2                   .dbline 112
+ 00D2           ;       TCNT2 = 0xB2; //setup
+ 00D2 82EB              ldi R24,178
+ 00D4 84BD              out 0x24,R24
+ 00D6                   .dbline 113
+ 00D6           ;       OCR2  = 0x4E;
+ 00D6 8EE4              ldi R24,78
+ 00D8 83BD              out 0x23,R24
+ 00DA                   .dbline 114
+ 00DA           ;       TCCR2 = 0x07; //start
+ 00DA 87E0              ldi R24,7
+ 00DC 85BD              out 0x25,R24
+ 00DE                   .dbline 115
+ 00DE           ;       TIMSK |= 0x40; //timer interrupt sources
+ 00DE 89B7              in R24,0x39
+ 00E0 8064              ori R24,64
+ 00E2 89BF              out 0x39,R24
+ 00E4                   .dbline -2
+ 00E4           L13:
+ 00E4                   .dbline 0 ; func end
+ 00E4 0895              ret
+ 00E6                   .dbend
+                        .area vector(rom, abs)
+                        .org 16
+ 0010 0C947300          jmp _timer2_ovf_isr
+                        .area text(rom, con, rel)
+ 00E6                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\3A304~1.定\MAIN.C
+ 00E6                   .dbfunc e timer2_ovf_isr _timer2_ovf_isr fV
+                        .even
+ 00E6           _timer2_ovf_isr::
+ 00E6 2A92              st -y,R2
+ 00E8 8A93              st -y,R24
+ 00EA 9A93              st -y,R25
+ 00EC 2FB6              in R2,0x3f
+ 00EE 2A92              st -y,R2
+ 00F0                   .dbline -1
+ 00F0                   .dbline 120
+ 00F0           ; }
+ 00F0           ; 
+ 00F0           ; #pragma interrupt_handler timer2_ovf_isr:iv_TIM2_OVF
+ 00F0           ; void timer2_ovf_isr(void)
+ 00F0           ; {
+ 00F0                   .dbline 121
+ 00F0           ;       TCNT2 = 0xB2; //reload counter value
+ 00F0 82EB              ldi R24,178
+ 00F2 84BD              out 0x24,R24
+ 00F4                   .dbline 122
+ 00F4           ;       t2_ovfnum ++;
+ 00F4 80910000          lds R24,_t2_ovfnum
+ 00F8 8F5F              subi R24,255    ; addi 1
+ 00FA 80930000          sts _t2_ovfnum,R24
+ 00FE                   .dbline 123
+ 00FE           ;       if(t2_ovfnum == 200)//500ms
+ 00FE 883C              cpi R24,200
+ 0100 39F4              brne L15
+ 0102           X3:
+ 0102                   .dbline 124
+ 0102           ;       {
+ 0102                   .dbline 125
+ 0102           ;               t2_ovfnum = 0;
+ 0102 2224              clr R2
+ 0104 20920000          sts _t2_ovfnum,R2
+ 0108                   .dbline 126
+ 0108           ;               PORTD^=BIT(2);//LED电平取反
+ 0108 84E0              ldi R24,4
+ 010A 22B2              in R2,0x12
+ 010C 2826              eor R2,R24
+ 010E 22BA              out 0x12,R2
+ 0110                   .dbline 128
+ 0110           ;               
+ 0110           ;       }
+ 0110           L15:
+ 0110                   .dbline -2
+ 0110           L14:
+ 0110                   .dbline 0 ; func end
+ 0110 2990              ld R2,y+
+ 0112 2FBE              out 0x3f,R2
+ 0114 9991              ld R25,y+
+ 0116 8991              ld R24,y+
+ 0118 2990              ld R2,y+
+ 011A 1895              reti
+ 011C                   .dbend
+                        .area bss(ram, con, rel)
+ 0000                   .dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\3A304~1.定\MAIN.C
+ 0000           _t2_ovfnum::
+ 0000                   .blkb 1
+ 0001                   .dbsym e t2_ovfnum _t2_ovfnum c
+ 0001           _t1_ovfnum::
+ 0001                   .blkb 1
+ 0002                   .dbsym e t1_ovfnum _t1_ovfnum c
+ 0002           _t0_ovfnum::
+ 0002                   .blkb 1
+ 0003                   .dbsym e t0_ovfnum _t0_ovfnum c
+ 0003           ; }
+ 0003           ; 
+ 0003           ; 
+ 0003           ; 
+ 0003           ; 
+ 0003           ; 

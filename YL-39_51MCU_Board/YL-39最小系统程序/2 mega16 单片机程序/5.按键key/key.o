@@ -1,0 +1,125 @@
+XL
+H 1 areas 2 global symbols
+M key.c
+A text size D2 flags 0
+dbfile D:\工作\制版成功\YL-60A~2\YL-60A~2\4.相关例程\5.按键key\key.c
+dbfunc e delayms 0 fV
+dbsym r i 10 i
+dbsym r j 12 i
+dbline FFFFFFFF 0
+dbline 15 0
+dbline 17 0
+dbline 18 6
+dbline 18 C
+dbline 18 C
+dbline 18 10
+dbline 17 18
+dbline 17 1C
+dbline FFFFFFFE 24
+dbline 0 24
+dbfunc e main 26 fV
+dbline FFFFFFFF 26
+dbline 1C 26
+dbline 1F 26
+dbline 20 2A
+dbline 23 2E
+dbline 24 32
+dbline 27 36
+dbline 28 36
+dbline 29 3A
+dbline 2B 3C
+dbline 2C 3C
+dbline 2D 40
+dbline 2E 42
+dbline 31 46
+dbline 2A 46
+dbline 33 4A
+dbline 35 4A
+dbline 36 4E
+dbline 38 50
+dbline 39 50
+dbline 3A 54
+dbline 3B 56
+dbline 3C 5A
+dbline 3D 5C
+dbline 3E 60
+dbline 3F 62
+dbline 41 66
+dbline 37 66
+dbline 42 6A
+dbline 44 6A
+dbline 45 6E
+dbline 47 70
+dbline 48 70
+dbline 49 74
+dbline 4A 76
+dbline 4B 7A
+dbline 4C 7C
+dbline 4D 80
+dbline 4E 82
+dbline 4F 86
+dbline 50 88
+dbline 51 8C
+dbline 52 8E
+dbline 53 92
+dbline 46 92
+dbline 54 96
+dbline 56 96
+dbline 57 9A
+dbline 59 9C
+dbline 5A 9C
+dbline 5B A0
+dbline 5C A2
+dbline 5D A6
+dbline 5E A8
+dbline 5F AC
+dbline 60 AE
+dbline 61 B2
+dbline 62 B4
+dbline 63 B8
+dbline 64 BA
+dbline 65 BE
+dbline 66 C0
+dbline 67 C4
+dbline 68 C6
+dbline 69 CA
+dbline 58 CA
+dbline 6A CE
+dbline 6D CE
+dbline 26 CE
+dbline FFFFFFFE D0
+dbline 0 D0
+S _main Def0026
+S _delayms Def0000
+T 00 00 00 27 11 27 0B C0 22 27 33 27 02 C0 2F 5F
+R 00 00 00 00
+T 0E 00 3F 4F 28 3E E3 E0 3E 07 D0 F3 0F 5F 1F 4F
+R 00 00 00 00
+T 1C 00 0F 3F E0 E0 1E 07 88 F3 08 95
+R 00 00 00 00
+T 26 00 80 EF 81 BB 8F EF 82 BB 22 24 2A BA 8B BB
+R 00 00 00 00
+T 34 00 4C C0 CD 99 08 C0 05 C0 8F E0 82 BB DF DF
+R 00 00 00 00
+T 42 00 8F EF 82 BB CD 9B F9 CF CC 99 0E C0 0B C0
+R 00 00 00 00
+T 50 00 8F E0 82 BB D5 DF 8F EF 82 BB D2 DF 8F E0
+R 00 00 00 00
+T 5E 00 82 BB CF DF 8F EF 82 BB CC 9B F3 CF 83 99
+R 00 00 00 00
+T 6C 00 14 C0 11 C0 8F E0 82 BB C5 DF 8F EF 82 BB
+R 00 00 00 00
+T 7A 00 C2 DF 8F E0 82 BB BF DF 8F EF 82 BB BC DF
+R 00 00 00 00
+T 88 00 8F E0 82 BB B9 DF 8F EF 82 BB 83 9B ED CF
+R 00 00 00 00
+T 96 00 82 99 1A C0 17 C0 8F E0 82 BB AF DF 8F EF
+R 00 00 00 00
+T A4 00 82 BB AC DF 8F E0 82 BB A9 DF 8F EF 82 BB
+R 00 00 00 00
+T B2 00 A6 DF 8F E0 82 BB A3 DF 8F EF 82 BB A0 DF
+R 00 00 00 00
+T C0 00 8F E0 82 BB 9D DF 8F EF 82 BB 82 9B E7 CF
+R 00 00 00 00
+T CE 00 B3 CF 08 95
+R 00 00 00 00

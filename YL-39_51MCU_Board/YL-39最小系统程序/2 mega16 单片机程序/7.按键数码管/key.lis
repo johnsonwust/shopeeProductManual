@@ -1,0 +1,470 @@
+                        .module key.c
+                        .area data(ram, con, rel)
+ 0000           _disbuf::
+ 0000                   .blkb 2
+                        .area idata
+ 0000 0000              .byte 0,0
+                        .area data(ram, con, rel)
+ 0002                   .blkb 2
+                        .area idata
+ 0002 0000              .byte 0,0
+                        .area data(ram, con, rel)
+ 0004                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+ 0004                   .dbsym e disbuf _disbuf A[4:4]c
+ 0004           _discode::
+ 0004                   .blkb 2
+                        .area idata
+ 0004 C0F9              .byte 192,249
+                        .area data(ram, con, rel)
+ 0006                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+ 0006                   .blkb 2
+                        .area idata
+ 0006 A4B0              .byte 164,176
+                        .area data(ram, con, rel)
+ 0008                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+ 0008                   .blkb 2
+                        .area idata
+ 0008 9992              .byte 153,146
+                        .area data(ram, con, rel)
+ 000A                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+ 000A                   .blkb 2
+                        .area idata
+ 000A 82F8              .byte 130,248
+                        .area data(ram, con, rel)
+ 000C                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+ 000C                   .blkb 2
+                        .area idata
+ 000C 8090              .byte 128,144
+                        .area data(ram, con, rel)
+ 000E                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+ 000E                   .dbsym e discode _discode A[10:10]c
+ 000E           _disbit::
+ 000E                   .blkb 2
+                        .area idata
+ 000E FEFD              .byte 254,253
+                        .area data(ram, con, rel)
+ 0010                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+ 0010                   .blkb 2
+                        .area idata
+ 0010 FBF7              .byte 251,247
+                        .area data(ram, con, rel)
+ 0012                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+ 0012                   .dbsym e disbit _disbit A[4:4]c
+ 0012           _k:
+ 0012                   .blkb 2
+                        .area idata
+ 0012 B822              .word 8888
+                        .area data(ram, con, rel)
+ 0014                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+ 0014                   .dbsym s k _k i
+                        .area text(rom, con, rel)
+ 0000                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+ 0000                   .dbfunc e delay _delay fV
+ 0000           ;              i -> R16,R17
+                        .even
+ 0000           _delay::
+ 0000                   .dbline -1
+ 0000                   .dbline 30
+ 0000           ; /******************************************************************************/
+ 0000           ; /*【编写时间】： 2011.07.07
+ 0000           ; * 【作    者】： 雁翎电子
+ 0000           ; * 【版    本】： V1.0
+ 0000           ; * 【网    站】： http://ylelectronic.taobao.com/ 
+ 0000           ; * 【Q      Q】： 348439350
+ 0000           ; * 【编译环境】： ICCAVR  
+ 0000           ; * 【函数功能】： 按键K5 K6 实现数码管加减1  初始值 8888
+ 0000           ; * 【晶    振】:  8M           
+ 0000           ; * 【芯    片】:  ATMEGA16A     
+ 0000           ; * 【硬件连接】： J2短路帽接上                                                     */   
+ 0000           ; /******************************************************************************/
+ 0000           ;       #define uchar unsigned char
+ 0000           ;         #define uint  unsigned int
+ 0000           ;         #include <iom16v.h>
+ 0000           ;         #define Set_Bit(val, bitn)    (val |=(1<<(bitn))) 
+ 0000           ;       #define Clr_Bit(val, bitn)    (val&=~(1<<(bitn))) 
+ 0000           ;       #define Get_Bit(val, bitn)    (val &(1<<(bitn)) ) 
+ 0000           ;         
+ 0000           ;       uchar disbuf[4]={0,0,0,0};
+ 0000           ;       uchar  discode[10]={ 0xC0, 0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90 };  //段码表
+ 0000           ;       uchar  disbit[4]  ={ 0xFE, 0xFD,0xFB,0xF7}; //选通值   
+ 0000           ;       uchar  Key_Up;
+ 0000           ;       uchar  Key_Down; 
+ 0000           ;         static uint k=8888;  
+ 0000           ; /******************************************************************************/
+ 0000           ; //延时函数
+ 0000           ; /******************************************************************************/                                                                                                              
+ 0000           ;       void delay(void)
+ 0000           ;            {uint i;
+ 0000                   .dbline 31
+ 0000 0027              clr R16
+ 0002 1127              clr R17
+ 0004 02C0              xjmp L5
+ 0006           L2:
+ 0006                   .dbline 31
+ 0006           L3:
+ 0006                   .dbline 31
+ 0006 0F5F              subi R16,255  ; offset = 1
+ 0008 1F4F              sbci R17,255
+ 000A           L5:
+ 000A                   .dbline 31
+ 000A           ;              for(i=0;i<500;i++);
+ 000A 043F              cpi R16,244
+ 000C E1E0              ldi R30,1
+ 000E 1E07              cpc R17,R30
+ 0010 D0F3              brlo L2
+ 0012                   .dbline -2
+ 0012           L1:
+ 0012                   .dbline 0 ; func end
+ 0012 0895              ret
+ 0014                   .dbsym r i 16 i
+ 0014                   .dbend
+ 0014                   .dbfunc e Display _Display fV
+ 0014           ;              i -> R20
+                        .even
+ 0014           _Display::
+ 0014 0E940000          xcall push_gset1
+ 0018                   .dbline -1
+ 0018                   .dbline 40
+ 0018           ;            }
+ 0018           ; /******************************************************************************/
+ 0018           ; 
+ 0018           ; /******************************************************************************/
+ 0018           ; 
+ 0018           ; //显示函数
+ 0018           ; /******************************************************************************/                 
+ 0018           ;         void Display(void)
+ 0018           ;          {  uchar i;
+ 0018                   .dbline 41
+ 0018           ;             for(i=0;i<4;i++)
+ 0018 4427              clr R20
+ 001A 1AC0              xjmp L10
+ 001C           L7:
+ 001C                   .dbline 42
+ 001C                   .dbline 43
+ 001C 80E0              ldi R24,<_disbuf
+ 001E 90E0              ldi R25,>_disbuf
+ 0020 E42F              mov R30,R20
+ 0022 FF27              clr R31
+ 0024 E80F              add R30,R24
+ 0026 F91F              adc R31,R25
+ 0028 E081              ldd R30,z+0
+ 002A FF27              clr R31
+ 002C 80E0              ldi R24,<_discode
+ 002E 90E0              ldi R25,>_discode
+ 0030 E80F              add R30,R24
+ 0032 F91F              adc R31,R25
+ 0034 2080              ldd R2,z+0
+ 0036 28BA              out 0x18,R2
+ 0038                   .dbline 44
+ 0038 80E0              ldi R24,<_disbit
+ 003A 90E0              ldi R25,>_disbit
+ 003C E42F              mov R30,R20
+ 003E FF27              clr R31
+ 0040 E80F              add R30,R24
+ 0042 F91F              adc R31,R25
+ 0044 2080              ldd R2,z+0
+ 0046 2BBA              out 0x1b,R2
+ 0048                   .dbline 45
+ 0048 DBDF              xcall _delay
+ 004A                   .dbline 46
+ 004A 8FEF              ldi R24,255
+ 004C 8BBB              out 0x1b,R24
+ 004E                   .dbline 47
+ 004E           L8:
+ 004E                   .dbline 41
+ 004E 4395              inc R20
+ 0050           L10:
+ 0050                   .dbline 41
+ 0050 4430              cpi R20,4
+ 0052 20F3              brlo L7
+ 0054                   .dbline -2
+ 0054           L6:
+ 0054 0E940000          xcall pop_gset1
+ 0058                   .dbline 0 ; func end
+ 0058 0895              ret
+ 005A                   .dbsym r i 20 c
+ 005A                   .dbend
+ 005A                   .dbfunc e Process _Process fV
+ 005A           ;         disbuf -> R20,R21
+ 005A           ;              i -> R22,R23
+                        .even
+ 005A           _Process::
+ 005A 0E940000          xcall push_gset2
+ 005E A901              movw R20,R18
+ 0060 B801              movw R22,R16
+ 0062                   .dbline -1
+ 0062                   .dbline 53
+ 0062           ;                 {
+ 0062           ;                        PORTB=discode[disbuf[i]];
+ 0062           ;                  PORTA=disbit[i];
+ 0062           ;                  delay();
+ 0062           ;                  PORTA=0xff;
+ 0062           ;                           } 
+ 0062           ;                }      
+ 0062           ; /******************************************************************************/
+ 0062           ; //显示数据处理
+ 0062           ; /******************************************************************************/              
+ 0062           ;       void Process(uint i,uchar *disbuf) 
+ 0062           ;          { disbuf[0]=i/1000;
+ 0062                   .dbline 53
+ 0062 28EE              ldi R18,1000
+ 0064 33E0              ldi R19,3
+ 0066 8B01              movw R16,R22
+ 0068 0E940000          xcall div16u
+ 006C FA01              movw R30,R20
+ 006E 0083              std z+0,R16
+ 0070                   .dbline 54
+ 0070           ;                  i=i%1000;
+ 0070 28EE              ldi R18,1000
+ 0072 33E0              ldi R19,3
+ 0074 8B01              movw R16,R22
+ 0076 0E940000          xcall mod16u
+ 007A B801              movw R22,R16
+ 007C                   .dbline 55
+ 007C           ;                  disbuf[1]=i/100;
+ 007C 24E6              ldi R18,100
+ 007E 30E0              ldi R19,0
+ 0080 0E940000          xcall div16u
+ 0084 FA01              movw R30,R20
+ 0086 0183              std z+1,R16
+ 0088                   .dbline 56
+ 0088           ;                  i=i%100;
+ 0088 24E6              ldi R18,100
+ 008A 30E0              ldi R19,0
+ 008C 8B01              movw R16,R22
+ 008E 0E940000          xcall mod16u
+ 0092 B801              movw R22,R16
+ 0094                   .dbline 57
+ 0094           ;                  disbuf[2]=i/10;
+ 0094 2AE0              ldi R18,10
+ 0096 30E0              ldi R19,0
+ 0098 0E940000          xcall div16u
+ 009C FA01              movw R30,R20
+ 009E 0283              std z+2,R16
+ 00A0                   .dbline 58
+ 00A0           ;                  i=i%10;
+ 00A0 2AE0              ldi R18,10
+ 00A2 30E0              ldi R19,0
+ 00A4 8B01              movw R16,R22
+ 00A6 0E940000          xcall mod16u
+ 00AA B801              movw R22,R16
+ 00AC                   .dbline 59
+ 00AC           ;                  disbuf[3]=i; 
+ 00AC FA01              movw R30,R20
+ 00AE 6383              std z+3,R22
+ 00B0                   .dbline -2
+ 00B0           L11:
+ 00B0 0E940000          xcall pop_gset2
+ 00B4                   .dbline 0 ; func end
+ 00B4 0895              ret
+ 00B6                   .dbsym r disbuf 20 pc
+ 00B6                   .dbsym r i 22 i
+ 00B6                   .dbend
+ 00B6                   .dbfunc e Get_Key _Get_Key fV
+                        .even
+ 00B6           _Get_Key::
+ 00B6                   .dbline -1
+ 00B6                   .dbline 65
+ 00B6           ;           } 
+ 00B6           ; /******************************************************************************/
+ 00B6           ; //按键处理子程序
+ 00B6           ; /******************************************************************************/        
+ 00B6           ;       void Get_Key(void)
+ 00B6           ;            { 
+ 00B6                   .dbline 66
+ 00B6           ;                if(Get_Bit(PINA,4)==0)    //PA4 按键处理函数        
+ 00B6 CC99              sbic 0x19,4
+ 00B8 27C0              rjmp L13
+ 00BA                   .dbline 67
+ 00BA           ;                       { 
+ 00BA                   .dbline 68
+ 00BA           ;                          Display();
+ 00BA ACDF              xcall _Display
+ 00BC                   .dbline 69
+ 00BC           ;                          Display();
+ 00BC ABDF              xcall _Display
+ 00BE                   .dbline 70
+ 00BE           ;                          Display(); 
+ 00BE AADF              xcall _Display
+ 00C0                   .dbline 71
+ 00C0           ;                          Display();
+ 00C0 A9DF              xcall _Display
+ 00C2 01C0              xjmp L16
+ 00C4           L15:
+ 00C4                   .dbline 73
+ 00C4                   .dbline 74
+ 00C4 A7DF              xcall _Display
+ 00C6                   .dbline 75
+ 00C6           L16:
+ 00C6                   .dbline 72
+ 00C6           ;                         while(!(Get_Bit(PINA,4)))//等待按键松开
+ 00C6 CC9B              sbis 0x19,4
+ 00C8 FDCF              rjmp L15
+ 00CA                   .dbline 76
+ 00CA           ;                   { 
+ 00CA           ;                                 Display(); 
+ 00CA           ;                   }
+ 00CA           ;                                 k++; 
+ 00CA 80911200          lds R24,_k
+ 00CE 90911300          lds R25,_k+1
+ 00D2 0196              adiw R24,1
+ 00D4 90931300          sts _k+1,R25
+ 00D8 80931200          sts _k,R24
+ 00DC                   .dbline 77
+ 00DC           ;                   if(k>9999)k=0; 
+ 00DC 8FE0              ldi R24,9999
+ 00DE 97E2              ldi R25,39
+ 00E0 20901200          lds R2,_k
+ 00E4 30901300          lds R3,_k+1
+ 00E8 8215              cp R24,R2
+ 00EA 9305              cpc R25,R3
+ 00EC 30F4              brsh L18
+ 00EE                   .dbline 77
+ 00EE 2224              clr R2
+ 00F0 3324              clr R3
+ 00F2 30921300          sts _k+1,R3
+ 00F6 20921200          sts _k,R2
+ 00FA           L18:
+ 00FA                   .dbline 78
+ 00FA           ;                   Process(k,disbuf);    
+ 00FA 20E0              ldi R18,<_disbuf
+ 00FC 30E0              ldi R19,>_disbuf
+ 00FE 00911200          lds R16,_k
+ 0102 10911300          lds R17,_k+1
+ 0106 A9DF              xcall _Process
+ 0108                   .dbline 79
+ 0108           ;                       }
+ 0108           L13:
+ 0108                   .dbline 81
+ 0108           ;                       
+ 0108           ;                     if(Get_Bit(PINA,5)==0)   //PA5 按键处理函数
+ 0108 CD99              sbic 0x19,5
+ 010A 24C0              rjmp L20
+ 010C                   .dbline 82
+ 010C           ;                 {  
+ 010C                   .dbline 83
+ 010C           ;                                 Display();
+ 010C 83DF              xcall _Display
+ 010E                   .dbline 84
+ 010E           ;                                 Display();
+ 010E 82DF              xcall _Display
+ 0110                   .dbline 85
+ 0110           ;                                 Display();
+ 0110 81DF              xcall _Display
+ 0112                   .dbline 86
+ 0112           ;                                 Display(); 
+ 0112 80DF              xcall _Display
+ 0114                   .dbline 87
+ 0114           ;                             Display();
+ 0114 7FDF              xcall _Display
+ 0116 02C0              xjmp L23
+ 0118           L22:
+ 0118                   .dbline 90
+ 0118                   .dbline 91
+ 0118 7DDF              xcall _Display
+ 011A                   .dbline 92
+ 011A 7CDF              xcall _Display
+ 011C                   .dbline 93
+ 011C           L23:
+ 011C                   .dbline 89
+ 011C           ;                               
+ 011C           ;                                while(!Get_Bit(PINA,5))  //等待按键松开
+ 011C CD9B              sbis 0x19,5
+ 011E FCCF              rjmp L22
+ 0120                   .dbline 94
+ 0120           ;                   { 
+ 0120           ;                                 Display(); 
+ 0120           ;                                 Display();
+ 0120           ;                   }  
+ 0120           ;                   k--;   
+ 0120 80911200          lds R24,_k
+ 0124 90911300          lds R25,_k+1
+ 0128 0197              sbiw R24,1
+ 012A 90931300          sts _k+1,R25
+ 012E 80931200          sts _k,R24
+ 0132                   .dbline 95
+ 0132           ;                                    if(k==65535)k=9999;
+ 0132 8F3F              cpi R24,255
+ 0134 EFEF              ldi R30,255
+ 0136 9E07              cpc R25,R30
+ 0138 31F4              brne L25
+ 013A                   .dbline 95
+ 013A 8FE0              ldi R24,9999
+ 013C 97E2              ldi R25,39
+ 013E 90931300          sts _k+1,R25
+ 0142 80931200          sts _k,R24
+ 0146           L25:
+ 0146                   .dbline 96
+ 0146 20E0              ldi R18,<_disbuf
+ 0148 30E0              ldi R19,>_disbuf
+ 014A 00911200          lds R16,_k
+ 014E 10911300          lds R17,_k+1
+ 0152 83DF              xcall _Process
+ 0154                   .dbline 97
+ 0154           L20:
+ 0154                   .dbline -2
+ 0154           L12:
+ 0154                   .dbline 0 ; func end
+ 0154 0895              ret
+ 0156                   .dbend
+ 0156                   .dbfunc e main _main fV
+                        .even
+ 0156           _main::
+ 0156                   .dbline -1
+ 0156                   .dbline 100
+ 0156           ;                       Process(k,disbuf);     
+ 0156           ;                           }
+ 0156           ;          }
+ 0156           ;          void main (void)
+ 0156           ;              { 
+ 0156                   .dbline 102
+ 0156           ;                        
+ 0156           ;                          DDRA|=1<<0|1<<1|1<<2|1<<3|0<<4|0<<5;//设置PA0,PA1,PA2为输出,PA4,PA5为输入
+ 0156 8AB3              in R24,0x1a
+ 0158 8F60              ori R24,15
+ 015A 8ABB              out 0x1a,R24
+ 015C                   .dbline 103
+ 015C           ;                  PORTA=0x00;
+ 015C 2224              clr R2
+ 015E 2BBA              out 0x1b,R2
+ 0160                   .dbline 105
+ 0160           ;                                     
+ 0160           ;                DDRB=0xFF;
+ 0160 8FEF              ldi R24,255
+ 0162 87BB              out 0x17,R24
+ 0164                   .dbline 106
+ 0164           ;                PORTB=0xFF;
+ 0164 88BB              out 0x18,R24
+ 0166                   .dbline 108
+ 0166           ;                       
+ 0166           ;                Process(k,disbuf); 
+ 0166 20E0              ldi R18,<_disbuf
+ 0168 30E0              ldi R19,>_disbuf
+ 016A 00911200          lds R16,_k
+ 016E 10911300          lds R17,_k+1
+ 0172 73DF              xcall _Process
+ 0174 02C0              xjmp L29
+ 0176           L28:
+ 0176                   .dbline 110
+ 0176                   .dbline 111
+ 0176 9FDF              xcall _Get_Key
+ 0178                   .dbline 112
+ 0178 4DDF              xcall _Display
+ 017A                   .dbline 113
+ 017A           L29:
+ 017A                   .dbline 109
+ 017A FDCF              xjmp L28
+ 017C           X0:
+ 017C                   .dbline -2
+ 017C           L27:
+ 017C                   .dbline 0 ; func end
+ 017C 0895              ret
+ 017E                   .dbend
+                        .area bss(ram, con, rel)
+ 0000                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\7.按键数码管\key.c
+ 0000           _Key_Down::
+ 0000                   .blkb 1
+ 0001                   .dbsym e Key_Down _Key_Down c
+ 0001           _Key_Up::
+ 0001                   .blkb 1
+ 0002                   .dbsym e Key_Up _Key_Up c

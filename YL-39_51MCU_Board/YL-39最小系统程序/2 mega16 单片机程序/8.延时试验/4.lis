@@ -1,0 +1,118 @@
+                        .module _4.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile D:\16实验程序\延时试验\4.c
+ 0000                   .dbfunc e s_10us _s_10us fV
+ 0000           ;             aa -> R20,R21
+ 0000           ;             ms -> R16,R17
+                        .even
+ 0000           _s_10us::
+ 0000 4A93              st -y,R20
+ 0002 5A93              st -y,R21
+ 0004                   .dbline -1
+ 0004                   .dbline 6
+ 0004           ; #include "iom16v.h"  
+ 0004           ; #include <macros.h>
+ 0004           ; //延时函数
+ 0004           ; //在16MHz时产生10us的延时
+ 0004           ; void s_10us(unsigned int ms)
+ 0004           ; {
+ 0004                   .dbline 8
+ 0004           ;     unsigned int aa;
+ 0004           ;       for(;ms>=1;ms--)
+ 0004 0CC0              xjmp L5
+ 0006           L2:
+ 0006                   .dbline 9
+ 0006           ;       {
+ 0006                   .dbline 10
+ 0006           ;       for(aa=0;aa<=17;aa++)
+ 0006 4427              clr R20
+ 0008 5527              clr R21
+ 000A 02C0              xjmp L9
+ 000C           L6:
+ 000C                   .dbline 11
+ 000C           ;       {;}
+ 000C                   .dbline 11
+ 000C                   .dbline 11
+ 000C           L7:
+ 000C                   .dbline 10
+ 000C 4F5F              subi R20,255  ; offset = 1
+ 000E 5F4F              sbci R21,255
+ 0010           L9:
+ 0010                   .dbline 10
+ 0010 81E1              ldi R24,17
+ 0012 90E0              ldi R25,0
+ 0014 8417              cp R24,R20
+ 0016 9507              cpc R25,R21
+ 0018 C8F7              brsh L6
+ 001A           X0:
+ 001A                   .dbline 12
+ 001A           ;       }
+ 001A           L3:
+ 001A                   .dbline 8
+ 001A 0150              subi R16,1
+ 001C 1040              sbci R17,0
+ 001E           L5:
+ 001E                   .dbline 8
+ 001E 0130              cpi R16,1
+ 0020 E0E0              ldi R30,0
+ 0022 1E07              cpc R17,R30
+ 0024 80F7              brsh L2
+ 0026           X1:
+ 0026                   .dbline -2
+ 0026           L1:
+ 0026                   .dbline 0 ; func end
+ 0026 5991              ld R21,y+
+ 0028 4991              ld R20,y+
+ 002A 0895              ret
+ 002C                   .dbsym r aa 20 i
+ 002C                   .dbsym r ms 16 i
+ 002C                   .dbend
+ 002C                   .dbfunc e main _main fI
+                        .even
+ 002C           _main::
+ 002C                   .dbline -1
+ 002C                   .dbline 16
+ 002C           ; }     
+ 002C           ;  
+ 002C           ; main()
+ 002C           ;  {
+ 002C                   .dbline 17
+ 002C           ;  DDRD=0xff;
+ 002C 8FEF              ldi R24,255
+ 002E 81BB              out 0x11,R24
+ 0030 0CC0              xjmp L12
+ 0032           L11:
+ 0032                   .dbline 20
+ 0032           ;  //在端口d产生500Hz的信号
+ 0032           ;  while(1)
+ 0032           ;    {
+ 0032                   .dbline 21
+ 0032           ;    PORTD=0xff;
+ 0032 8FEF              ldi R24,255
+ 0034 82BB              out 0x12,R24
+ 0036                   .dbline 22
+ 0036           ;    s_ms(50);
+ 0036 02E3              ldi R16,50
+ 0038 10E0              ldi R17,0
+ 003A 0E940000          xcall _s_ms
+ 003E                   .dbline 23
+ 003E           ;    PORTD=0x00;
+ 003E 2224              clr R2
+ 0040 22BA              out 0x12,R2
+ 0042                   .dbline 24
+ 0042           ;    s_ms(50);
+ 0042 02E3              ldi R16,50
+ 0044 10E0              ldi R17,0
+ 0046 0E940000          xcall _s_ms
+ 004A                   .dbline 25
+ 004A           ;    }
+ 004A           L12:
+ 004A                   .dbline 19
+ 004A F3CF              xjmp L11
+ 004C           X2:
+ 004C                   .dbline -2
+ 004C           L10:
+ 004C                   .dbline 0 ; func end
+ 004C 0895              ret
+ 004E                   .dbend
+ 004E           ;  }

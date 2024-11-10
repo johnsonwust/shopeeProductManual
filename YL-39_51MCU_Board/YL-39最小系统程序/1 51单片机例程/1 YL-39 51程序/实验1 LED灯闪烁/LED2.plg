@@ -1,0 +1,17 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Project:</h2>
+D:\工作\制版成功\YL-39 51+AVR简易开发板\YL-39 51简易开发板资料\YL-39最小系统程序\1 51单片机例程\1-led流水灯\LED灯闪烁\LED2.uvproj
+Project File Date:  11/16/2011
+
+<h2>Output:</h2>
+Build target 'Target 1'
+assembling STARTUP.A51...
+compiling led2.c...
+LED2.C(20): warning C290: missing return value
+linking...
+Program Size: data=9.0 xdata=0 code=56
+creating hex file from "LED2"...
+"LED2" - 0 Error(s), 1 Warning(s).

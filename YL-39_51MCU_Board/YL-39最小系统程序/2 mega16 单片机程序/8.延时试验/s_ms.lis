@@ -1,0 +1,109 @@
+                        .module s_ms.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile D:\16实验程序\延时试验\s_ms.c
+ 0000                   .dbfunc e delay_ms _delay_ms fV
+ 0000           ;              b -> R20
+ 0000           ;              i -> R16,R17
+                        .even
+ 0000           _delay_ms::
+ 0000 4A93              st -y,R20
+ 0002                   .dbline -1
+ 0002                   .dbline 6
+ 0002           ; #include "iom16v.h"  
+ 0002           ; 
+ 0002           ; //延时函数
+ 0002           ; //在1MHz时产生1mS的延时
+ 0002           ; void delay_ms(unsigned int i) 
+ 0002           ; {
+ 0002 05C0              xjmp L3
+ 0004           L2:
+ 0004                   .dbline 9
+ 0004           ;  unsigned char b; 
+ 0004           ;  while (i --)
+ 0004           ;  {  
+ 0004                   .dbline 10
+ 0004           ;  for (b = 1; b; b++) 
+ 0004 41E0              ldi R20,1
+ 0006 01C0              xjmp L8
+ 0008           L5:
+ 0008                   .dbline 11
+ 0008           ;  {   ;   }  
+ 0008                   .dbline 11
+ 0008                   .dbline 11
+ 0008           L6:
+ 0008                   .dbline 10
+ 0008 4395              inc R20
+ 000A           L8:
+ 000A                   .dbline 10
+ 000A 4423              tst R20
+ 000C E9F7              brne L5
+ 000E           X0:
+ 000E                   .dbline 12
+ 000E           ;  }
+ 000E           L3:
+ 000E                   .dbline 8
+ 000E 1801              movw R2,R16
+ 0010 0150              subi R16,1
+ 0012 1040              sbci R17,0
+ 0014 2220              tst R2
+ 0016 B1F7              brne L2
+ 0018 3320              tst R3
+ 001A A1F7              brne L2
+ 001C           X1:
+ 001C                   .dbline -2
+ 001C           L1:
+ 001C                   .dbline 0 ; func end
+ 001C 4991              ld R20,y+
+ 001E 0895              ret
+ 0020                   .dbsym r b 20 c
+ 0020                   .dbsym r i 16 i
+ 0020                   .dbend
+ 0020                   .dbfunc e main _main fI
+                        .even
+ 0020           _main::
+ 0020                   .dbline -1
+ 0020                   .dbline 16
+ 0020           ;  }
+ 0020           ;  
+ 0020           ; main()
+ 0020           ;  {
+ 0020                   .dbline 17
+ 0020           ;  DDRD=0xff;
+ 0020 8FEF              ldi R24,255
+ 0022 81BB              out 0x11,R24
+ 0024 0AC0              xjmp L11
+ 0026           L10:
+ 0026                   .dbline 20
+ 0026           ;  //在端口d产生100Hz的信号
+ 0026           ;  while(1)
+ 0026           ;    {
+ 0026                   .dbline 21
+ 0026           ;    PORTD=0xff;
+ 0026 8FEF              ldi R24,255
+ 0028 82BB              out 0x12,R24
+ 002A                   .dbline 22
+ 002A           ;    delay_ms(5);
+ 002A 05E0              ldi R16,5
+ 002C 10E0              ldi R17,0
+ 002E E8DF              xcall _delay_ms
+ 0030                   .dbline 23
+ 0030           ;    PORTD=0x00;
+ 0030 2224              clr R2
+ 0032 22BA              out 0x12,R2
+ 0034                   .dbline 24
+ 0034           ;    delay_ms(5);
+ 0034 05E0              ldi R16,5
+ 0036 10E0              ldi R17,0
+ 0038 E3DF              xcall _delay_ms
+ 003A                   .dbline 25
+ 003A           ;    }
+ 003A           L11:
+ 003A                   .dbline 19
+ 003A F5CF              xjmp L10
+ 003C           X2:
+ 003C                   .dbline -2
+ 003C           L9:
+ 003C                   .dbline 0 ; func end
+ 003C 0895              ret
+ 003E                   .dbend
+ 003E           ;  }

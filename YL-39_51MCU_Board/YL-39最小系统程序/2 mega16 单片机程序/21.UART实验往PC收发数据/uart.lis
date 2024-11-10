@@ -1,0 +1,251 @@
+                        .module uart.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile E:\制版成功\YL-60\YL-60A~2\4.相关例程\21.UART实验往PC收发数据\uart.c
+ 0000                   .dbfunc e port_init _port_init fV
+                        .even
+ 0000           _port_init::
+ 0000                   .dbline -1
+ 0000                   .dbline 31
+ 0000           ; /******************************************************
+ 0000           ;               
+ 0000           ; /*【编写时间】： 2011.07.07
+ 0000           ; * 【作    者】： 雁翎电子
+ 0000           ; * 【版    本】： V1.0
+ 0000           ; * 【网    站】： http://ylelectronic.taobao.com/ 
+ 0000           ; * 【Q      Q】： 348439350
+ 0000           ; * 【编译环境】： ICCAVR  
+ 0000           ; * 【函数功能】： 用软件查询方式实现用串口调试软件发数据给avr，而avr则将数据回传给pc．
+ 0000           ; * 【晶    振】:  8M           
+ 0000           ; * 【芯    片】:  ATMEGA16A     
+ 0000           ; * 【硬件连接】： J2短路帽接上                   
+ 0000           ;                                                                                                                                 
+ 0000           ; *******************************************************/
+ 0000           ; 
+ 0000           ; #include <iom8v.h>
+ 0000           ; #include <macros.h>
+ 0000           ; 
+ 0000           ; /***********宏定义*************/
+ 0000           ; #define  uchar unsigned char 
+ 0000           ; #define  uint unsigned int
+ 0000           ; #define fosc 8000000
+ 0000           ; #define baud 9600
+ 0000           ; /*******************************************
+ 0000           ; 函数名称: IO口初始化函数
+ 0000           ; 功    能: 实现IO初始化
+ 0000           ; 参    数: 无
+ 0000           ; 返 回 值: 无
+ 0000           ; /********************************************/
+ 0000           ; void port_init(void)
+ 0000           ; {
+ 0000                   .dbline 32
+ 0000           ;   DDRD = 0x02;
+ 0000 82E0              ldi R24,2
+ 0002 81BB              out 0x11,R24
+ 0004                   .dbline 33
+ 0004           ;   PORTD = 0xFF;
+ 0004 8FEF              ldi R24,255
+ 0006 82BB              out 0x12,R24
+ 0008                   .dbline -2
+ 0008           L1:
+ 0008                   .dbline 0 ; func end
+ 0008 0895              ret
+ 000A                   .dbend
+ 000A                   .dbfunc e USART_Init _USART_Init fV
+                        .even
+ 000A           _USART_Init::
+ 000A                   .dbline -1
+ 000A                   .dbline 44
+ 000A           ; 
+ 000A           ; }
+ 000A           ; 
+ 000A           ; /***********************************************************************
+ 000A           ; 函数名称: 串口初始化函数
+ 000A           ; 功    能: 实现串口初始化
+ 000A           ; 参    数: 无
+ 000A           ; 返 回 值: 无
+ 000A           ; /*********************************************************************/
+ 000A           ; void USART_Init(void)
+ 000A           ; {
+ 000A                   .dbline 45
+ 000A           ;  UCSRB=(1<<RXEN)|(1<<TXEN)|(1<<RXCIE);//允许收发,打开接收中断
+ 000A 88E9              ldi R24,152
+ 000C 8AB9              out 0xa,R24
+ 000E                   .dbline 46
+ 000E           ;  UBRRL=(fosc/16/(baud+1))%256;//设置波特率寄存器
+ 000E 84E3              ldi R24,52
+ 0010 89B9              out 0x9,R24
+ 0012                   .dbline 47
+ 0012           ;  UBRRH=(fosc/16/(baud+1))/256;
+ 0012 2224              clr R2
+ 0014 20BC              out 0x20,R2
+ 0016                   .dbline 48
+ 0016           ;  UCSRC=(1<<URSEL)|(1<<UCSZ1)|(1<<UCSZ0);//8位数据+1位STOP
+ 0016 86E8              ldi R24,134
+ 0018 80BD              out 0x20,R24
+ 001A                   .dbline -2
+ 001A           L2:
+ 001A                   .dbline 0 ; func end
+ 001A 0895              ret
+ 001C                   .dbend
+ 001C                   .dbfunc e USART_Transmit _USART_Transmit fV
+ 001C           ;           data -> R16
+                        .even
+ 001C           _USART_Transmit::
+ 001C                   .dbline -1
+ 001C                   .dbline 58
+ 001C           ; }
+ 001C           ; 
+ 001C           ; /*******************************************
+ 001C           ; 函数名称: 串口发送一个字节函数
+ 001C           ; 功    能: 实现串口发送一个字节
+ 001C           ; 参    数: data--串口要发送的一个字节
+ 001C           ; 返 回 值: 无
+ 001C           ; /********************************************/
+ 001C           ; void USART_Transmit(uchar data) //发送采用查询方式
+ 001C           ; {
+ 001C           L4:
+ 001C                   .dbline 59
+ 001C           L5:
+ 001C                   .dbline 59
+ 001C           ;   while(!(UCSRA&(1<<UDRE)));//上次发送有没有完成
+ 001C 5D9B              sbis 0xb,5
+ 001E FECF              rjmp L4
+ 0020                   .dbline 60
+ 0020           ;  UDR=data;                       //发送数据
+ 0020 0CB9              out 0xc,R16
+ 0022                   .dbline -2
+ 0022           L3:
+ 0022                   .dbline 0 ; func end
+ 0022 0895              ret
+ 0024                   .dbsym r data 16 c
+ 0024                   .dbend
+ 0024                   .dbfunc e USART_Transmit_string _USART_Transmit_string fV
+ 0024           ;            ptr -> R20,R21
+                        .even
+ 0024           _USART_Transmit_string::
+ 0024 00D0              rcall push_gset1
+ 0026 A801              movw R20,R16
+ 0028                   .dbline -1
+ 0028                   .dbline 71
+ 0028           ;  
+ 0028           ; }
+ 0028           ; 
+ 0028           ; /*******************************************
+ 0028           ; 函数名称: 串口发送数组函数
+ 0028           ; 功    能: 实现串口发送一个数组
+ 0028           ; 参    数: *ptr--串口要发送的数组的首地址
+ 0028           ; 返 回 值: 无
+ 0028           ; /********************************************/
+ 0028           ; void USART_Transmit_string(uchar *ptr)
+ 0028           ; {
+ 0028 04C0              rjmp L9
+ 002A           L8:
+ 002A                   .dbline 73
+ 002A                   .dbline 74
+ 002A FA01              movw R30,R20
+ 002C 0191              ld R16,Z+
+ 002E AF01              movw R20,R30
+ 0030 F5DF              rcall _USART_Transmit
+ 0032                   .dbline 75
+ 0032           L9:
+ 0032                   .dbline 72
+ 0032           ;  while (*ptr)
+ 0032 FA01              movw R30,R20
+ 0034 2080              ldd R2,z+0
+ 0036 2220              tst R2
+ 0038 C1F7              brne L8
+ 003A                   .dbline 76
+ 003A           ;   {
+ 003A           ;     USART_Transmit(*ptr++);
+ 003A           ;   }
+ 003A           ;  USART_Transmit(0x0D);
+ 003A 0DE0              ldi R16,13
+ 003C EFDF              rcall _USART_Transmit
+ 003E                   .dbline 77
+ 003E           ;  USART_Transmit(0x0A);  //结尾发送回车换行
+ 003E 0AE0              ldi R16,10
+ 0040 EDDF              rcall _USART_Transmit
+ 0042                   .dbline -2
+ 0042           L7:
+ 0042 00D0              rcall pop_gset1
+ 0044                   .dbline 0 ; func end
+ 0044 0895              ret
+ 0046                   .dbsym r ptr 20 pc
+ 0046                   .dbend
+ 0046                   .dbfunc e USART_Receive _USART_Receive fc
+                        .even
+ 0046           _USART_Receive::
+ 0046                   .dbline -1
+ 0046                   .dbline 88
+ 0046           ; }
+ 0046           ; 
+ 0046           ; /*数据接收，查询方式*/
+ 0046           ; /*******************************************
+ 0046           ; 函数名称: 串口接收一个字节函数
+ 0046           ; 功    能: 实现串口接收一个字节
+ 0046           ; 参    数: 无
+ 0046           ; 返 回 值: 无
+ 0046           ; /********************************************/
+ 0046           ; uchar USART_Receive(void) //接收采用查询方式
+ 0046           ; {
+ 0046           L12:
+ 0046                   .dbline 89
+ 0046                   .dbline 89
+ 0046                   .dbline 89
+ 0046           L13:
+ 0046                   .dbline 89
+ 0046           ;   while(!(UCSRA&(1<<RXC))){;}//有没有接收到数据
+ 0046 5F9B              sbis 0xb,7
+ 0048 FECF              rjmp L12
+ 004A                   .dbline 90
+ 004A           ;   return UDR;                               //获取并返回数据
+ 004A 0CB1              in R16,0xc
+ 004C                   .dbline -2
+ 004C           L11:
+ 004C                   .dbline 0 ; func end
+ 004C 0895              ret
+ 004E                   .dbend
+ 004E                   .dbfunc e main _main fV
+ 004E           ;           temp -> R20
+                        .even
+ 004E           _main::
+ 004E                   .dbline -1
+ 004E                   .dbline 101
+ 004E           ; }
+ 004E           ; 
+ 004E           ; 
+ 004E           ; /********************************************
+ 004E           ; 函数名称: 主函数
+ 004E           ; 功    能: 实现函数主体功能。
+ 004E           ; 参    数: 无
+ 004E           ; 返 回 值: 无
+ 004E           ; ********************************************/
+ 004E           ; void main(void)
+ 004E           ; {
+ 004E                   .dbline 103
+ 004E           ;   uchar temp;
+ 004E           ;   USART_Init();
+ 004E DDDF              rcall _USART_Init
+ 0050 06C0              rjmp L17
+ 0052           L16:
+ 0052                   .dbline 106
+ 0052                   .dbline 107
+ 0052 F9DF              rcall _USART_Receive
+ 0054 402F              mov R20,R16
+ 0056                   .dbline 108
+ 0056 242E              mov R2,R20
+ 0058 2094              com R2
+ 005A 28BA              out 0x18,R2
+ 005C                   .dbline 109
+ 005C DFDF              rcall _USART_Transmit
+ 005E                   .dbline 110
+ 005E           L17:
+ 005E                   .dbline 105
+ 005E F9CF              rjmp L16
+ 0060           X0:
+ 0060                   .dbline -2
+ 0060           L15:
+ 0060                   .dbline 0 ; func end
+ 0060 0895              ret
+ 0062                   .dbsym r temp 20 c
+ 0062                   .dbend

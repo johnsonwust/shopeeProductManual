@@ -1,0 +1,61 @@
+C51 COMPILER V9.00   DO_WHILE                                                              08/10/2012 17:56:36 PAGE 1   
+
+
+C51 COMPILER V9.00, COMPILATION OF MODULE DO_WHILE
+OBJECT MODULE PLACED IN do while.OBJ
+COMPILER INVOKED BY: D:\安装软件\keil 51\C51\BIN\C51.EXE do while.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /****************************************************************************
+   2          * 【编写时间】： 2011.07.07
+   3          * 【作    者】： 雁翎电子
+   4          * 【版    本】： V1.0
+   5          * 【网    站】： http://ylelectronic.taobao.com/ 
+   6          * 【Q      Q】： 348439350
+   7          *****************************************************************************
+   8          程序功能：      该函数通过do...while语句发光led闪烁次数来说明do...while语句的功能。
+   9          ****************************************************************************/
+  10          #include <reg52.h>
+  11          
+  12          
+  13          sbit led=P1^0;
+  14          
+  15          void delay(unsigned int i)              //一个延时程序。
+  16          {
+  17   1              unsigned int j;
+  18   1              char k;
+  19   1              for(j=i;j>0;j--)
+  20   1                      for(k=800;k>0;k--);
+  21   1      }
+  22          void main()
+  23          {
+  24   1      
+  25   1              char cishu;
+  26   1      
+  27   1              do                               //当程序执行到此处，先无条件执行循环体一次。
+  28   1              {
+  29   2                                      //每循环一次，led所代表的管脚电平都会取反。
+  30   2                      led=~led;         //由于次数最大值为9，初值为0，故共取了十次反，故led会闪五次
+  31   2                      cishu++;
+  32   2                      delay(8000);
+  33   2              }
+  34   1              while(cishu<10);//执行循环体的条件是cishu<10，若变量不满足该表达式，则跳过。
+  35   1                                              //注意while括弧后面有一分号。
+  36   1              while(1);
+  37   1              
+  38   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     43    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
